@@ -1,0 +1,35 @@
+Repository
+
+customers
+------------------
+add-migration addCustomerEntity
+
+update-database
+
+drop-database
+
+"ADRAINA"
+
+{
+    "id": 8,
+    "document": "89664188",
+    "documentType": 1,
+    "firstName": "Juliet",
+    "lastName": "alvares",
+    "email": "Juliet@hotmail.com",
+    "gender": 2,
+    "phone": "300800000",
+    "clientSince": "24-junio-2000"
+  }
+
+{
+    "id": 4,
+    "document": "75008466",
+    "documentType": 1,
+    "firstName": "ALEJANDRA",
+    "lastName": "MENDOZA",
+    "email": "ALEJANDRA@hotmail.com",
+    "gender": 2,
+    "phone": "3152476421",
+    "clientSince": "8-junio-2026"
+  },
