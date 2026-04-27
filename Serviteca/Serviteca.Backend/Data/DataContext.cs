@@ -11,6 +11,7 @@ namespace Serviteca.Backend.Data
         {
         }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<DocumentType> DocumentTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

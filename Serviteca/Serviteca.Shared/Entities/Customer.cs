@@ -7,16 +7,17 @@ namespace Serviteca.Shared.Entities
 
         public int Id { get; set; }
 
+        public DocumentType? DocumentType { get; set; }
+
+        [Display(Name = "Tipo documento")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
+        public int DocumentTypeId { get; set; }
+
+
         [Display(Name = "Documento")]
         [MaxLength(20, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Document { get; set; } = null!;
-
-
-        [Display(Name = "Tipo documento")]
-        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
-        public int DocumentType { get; set; } = 0!;
-
 
         [Display(Name = "Nombres")]
         [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
@@ -47,6 +48,7 @@ namespace Serviteca.Shared.Entities
         [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string ClientSince { get; set; } = null!;
+
 
     }
 }

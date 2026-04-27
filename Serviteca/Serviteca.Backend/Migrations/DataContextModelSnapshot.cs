@@ -173,8 +173,7 @@ namespace Serviteca.Backend.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int>("DocumentType")
-                        .HasMaxLength(20)
+                    b.Property<int>("DocumentTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -193,7 +192,6 @@ namespace Serviteca.Backend.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("gender")
-                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<string>("phone")
@@ -206,7 +204,27 @@ namespace Serviteca.Backend.Migrations
                     b.HasIndex("Document")
                         .IsUnique();
 
+                    b.HasIndex("DocumentTypeId");
+
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Serviteca.Shared.Entities.DocumentType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DocumentTypes");
                 });
 
             modelBuilder.Entity("Serviteca.Shared.Entities.User", b =>
@@ -341,6 +359,22 @@ namespace Serviteca.Backend.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Serviteca.Shared.Entities.Customer", b =>
+                {
+                    b.HasOne("Serviteca.Shared.Entities.DocumentType", "DocumentType")
+                        .WithMany("Customer")
+                        .HasForeignKey("DocumentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DocumentType");
+                });
+
+            modelBuilder.Entity("Serviteca.Shared.Entities.DocumentType", b =>
+                {
+                    b.Navigation("Customer");
                 });
 #pragma warning restore 612, 618
         }
