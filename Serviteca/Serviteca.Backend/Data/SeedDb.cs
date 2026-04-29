@@ -19,12 +19,12 @@ namespace Serviteca.Backend.Data
 
         public async Task SeedAsync()
         {
-            //await _context.Database.EnsureCreatedAsync();
-            //await CheckDocumentTypeAsync();
-            //await CheckCustomersAsync();
-            //await CheckVehicleTypesAsync();
-            //await CheckCartTypeAsync();
-            //await CheckBrandAsync();
+            await _context.Database.EnsureCreatedAsync();
+            await CheckDocumentTypeAsync();
+            await CheckCustomersAsync();
+            await CheckVehicleTypesAsync();
+            await CheckCartTypeAsync();
+            await CheckBrandAsync();
             await CheckVehicleAsync();
         }
 

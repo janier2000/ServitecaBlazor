@@ -1,0 +1,41 @@
+﻿@page "/DocumentTypes"
+
+<div class="card">
+    <div class="card-header">
+        <span>
+            <i class="bi bi-list-check"></i> Tipo de documento
+            <a class="btn btn-sm btn-primary float-end" href="/DocumentTypes/create"><i class="bi bi-plus-square"></i> Adicionar Tipo de documento</a>
+        </span>
+    </div>
+    <div class="card-body">
+        <Filter PlaceHolder="Buscar Tipo documento..." Callback=@FilterCallBack />
+        <GenericList MyList="LstDocumentTypes">
+            <Body>
+                <Pagination CurrentPage="currentPage"
+                            TotalPages="totalPages"
+                            SelectedPage="SelectedPageAsync" />
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Categoría</th>
+                            <th style="width:168px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in LstDocumentTypes!)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>
+                                    <a href="/DocumentTypes/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil" /> Editar</a>
+                                    <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-sm btn-danger"><i class="bi bi-trash" /> Borrar</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </Body>
+        </GenericList>
+    </div>
+</div>
