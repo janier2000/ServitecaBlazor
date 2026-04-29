@@ -17,8 +17,12 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
 
 
-
+builder.Services.AddScoped<IBrandRepository, BrandRepository>();
 builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
+builder.Services.AddScoped<ICartTypeRepository, CartTypeRepository>();
+builder.Services.AddScoped<ICartTypeRepository, CartTypeRepository>();
+builder.Services.AddScoped<IDocumentTypeRepository, DocumentTypeRepository>();
+builder.Services.AddScoped<IVehicleTypeRepository, VehicleTypeRepository>();
 
 var app = builder.Build();
 
