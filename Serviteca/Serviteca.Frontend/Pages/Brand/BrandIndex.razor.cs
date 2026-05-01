@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
 
-namespace Serviteca.Frontend.Pages.VehicleBrand
+namespace Serviteca.Frontend.Pages.Brand
 {
-    public partial class VehicleBrandIndex
+    public partial class BrandIndex
     {
         private int currentPage = 1;
         private int totalPages;
@@ -60,7 +60,7 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
         private async Task<bool> LoadListAsync(int page)
         {
             ValidateRecordsNumber();
-            var url = $"api/VehicleBrand/?page={page}&recordsnumber={RecordsNumber}";
+            var url = $"api/Brand/?page={page}&recordsnumber={RecordsNumber}";
             if (!string.IsNullOrEmpty(Filter))
             {
                 url += $"&filter={Filter}";
@@ -80,7 +80,7 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
         private async Task LoadPagesAsync()
         {
             ValidateRecordsNumber();
-            var url = $"api/VehicleBrand/totalPages?recordsnumber={RecordsNumber}";
+            var url = $"api/Brand/totalPages?recordsnumber={RecordsNumber}";
             if (!string.IsNullOrEmpty(Filter))
             {
                 url += $"&filter={Filter}";
@@ -117,12 +117,12 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
                 return;
             }
 
-            var responseHttp = await Repository.DeleteAsync<Serviteca.Shared.Entities.VehicleBrand>($"api/VehicleBrand/{category.Id}");
+            var responseHttp = await Repository.DeleteAsync<Serviteca.Shared.Entities.VehicleBrand>($"api/Brand/{category.Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
                 {
-                    NavigationManager.NavigateTo("/VehicleBrand");
+                    NavigationManager.NavigateTo("/Brand");
                 }
                 else
                 {

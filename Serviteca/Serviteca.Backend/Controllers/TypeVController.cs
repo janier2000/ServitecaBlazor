@@ -1,6 +1,6 @@
 ﻿using Serviteca.Shared.DTOs;
-using Serviteca.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Serviteca.Shared.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Serviteca.Backend.Repositories.Interface;
 using Serviteca.Backend.UnitsOfWork.Interfaces;
@@ -10,18 +10,18 @@ namespace Serviteca.Backend.Controllers
     [ApiController]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
-    public class VehicleBrandController  : GenericController<VehicleBrand>
+    public class TypeVController : GenericController<VehicleType>
     {
-        private readonly IVehicleBrandRepository _brandRepository;
-        public VehicleBrandController(IGenericUnitOfWork<VehicleBrand> unitOfWork, IVehicleBrandRepository brandRepository) : base(unitOfWork)
+        private readonly IVehicleTypeRepository _vehicleTypeRepository;
+        public TypeVController(IGenericUnitOfWork<VehicleType> unitOfWork, IVehicleTypeRepository vehicleTypeRepository) : base(unitOfWork)
         {
-            _brandRepository = brandRepository;
+            _vehicleTypeRepository = vehicleTypeRepository;
         }
 
         [HttpGet]
         public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
         {
-            var response = await _brandRepository.GetAsync(pagination);
+            var response = await _vehicleTypeRepository.GetAsync(pagination);
             if (response.WasSuccess)
             {
                 return Ok(response.Result);
@@ -32,7 +32,7 @@ namespace Serviteca.Backend.Controllers
         [HttpGet("totalPages")]
         public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
         {
-            var action = await _brandRepository.GetTotalPagesAsync(pagination);
+            var action = await _vehicleTypeRepository.GetTotalPagesAsync(pagination);
             if (action.WasSuccess)
             {
                 return Ok(action.Result);
@@ -44,7 +44,7 @@ namespace Serviteca.Backend.Controllers
         [HttpGet("combo")]
         public async Task<IActionResult> GetComboAsync()
         {
-            return Ok(await _brandRepository.GetComboAsync());
+            return Ok(await _vehicleTypeRepository.GetComboAsync());
         }
     }
 }

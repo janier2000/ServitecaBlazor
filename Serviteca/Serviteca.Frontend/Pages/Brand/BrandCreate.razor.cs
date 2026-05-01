@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
 
-namespace Serviteca.Frontend.Pages.VehicleBrand
+namespace Serviteca.Frontend.Pages.Brand
 {
-    public partial class VehicleBrandCreate
+    public partial class BrandCreate
     {
 
         private Serviteca.Shared.Entities.VehicleBrand vehicleBrandENT = new();
@@ -18,7 +18,7 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
 
         private async Task CreateAsync()
         {
-            var responseHttp = await Repository.PostAsync("/api/VehicleBrand", vehicleBrandENT);
+            var responseHttp = await Repository.PostAsync("/api/Brand", vehicleBrandENT);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -41,7 +41,7 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
         private void Return()
         {
             vehicleBrandFORM!.FormPostedSuccessfully = true;
-            NavigationManager.NavigateTo("/VehicleBrand");
+            NavigationManager.NavigateTo("/Brand");
         }
     }
 }

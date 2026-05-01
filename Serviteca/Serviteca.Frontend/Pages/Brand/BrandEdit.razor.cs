@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
 
-namespace Serviteca.Frontend.Pages.VehicleBrand
+namespace Serviteca.Frontend.Pages.Brand
 {
-    public partial class VehicleBrandEdit
+    public partial class BrandEdit
     {
 
         private Serviteca.Shared.Entities.VehicleBrand? vehicleBrandENT;
@@ -19,12 +19,12 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
 
         protected override async Task OnParametersSetAsync()
         {
-            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.VehicleBrand>($"/api/VehicleBrand/{Id}");
+            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.VehicleBrand>($"/api/Brand/{Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
                 {
-                    NavigationManager.NavigateTo("/VehicleBrand");
+                    NavigationManager.NavigateTo("/Brand");
                 }
                 else
                 {
@@ -40,7 +40,7 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
 
         private async Task EditAsync()
         {
-            var responseHttp = await Repository.PutAsync("/api/VehicleBrand", vehicleBrandENT);
+            var responseHttp = await Repository.PutAsync("/api/Brand", vehicleBrandENT);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -63,7 +63,7 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
         private void Return()
         {
             vehicleBrandFORM!.FormPostedSuccessfully = true;
-            NavigationManager.NavigateTo("/VehicleBrand");
+            NavigationManager.NavigateTo("/Brand");
         }
     }
 }
