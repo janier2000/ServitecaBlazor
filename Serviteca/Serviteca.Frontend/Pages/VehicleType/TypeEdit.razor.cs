@@ -6,7 +6,7 @@ using CurrieTechnologies.Razor.SweetAlert2;
 
 namespace Serviteca.Frontend.Pages.VehicleType
 {
-    public partial class VehicleTypeEdit
+    public partial class TypeEdit
     {
 
         private Serviteca.Shared.Entities.VehicleType? vehicleTypeENT;
@@ -19,12 +19,12 @@ namespace Serviteca.Frontend.Pages.VehicleType
 
         protected override async Task OnParametersSetAsync()
         {
-            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.VehicleType>($"/api/VehicleType/{Id}");
+            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.VehicleType>($"/api/VehType/{Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
                 {
-                    NavigationManager.NavigateTo("/VehicleType");
+                    NavigationManager.NavigateTo("/VehType");
                 }
                 else
                 {
@@ -40,7 +40,7 @@ namespace Serviteca.Frontend.Pages.VehicleType
 
         private async Task EditAsync()
         {
-            var responseHttp = await Repository.PutAsync("/api/VehicleType", vehicleTypeENT);
+            var responseHttp = await Repository.PutAsync("/api/VehType", vehicleTypeENT);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -63,7 +63,7 @@ namespace Serviteca.Frontend.Pages.VehicleType
         private void Return()
         {
             VehicleTypeFORM!.FormPostedSuccessfully = true;
-            NavigationManager.NavigateTo("/VehicleType");
+            NavigationManager.NavigateTo("/VehType");
         }
     }
 }

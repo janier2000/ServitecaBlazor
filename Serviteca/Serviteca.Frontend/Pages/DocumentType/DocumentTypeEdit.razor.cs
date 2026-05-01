@@ -19,12 +19,12 @@ namespace Serviteca.Frontend.Pages.DocumentType
 
         protected override async Task OnParametersSetAsync()
         {
-            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.DocumentType>($"/api/DocumentType/{Id}");
+            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.DocumentType>($"/api/DocType/{Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
                 {
-                    NavigationManager.NavigateTo("/DocumentType");
+                    NavigationManager.NavigateTo("/DocType");
                 }
                 else
                 {
@@ -40,7 +40,7 @@ namespace Serviteca.Frontend.Pages.DocumentType
 
         private async Task EditAsync()
         {
-            var responseHttp = await Repository.PutAsync("/api/DocumentType", documentTypeENT);
+            var responseHttp = await Repository.PutAsync("/api/DocType", documentTypeENT);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -54,7 +54,7 @@ namespace Serviteca.Frontend.Pages.DocumentType
         private void Return()
         {
             documentTypeForm!.FormPostedSuccessfully = true;
-            NavigationManager.NavigateTo("/DocumentType");
+            NavigationManager.NavigateTo("/DocType");
         }
 
         public void EnviarMensaje(string tipo, string message)

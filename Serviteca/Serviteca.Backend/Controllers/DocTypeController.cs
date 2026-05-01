@@ -10,18 +10,18 @@ namespace Serviteca.Backend.Controllers
     [ApiController]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
-    public class TypeVController : GenericController<VehicleType>
+    public class DocTypeController : GenericController<DocumentType>
     {
-        private readonly IVehicleTypeRepository _vehicleTypeRepository;
-        public TypeVController(IGenericUnitOfWork<VehicleType> unitOfWork, IVehicleTypeRepository vehicleTypeRepository) : base(unitOfWork)
+        private readonly IDocumentTypeRepository _documentTypeRepository;
+        public DocTypeController(IGenericUnitOfWork<DocumentType> unitOfWork, IDocumentTypeRepository documentTypeRepository) : base(unitOfWork)
         {
-            _vehicleTypeRepository = vehicleTypeRepository;
+            _documentTypeRepository = documentTypeRepository;
         }
 
         [HttpGet]
         public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
         {
-            var response = await _vehicleTypeRepository.GetAsync(pagination);
+            var response = await _documentTypeRepository.GetAsync(pagination);
             if (response.WasSuccess)
             {
                 return Ok(response.Result);
@@ -32,7 +32,7 @@ namespace Serviteca.Backend.Controllers
         [HttpGet("totalPages")]
         public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
         {
-            var action = await _vehicleTypeRepository.GetTotalPagesAsync(pagination);
+            var action = await _documentTypeRepository.GetTotalPagesAsync(pagination);
             if (action.WasSuccess)
             {
                 return Ok(action.Result);
@@ -44,7 +44,7 @@ namespace Serviteca.Backend.Controllers
         [HttpGet("combo")]
         public async Task<IActionResult> GetComboAsync()
         {
-            return Ok(await _vehicleTypeRepository.GetComboAsync());
+            return Ok(await _documentTypeRepository.GetComboAsync());
         }
     }
 }

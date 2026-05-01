@@ -17,7 +17,7 @@ namespace Serviteca.Frontend.Pages.DocumentType
     
         private async Task CreateAsync()
         {
-            var responseHttp = await Repository.PostAsync("/api/DocumentType", documentTypeENT);
+            var responseHttp = await Repository.PostAsync("/api/DocType", documentTypeENT);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -41,7 +41,7 @@ namespace Serviteca.Frontend.Pages.DocumentType
         private void Return()
         {
             documentTypeForm!.FormPostedSuccessfully = true;
-            NavigationManager.NavigateTo("/DocumentType");
+            NavigationManager.NavigateTo("/DocType");
         }
     }
 }

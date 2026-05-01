@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
 
-namespace Serviteca.Frontend.Pages.VehicleType
+namespace Serviteca.Frontend.Pages.VehicleUse
 {
-    public partial class VehicleTypeIndex
+    public partial class UseIndex
     {
         private int currentPage = 1;
         private int totalPages;
-        public List<Serviteca.Shared.Entities.VehicleType>? lstVehicleType { get; set; }
+        public List<Serviteca.Shared.Entities.VehicleUse>? lstVehicleUse { get; set; }
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -30,7 +30,6 @@ namespace Serviteca.Frontend.Pages.VehicleType
             await LoadAsync(page);
             await SelectedPageAsync(page);
         }
-
 
         private async Task FilterCallBack(string filter)
         {
@@ -61,27 +60,27 @@ namespace Serviteca.Frontend.Pages.VehicleType
         private async Task<bool> LoadListAsync(int page)
         {
             ValidateRecordsNumber();
-            var url = $"api/VehicleType/?page={page}&recordsnumber={RecordsNumber}";
+            var url = $"api/VehUse/?page={page}&recordsnumber={RecordsNumber}";
             if (!string.IsNullOrEmpty(Filter))
             {
                 url += $"&filter={Filter}";
             }
 
-            var responseHttp = await Repository.GetAsync<List<Serviteca.Shared.Entities.VehicleType>>(url);
+            var responseHttp = await Repository.GetAsync<List<Serviteca.Shared.Entities.VehicleUse>>(url);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
                 await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
                 return false;
             }
-            lstVehicleType = responseHttp.Response;
+            lstVehicleUse = responseHttp.Response;
             return true;
         }
 
         private async Task LoadPagesAsync()
         {
             ValidateRecordsNumber();
-            var url = $"api/VehicleType/totalPages?recordsnumber={RecordsNumber}";
+            var url = $"api/VehUse/totalPages?recordsnumber={RecordsNumber}";
             if (!string.IsNullOrEmpty(Filter))
             {
                 url += $"&filter={Filter}";
@@ -103,12 +102,12 @@ namespace Serviteca.Frontend.Pages.VehicleType
             await LoadAsync(page);
         }
 
-        private async Task DeleteAsycn(Serviteca.Shared.Entities.VehicleType vehicleTypeEnt)
+        private async Task DeleteAsycn(Serviteca.Shared.Entities.VehicleUse vehicleUseEnt)
         {
             var result = await SweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = $"¿Estas seguro de querer borrar tipo de vehiculo : {vehicleTypeEnt.Name}?",
+                Text = $"¿Estas seguro de querer borrar uso vehiculo : {vehicleUseEnt.Name}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
             });
@@ -118,12 +117,12 @@ namespace Serviteca.Frontend.Pages.VehicleType
                 return;
             }
 
-            var responseHttp = await Repository.DeleteAsync<Serviteca.Shared.Entities.VehicleType>($"api/VehicleType/{vehicleTypeEnt.Id}");
+            var responseHttp = await Repository.DeleteAsync<Serviteca.Shared.Entities.VehicleUse>($"api/VehUse/{vehicleUseEnt.Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
                 {
-                    NavigationManager.NavigateTo("/VehicleType");
+                    NavigationManager.NavigateTo("/VehUse");
                 }
                 else
                 {
@@ -141,7 +140,7 @@ namespace Serviteca.Frontend.Pages.VehicleType
                 ShowConfirmButton = true,
                 Timer = 3000
             });
-            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Tipo vehiculo borrado con éxito.");
+            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Uso vehiculo borrado con éxito.");
         }
 
         private void ValidateRecordsNumber()

@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
 
-namespace Serviteca.Frontend.Pages.Brand
+namespace Serviteca.Frontend.Pages.VehicleUse
 {
-    public partial class BrandEdit
+    public partial class UseEdit
     {
 
-        private Serviteca.Shared.Entities.VehicleBrand? vehicleBrandENT;
+        private Serviteca.Shared.Entities.VehicleUse? vehicleUseENT;
 
-        private FormWithName<Serviteca.Shared.Entities.VehicleBrand>? vehicleBrandFORM;
+        private FormWithName<Serviteca.Shared.Entities.VehicleUse>? vehicleUseFORM;
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -19,12 +19,12 @@ namespace Serviteca.Frontend.Pages.Brand
 
         protected override async Task OnParametersSetAsync()
         {
-            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.VehicleBrand>($"/api/Brand/{Id}");
+            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.VehicleUse>($"/api/VehUse/{Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
                 {
-                    NavigationManager.NavigateTo("/Brand");
+                    NavigationManager.NavigateTo("/VehUse");
                 }
                 else
                 {
@@ -34,13 +34,13 @@ namespace Serviteca.Frontend.Pages.Brand
             }
             else
             {
-                vehicleBrandENT = responseHttp.Response;
+                vehicleUseENT = responseHttp.Response;
             }
         }
 
         private async Task EditAsync()
         {
-            var responseHttp = await Repository.PutAsync("/api/Brand", vehicleBrandENT);
+            var responseHttp = await Repository.PutAsync("/api/VehUse", vehicleUseENT);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -57,13 +57,13 @@ namespace Serviteca.Frontend.Pages.Brand
                 ShowConfirmButton = true,
                 Timer = 3000
             });
-            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Marca vehiculo modificado con éxito.");
+            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Uso vehiculo modificado con éxito.");
         }
 
         private void Return()
         {
-            vehicleBrandFORM!.FormPostedSuccessfully = true;
-            NavigationManager.NavigateTo("/Brand");
+            vehicleUseFORM!.FormPostedSuccessfully = true;
+            NavigationManager.NavigateTo("/VehUse");
         }
     }
 }

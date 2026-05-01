@@ -59,7 +59,7 @@ namespace Serviteca.Frontend.Pages.DocumentType
         private async Task<bool> LoadListAsync(int page)
         {
             ValidateRecordsNumber();
-            var url = $"api/DocumentType/?page={page}&recordsnumber={RecordsNumber}";
+            var url = $"api/DocType/?page={page}&recordsnumber={RecordsNumber}";
             if (!string.IsNullOrEmpty(Filter))
             {
                 url += $"&filter={Filter}";
@@ -79,7 +79,7 @@ namespace Serviteca.Frontend.Pages.DocumentType
         private async Task LoadPagesAsync()
         {
             ValidateRecordsNumber();
-            var url = $"api/DocumentType/totalPages?recordsnumber={RecordsNumber}";
+            var url = $"api/DocType/totalPages?recordsnumber={RecordsNumber}";
             if (!string.IsNullOrEmpty(Filter))
             {
                 url += $"&filter={Filter}";
@@ -116,12 +116,12 @@ namespace Serviteca.Frontend.Pages.DocumentType
                 return;
             }
 
-            var responseHttp = await Repository.DeleteAsync<Serviteca.Shared.Entities.DocumentType>($"api/DocumentType/{category.Id}");
+            var responseHttp = await Repository.DeleteAsync<Serviteca.Shared.Entities.DocumentType>($"api/DocType/{category.Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
                 {
-                    NavigationManager.NavigateTo("/DocumentType");
+                    NavigationManager.NavigateTo("/DocType");
                 }
                 else
                 {
@@ -142,9 +142,6 @@ namespace Serviteca.Frontend.Pages.DocumentType
                 Timer = 3000
             });
             await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Tipo documento borrado con éxito.");
-
-
-
         }
 
         private void ValidateRecordsNumber()

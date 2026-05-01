@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
 
-namespace Serviteca.Frontend.Pages.Use
+namespace Serviteca.Frontend.Pages.VehicleType
 {
-    public partial class UseCreate
+    public partial class TypeCreate
     {
-        private Serviteca.Shared.Entities.VehicleUse vehicleUseENT = new();
-        private FormWithName<Serviteca.Shared.Entities.VehicleUse>? vehicleUseFORM;
+
+        private Serviteca.Shared.Entities.VehicleType vehicleTypeENT = new();
+        private FormWithName<Serviteca.Shared.Entities.VehicleType>? VehicleTypeFORM;
 
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
@@ -17,7 +18,7 @@ namespace Serviteca.Frontend.Pages.Use
 
         private async Task CreateAsync()
         {
-            var responseHttp = await Repository.PostAsync("/api/Use", vehicleUseENT);
+            var responseHttp = await Repository.PostAsync("/api/VehType", vehicleTypeENT);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -34,13 +35,13 @@ namespace Serviteca.Frontend.Pages.Use
                 ShowConfirmButton = true,
                 Timer = 3000
             });
-            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Uso de vehiculo creado con éxito.");
+            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Tipo vehiculo creado con éxito.");
         }
 
         private void Return()
         {
-            vehicleUseFORM!.FormPostedSuccessfully = true;
-            NavigationManager.NavigateTo("/Use");
+            VehicleTypeFORM!.FormPostedSuccessfully = true;
+            NavigationManager.NavigateTo("/VehType");
         }
     }
 }

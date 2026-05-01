@@ -1,15 +1,15 @@
-﻿@page "/Brand"
+﻿@page "/VehType"
 
 <div class="card">
     <div class="card-header text-center">
         <span>
-            <i class="bi bi-list-check"></i> <strong>Marca vehiculo</strong>
-            <a class="btn btn-sm btn-primary float-end" href="/Brand/create"><i class="bi bi-plus-square"></i>Agregar marca</a>
+            <i class="bi bi-list-check"></i><strong>Tipo Vehiculo</strong>
+            <a class="btn btn-sm btn-primary float-end" href="/VehType/create"><i class="bi bi-plus-square"></i>Agregar tipo vehiculo</a>
         </span>
     </div>
     <div class="card-body">
-        <Filter PlaceHolder="Buscar marca..." Callback=@FilterCallBack />
-        <GenericList MyList="lstVehicleBrand">
+        <Filter PlaceHolder="Buscar tipo vehiculo..." Callback=@FilterCallBack />
+        <GenericList MyList="lstVehicleType">
             <Body>
                 <Pagination CurrentPage="currentPage"
                             TotalPages="totalPages"
@@ -24,12 +24,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in lstVehicleBrand!)
+                        @foreach (var item in lstVehicleType!)
                         {
                             <tr>
                                 <td>@item.Name</td>
                                 <td>
-                                    <a href="/Brand/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil" /> Editar</a>
+                                    <a href="/VehType/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil" /> Editar</a>
                                     <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-sm btn-danger"><i class="bi bi-trash" /> Borrar</button>
                                 </td>
                             </tr>
