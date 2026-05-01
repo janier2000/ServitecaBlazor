@@ -1,0 +1,17 @@
+﻿@page "/DocumentTypes/edit/{Id:int}"
+
+<h3>Editar Categoria</h3>
+
+@if (documentType is null)
+{
+    <Loading/>
+}
+else
+{
+    <FormWithName @ref="documentTypeForm"
+                  Label="Documento: "
+                  Featured="Registrar tipo documento"
+                  Model="documentType"
+                  OnValidSubmit="EditAsync"
+                  ReturnAction="Return" />
+} 

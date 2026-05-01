@@ -5,7 +5,7 @@ using CurrieTechnologies.Razor.SweetAlert2;
 
 namespace Serviteca.Frontend.Pages.DocumentType
 {
-    public partial class DocumentTypeIndex
+    public partial class DocumentTypesIndex
     {
         private int currentPage = 1;
         private int totalPages;
@@ -99,7 +99,7 @@ namespace Serviteca.Frontend.Pages.DocumentType
             var result = await SweetAlertService.FireAsync(new SweetAlertOptions
             {
                 Title = "Confirmación",
-                Text = $"¿Estas seguro de querer borrar la categoria : {category.Name}?",
+                Text = $"¿Estas seguro de querer borrar la tipo de documento : {category.Name}?",
                 Icon = SweetAlertIcon.Question,
                 ShowCancelButton = true,
             });

@@ -1,0 +1,32 @@
+﻿@typeparam TModel where TModel : IEntityWithName
+
+<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+
+<div class="row mt-5">
+    <div class="col-md-4  offset-md-4">
+        <div class="card">
+            <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+                <DataAnnotationsValidator />
+                <div class="card-header text-center">
+                    @Featured
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label>@Label</label>
+                        <div>
+                            <InputText class="form-control" @bind-Value="@Model.Name" />
+                            <ValidationMessage For="@(() => Model.Name)" />
+                        </div>
+                    </div>
+                </div>
+                <div class=" card-footer ">
+                    <span>
+                        <button class="btn btn-outline-primary btn-sm" type="submit"><i class="bi bi-floppy" />  Guardar</button>
+                        <button class="btn btn-outline-secondary btn-sm" @onclick="ReturnAction"><i class="bi bi-arrow-left" /> Regresar</button>
+                    </span>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
