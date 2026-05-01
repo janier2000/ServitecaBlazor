@@ -6,10 +6,10 @@ namespace Serviteca.Frontend.Shared
     {
         private List<PageModel> links = [];
         private List<OptionModel> options = [];
-        private int selectedOptionValue = 10;
+        private int selectedOptionValue = 5;
 
         [Parameter] public int CurrentPage { get; set; } = 1;
-        [Parameter] public int Radio { get; set; } = 10;
+        [Parameter] public int Radio { get; set; } = 5;
         [Parameter] public EventCallback<int> RecordsNumber { get; set; }
         [Parameter] public EventCallback<int> SelectedPage { get; set; }
         [Parameter] public int TotalPages { get; set; }
@@ -93,6 +93,7 @@ namespace Serviteca.Frontend.Shared
             {
                 options =
                 [
+                    new OptionModel { Value = 5, Name = "5" },
                     new OptionModel { Value = 10, Name = "10" },
                     new OptionModel { Value = 25, Name = "25" },
                     new OptionModel { Value = 50, Name = "50" },

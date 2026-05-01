@@ -1,0 +1,16 @@
+﻿@page "/VehicleUse/edit/{Id:int}"
+
+@if (vehicleUseENT is null)
+{
+    <Loading />
+}
+else
+{
+    <FormWithName @ref="vehicleUseFORM"
+                  Label="Nombre"
+                  Featured="Edidar uso vehiculo"
+                  Model="vehicleUseENT"
+                  OnValidSubmit="EditAsync"
+                  ReturnAction="Return" />
+
+}

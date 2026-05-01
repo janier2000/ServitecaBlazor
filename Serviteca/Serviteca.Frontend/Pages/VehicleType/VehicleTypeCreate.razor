@@ -1,0 +1,8 @@
+﻿@page "/VehicleType/create"
+
+<FormWithName @ref="VehicleTypeFORM"
+              Label="Nombre"
+              Featured="Registrar tipo vehiculo"
+              Model="vehicleTypeENT"
+              OnValidSubmit="CreateAsync"
+              ReturnAction="Return" />

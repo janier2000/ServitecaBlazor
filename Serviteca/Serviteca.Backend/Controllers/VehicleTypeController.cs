@@ -1,6 +1,6 @@
 ﻿using Serviteca.Shared.DTOs;
-using Serviteca.Shared.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Serviteca.Shared.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Serviteca.Backend.Repositories.Interface;
 using Serviteca.Backend.UnitsOfWork.Interfaces;
@@ -12,10 +12,10 @@ namespace Serviteca.Backend.Controllers
     [Route("api/[controller]")]
     public class VehicleTypeController : GenericController<VehicleType>
     {
-        private readonly IVehicleUseRepository _vehicleTypeRepository;
-        public VehicleTypeController(IGenericUnitOfWork<VehicleType> unitOfWork, IVehicleUseRepository categoriesUnitOfWork) : base(unitOfWork)
+        private readonly IVehicleTypeRepository _vehicleTypeRepository;
+        public VehicleTypeController(IGenericUnitOfWork<VehicleType> unitOfWork, IVehicleTypeRepository vehicleTypeRepository) : base(unitOfWork)
         {
-            _vehicleTypeRepository = categoriesUnitOfWork;
+            _vehicleTypeRepository = vehicleTypeRepository;
         }
 
         [HttpGet]

@@ -1,0 +1,69 @@
+using System.Net;
+using Serviteca.Frontend.Shared;
+using Microsoft.AspNetCore.Components;
+using Serviteca.Frontend.Repositories;
+using CurrieTechnologies.Razor.SweetAlert2;
+
+namespace Serviteca.Frontend.Pages.VehicleUse
+{
+    public partial class VehicleUseEdit
+    {
+
+        private Serviteca.Shared.Entities.VehicleUse? vehicleUseENT;
+
+        private FormWithName<Serviteca.Shared.Entities.VehicleUse>? vehicleUseFORM;
+        [Inject] private IRepository Repository { get; set; } = null!;
+        [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
+        [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+        [EditorRequired, Parameter] public int Id { get; set; }
+
+        protected override async Task OnParametersSetAsync()
+        {
+            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.VehicleUse>($"/api/VehicleUse/{Id}");
+            if (responseHttp.Error)
+            {
+                if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+                {
+                    NavigationManager.NavigateTo("/VehicleUse");
+                }
+                else
+                {
+                    var messsage = await responseHttp.GetErrorMessageAsync();
+                    await SweetAlertService.FireAsync("Error", messsage, SweetAlertIcon.Error);
+                }
+            }
+            else
+            {
+                vehicleUseENT = responseHttp.Response;
+            }
+        }
+
+        private async Task EditAsync()
+        {
+            var responseHttp = await Repository.PutAsync("/api/VehicleUse", vehicleUseENT);
+            if (responseHttp.Error)
+            {
+                var message = await responseHttp.GetErrorMessageAsync();
+                await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+                return;
+            }
+
+            Return();
+
+            var toast = SweetAlertService.Mixin(new SweetAlertOptions
+            {
+                Toast = true,
+                Position = SweetAlertPosition.BottomEnd,
+                ShowConfirmButton = true,
+                Timer = 3000
+            });
+            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Uso vehiculo modificado con éxito.");
+        }
+
+        private void Return()
+        {
+            vehicleUseFORM!.FormPostedSuccessfully = true;
+            NavigationManager.NavigateTo("/VehicleUse");
+        }
+    }
+}

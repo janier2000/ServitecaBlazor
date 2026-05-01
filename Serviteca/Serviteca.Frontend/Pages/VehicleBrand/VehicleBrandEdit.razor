@@ -1,0 +1,16 @@
+﻿@page "/VehicleBrand/edit/{Id:int}"
+
+@if (vehicleBrandENT is null)
+{
+    <Loading/>
+}
+else
+{
+    <FormWithName @ref="vehicleBrandFORM"
+                  Label="Nombre"
+                  Featured="Edidar marca"
+                  Model="vehicleBrandENT"
+                  OnValidSubmit="EditAsync"
+                  ReturnAction="Return" />
+
+}

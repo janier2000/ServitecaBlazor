@@ -1,0 +1,42 @@
+﻿@page "/VehicleUse"
+
+<div class="card">
+    <div class="card-header text-center">
+        <span>
+            <i class="bi bi-list-check"></i><strong>Uso Vehiculo</strong>
+            <a class="btn btn-sm btn-primary float-end" href="/VehicleUse/create"><i class="bi bi-plus-square"></i>Agregar uso vehiculo</a>
+        </span>
+    </div>
+    <div class="card-body">
+        <Filter PlaceHolder="Buscar uso vehiculo..." Callback=@FilterCallBack />
+        <GenericList MyList="lstVehicleUse">
+            <Body>
+                <Pagination CurrentPage="currentPage"
+                            TotalPages="totalPages"
+                            SelectedPage="SelectedPageAsync" 
+                            RecordsNumber="SelectedRecordsNumberAsync" />
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Uso vehiculo</th>
+                            <th style="width:168px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in lstVehicleUse!)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>
+                                    <a href="/VehicleUse/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil" /> Editar</a>
+                                    <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-sm btn-danger"><i class="bi bi-trash" /> Borrar</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </Body>
+        </GenericList>
+    </div>
+</div>

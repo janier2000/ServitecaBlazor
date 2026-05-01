@@ -1,8 +1,8 @@
-﻿@page "/DocumentTypes/create"
+﻿@page "/DocumentType/create"
 
 <FormWithName @ref="documentTypeForm"
-              Label="Documento:"
+              Label="Nombre"
               Featured="Registrar tipo documento"
-              Model="documentType"
+              Model="documentTypeENT"
               OnValidSubmit="CreateAsync"
               ReturnAction="Return" /> 

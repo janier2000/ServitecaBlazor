@@ -4,13 +4,14 @@ using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
 
-namespace Serviteca.Frontend.Pages.DocumentType
+namespace Serviteca.Frontend.Pages.VehicleType
 {
-    public partial class DocumentTypesEdit
+    public partial class VehicleTypeEdit
     {
 
-        private Serviteca.Shared.Entities.DocumentType? documentType;
-        private FormWithName<Serviteca.Shared.Entities.DocumentType>? documentTypeForm;
+        private Serviteca.Shared.Entities.VehicleType? vehicleTypeENT;
+
+        private FormWithName<Serviteca.Shared.Entities.VehicleType>? VehicleTypeFORM;
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -18,12 +19,12 @@ namespace Serviteca.Frontend.Pages.DocumentType
 
         protected override async Task OnParametersSetAsync()
         {
-            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.DocumentType>($"/api/DocumentTypes/{Id}");
+            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.VehicleType>($"/api/VehicleType/{Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
                 {
-                    NavigationManager.NavigateTo("/DocumentTypes");
+                    NavigationManager.NavigateTo("/VehicleType");
                 }
                 else
                 {
@@ -33,13 +34,13 @@ namespace Serviteca.Frontend.Pages.DocumentType
             }
             else
             {
-                documentType = responseHttp.Response;
+                vehicleTypeENT = responseHttp.Response;
             }
         }
 
         private async Task EditAsync()
         {
-            var responseHttp = await Repository.PutAsync("/api/DocumentTypes", documentType);
+            var responseHttp = await Repository.PutAsync("/api/VehicleType", vehicleTypeENT);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -56,13 +57,13 @@ namespace Serviteca.Frontend.Pages.DocumentType
                 ShowConfirmButton = true,
                 Timer = 3000
             });
-            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Cambios guardados con éxito.");
+            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Tipo vehiculo modificado con éxito.");
         }
 
         private void Return()
         {
-            documentTypeForm!.FormPostedSuccessfully = true;
-            NavigationManager.NavigateTo("/DocumentTypes");
+            VehicleTypeFORM!.FormPostedSuccessfully = true;
+            NavigationManager.NavigateTo("/VehicleType");
         }
     }
 }

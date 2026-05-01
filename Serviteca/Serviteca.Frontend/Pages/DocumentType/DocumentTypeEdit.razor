@@ -1,0 +1,16 @@
+﻿@page "/DocumentType/edit/{Id:int}"
+
+
+@if (documentTypeENT is null)
+{
+    <Loading />
+}
+else
+{
+    <FormWithName @ref="documentTypeForm"
+                  Label="Nombre"
+                  Featured="Editar tipo documento"
+                  Model="documentTypeENT"
+                  OnValidSubmit="EditAsync"
+                  ReturnAction="Return" />
+}

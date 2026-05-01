@@ -1,0 +1,79 @@
+using System.Net;
+using Serviteca.Frontend.Shared;
+using Microsoft.AspNetCore.Components;
+using Serviteca.Frontend.Repositories;
+using CurrieTechnologies.Razor.SweetAlert2;
+
+namespace Serviteca.Frontend.Pages.DocumentType
+{
+    public partial class DocumentTypeEdit
+    {
+
+        private Serviteca.Shared.Entities.DocumentType? documentTypeENT;
+
+        private FormWithName<Serviteca.Shared.Entities.DocumentType>? documentTypeForm;
+        [Inject] private IRepository Repository { get; set; } = null!;
+        [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
+        [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+        [EditorRequired, Parameter] public int Id { get; set; }
+
+        protected override async Task OnParametersSetAsync()
+        {
+            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.DocumentType>($"/api/DocumentType/{Id}");
+            if (responseHttp.Error)
+            {
+                if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
+                {
+                    NavigationManager.NavigateTo("/DocumentType");
+                }
+                else
+                {
+                    var message = await responseHttp.GetErrorMessageAsync();
+                    EnviarMensaje("Error", message!);
+                }
+            }
+            else
+            {
+                documentTypeENT = responseHttp.Response;
+            }
+        }
+
+        private async Task EditAsync()
+        {
+            var responseHttp = await Repository.PutAsync("/api/DocumentType", documentTypeENT);
+            if (responseHttp.Error)
+            {
+                var message = await responseHttp.GetErrorMessageAsync();
+                EnviarMensaje("Error", message!);
+                return;
+            }
+            Return();
+            EnviarMensaje("OK", "Tipo documento modificado con éxito."!);
+        }
+
+        private void Return()
+        {
+            documentTypeForm!.FormPostedSuccessfully = true;
+            NavigationManager.NavigateTo("/DocumentType");
+        }
+
+        public void EnviarMensaje(string tipo, string message)
+        {
+            if (tipo == "Error")
+            {
+                SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+            }
+            else
+            {
+                var toast = SweetAlertService.Mixin(new SweetAlertOptions
+                {
+                    Toast = true,
+                    Position = SweetAlertPosition.BottomEnd,
+                    ShowConfirmButton = true,
+                    Timer = 3000
+                });
+                toast.FireAsync(icon: SweetAlertIcon.Success, message: message);
+            }
+        }
+    }
+}

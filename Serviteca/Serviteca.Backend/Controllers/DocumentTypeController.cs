@@ -10,12 +10,12 @@ namespace Serviteca.Backend.Controllers
     [ApiController]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
-    public class DocumentTypesController : GenericController<DocumentType>
+    public class DocumentTypeController : GenericController<DocumentType>
     {
         private readonly IDocumentTypeRepository _documentTypeRepository;
-        public DocumentTypesController(IGenericUnitOfWork<DocumentType> unitOfWork, IDocumentTypeRepository categoriesUnitOfWork) : base(unitOfWork)
+        public DocumentTypeController(IGenericUnitOfWork<DocumentType> unitOfWork, IDocumentTypeRepository documentTypeRepository) : base(unitOfWork)
         {
-            _documentTypeRepository = categoriesUnitOfWork;
+            _documentTypeRepository = documentTypeRepository;
         }
 
         [HttpGet]

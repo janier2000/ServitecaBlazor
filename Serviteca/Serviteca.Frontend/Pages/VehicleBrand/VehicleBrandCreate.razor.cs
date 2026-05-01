@@ -3,22 +3,22 @@ using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
 
-namespace Serviteca.Frontend.Pages.DocumentType
+namespace Serviteca.Frontend.Pages.VehicleBrand
 {
-    public partial class DocumentTypesCreate
+    public partial class VehicleBrandCreate
     {
 
-        private Serviteca.Shared.Entities.DocumentType documentType = new();
-        private FormWithName<Serviteca.Shared.Entities.DocumentType>? documentTypeForm;
+        private Serviteca.Shared.Entities.VehicleBrand vehicleBrandENT = new();
+
+        private FormWithName<Serviteca.Shared.Entities.VehicleBrand>? vehicleBrandFORM;
 
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
-    
 
         private async Task CreateAsync()
         {
-            var responseHttp = await Repository.PostAsync("/api/DocumentTypes", documentType);
+            var responseHttp = await Repository.PostAsync("/api/VehicleBrand", vehicleBrandENT);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -35,15 +35,13 @@ namespace Serviteca.Frontend.Pages.DocumentType
                 ShowConfirmButton = true,
                 Timer = 3000
             });
-            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Registro creado con éxito.");
-
+            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Marca vehiculo creado con éxito.");
         }
-
 
         private void Return()
         {
-            documentTypeForm!.FormPostedSuccessfully = true;
-            NavigationManager.NavigateTo("/DocumentTypes");
+            vehicleBrandFORM!.FormPostedSuccessfully = true;
+            NavigationManager.NavigateTo("/VehicleBrand");
         }
     }
 }
