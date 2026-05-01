@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Serviteca.Shared.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace Serviteca.Shared.Entities
 {
-    public class CartType
+    public class VehicleBrand : IEntityWithName
     {
         public int Id { get; set; }
 

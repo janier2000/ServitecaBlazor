@@ -37,21 +37,21 @@ namespace Serviteca.Shared.Entities
 
         public VehicleType? VehicleType { get; set; }
 
-        [Display(Name = "Tipo de vehiculo")]
+        [Display(Name = "Tipo")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
         public int VehicleTypeId { get; set; }
 
-        public CartType? CartType { get; set; }
+        public VehicleUse? VehicleUse { get; set; }
 
-        [Display(Name = "Tipo de carro")]
+        [Display(Name = "Uso")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
-        public int CartTypeId { get; set; }
+        public int VehicleUseId { get; set; }
 
-        public Brand? Brand { get; set; }
+        public VehicleBrand? VehicleBrand { get; set; }
 
         [Display(Name = "Marca")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
-        public int BrandId { get; set; }
+        public int VehicleBrandId { get; set; }
 
     }
 }
