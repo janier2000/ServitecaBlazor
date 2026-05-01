@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
 
-namespace Serviteca.Frontend.Pages.VehicleUse
+namespace Serviteca.Frontend.Pages.Use
 {
-    public partial class VehicleUseCreate
+    public partial class UseCreate
     {
         private Serviteca.Shared.Entities.VehicleUse vehicleUseENT = new();
         private FormWithName<Serviteca.Shared.Entities.VehicleUse>? vehicleUseFORM;
@@ -17,7 +17,7 @@ namespace Serviteca.Frontend.Pages.VehicleUse
 
         private async Task CreateAsync()
         {
-            var responseHttp = await Repository.PostAsync("/api/VehicleUse", vehicleUseENT);
+            var responseHttp = await Repository.PostAsync("/api/Use", vehicleUseENT);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -40,7 +40,7 @@ namespace Serviteca.Frontend.Pages.VehicleUse
         private void Return()
         {
             vehicleUseFORM!.FormPostedSuccessfully = true;
-            NavigationManager.NavigateTo("/VehicleUse");
+            NavigationManager.NavigateTo("/Use");
         }
     }
 }

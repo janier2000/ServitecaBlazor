@@ -1,10 +1,10 @@
-﻿@page "/VehicleUse"
+﻿@page "/Use"
 
 <div class="card">
     <div class="card-header text-center">
         <span>
             <i class="bi bi-list-check"></i><strong>Uso Vehiculo</strong>
-            <a class="btn btn-sm btn-primary float-end" href="/VehicleUse/create"><i class="bi bi-plus-square"></i>Agregar uso vehiculo</a>
+            <a class="btn btn-sm btn-primary float-end" href="/Use/create"><i class="bi bi-plus-square"></i>Agregar uso vehiculo</a>
         </span>
     </div>
     <div class="card-body">
@@ -29,7 +29,7 @@
                             <tr>
                                 <td>@item.Name</td>
                                 <td>
-                                    <a href="/VehicleUse/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil" /> Editar</a>
+                                    <a href="/Use/edit/@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil" /> Editar</a>
                                     <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-sm btn-danger"><i class="bi bi-trash" /> Borrar</button>
                                 </td>
                             </tr>

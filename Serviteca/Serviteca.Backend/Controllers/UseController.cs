@@ -11,10 +11,10 @@ namespace Serviteca.Backend.Controllers
     [ApiController]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
-    public class UseVController : GenericController<VehicleUse>
+    public class UseController : GenericController<VehicleUse>
     {
         private readonly IVehicleUseRepository _vehicleUseRepository;
-        public UseVController(IGenericUnitOfWork<VehicleUse> unitOfWork, IVehicleUseRepository vehicleUseRepository) : base(unitOfWork)
+        public UseController(IGenericUnitOfWork<VehicleUse> unitOfWork, IVehicleUseRepository vehicleUseRepository) : base(unitOfWork)
         {
             _vehicleUseRepository = vehicleUseRepository;
         }

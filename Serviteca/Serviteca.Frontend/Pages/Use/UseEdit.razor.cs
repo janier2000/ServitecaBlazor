@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
 
-namespace Serviteca.Frontend.Pages.VehicleUse
+namespace Serviteca.Frontend.Pages.Use
 {
-    public partial class VehicleUseEdit
+    public partial class UseEdit
     {
 
         private Serviteca.Shared.Entities.VehicleUse? vehicleUseENT;
@@ -19,12 +19,12 @@ namespace Serviteca.Frontend.Pages.VehicleUse
 
         protected override async Task OnParametersSetAsync()
         {
-            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.VehicleUse>($"/api/VehicleUse/{Id}");
+            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.VehicleUse>($"/api/Use/{Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
                 {
-                    NavigationManager.NavigateTo("/VehicleUse");
+                    NavigationManager.NavigateTo("/Use");
                 }
                 else
                 {
@@ -40,7 +40,7 @@ namespace Serviteca.Frontend.Pages.VehicleUse
 
         private async Task EditAsync()
         {
-            var responseHttp = await Repository.PutAsync("/api/VehicleUse", vehicleUseENT);
+            var responseHttp = await Repository.PutAsync("/api/Use", vehicleUseENT);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -63,7 +63,7 @@ namespace Serviteca.Frontend.Pages.VehicleUse
         private void Return()
         {
             vehicleUseFORM!.FormPostedSuccessfully = true;
-            NavigationManager.NavigateTo("/VehicleUse");
+            NavigationManager.NavigateTo("/Use");
         }
     }
 }
