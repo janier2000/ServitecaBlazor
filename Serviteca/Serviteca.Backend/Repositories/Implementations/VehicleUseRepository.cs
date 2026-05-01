@@ -8,30 +8,29 @@ using Serviteca.Backend.Repositories.Interface;
 
 namespace Serviteca.Backend.Repositories.Implementations
 {
-    public class BrandRepository : GenericRepository<Brand>, IBrandRepository
+    public class VehicleUseRepository : GenericRepository<VehicleUse>, IVehicleUseRepository
     {
         private readonly DataContext _context;
-
-        public BrandRepository(DataContext context) : base(context)
+        public VehicleUseRepository(DataContext context) : base(context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<Brand>> GetComboAsync()
+        public async Task<IEnumerable<VehicleUse>> GetComboAsync()
         {
-            return await _context.Brands.OrderBy(c => c.Name).ToListAsync();
+            return await _context.VehicleUses.OrderBy(c => c.Name).ToListAsync();
         }
 
-        public override async Task<ActionResponse<IEnumerable<Brand>>> GetAsync(PaginationDTO pagination)
+        public override async Task<ActionResponse<IEnumerable<VehicleUse>>> GetAsync(PaginationDTO pagination)
         {
-            var queryable = _context.Brands.AsQueryable();
+            var queryable = _context.VehicleUses.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
                 queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
             }
 
-            return new ActionResponse<IEnumerable<Brand>>
+            return new ActionResponse<IEnumerable<VehicleUse>>
             {
                 WasSuccess = true,
                 Result = await queryable.OrderBy(x => x.Name).Paginate(pagination)
@@ -41,7 +40,7 @@ namespace Serviteca.Backend.Repositories.Implementations
 
         public override async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination)
         {
-            var queryable = _context.Brands.AsQueryable();
+            var queryable = _context.VehicleTypes.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {

@@ -10,10 +10,10 @@ namespace Serviteca.Backend.Controllers
     [ApiController]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
-    public class CartTypeController    : GenericController<CartType>
+    public class VehicleUseController    : GenericController<VehicleUse>
     {
-        private readonly ICartTypeRepository _cartTypeRepository;
-        public CartTypeController(IGenericUnitOfWork<CartType> unitOfWork, ICartTypeRepository categoriesUnitOfWork) : base(unitOfWork)
+        private readonly IVehicleTypeRepository _cartTypeRepository;
+        public VehicleUseController(IGenericUnitOfWork<VehicleUse> unitOfWork, IVehicleTypeRepository categoriesUnitOfWork) : base(unitOfWork)
         {
             _cartTypeRepository = categoriesUnitOfWork;
         }

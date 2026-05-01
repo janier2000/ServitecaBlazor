@@ -10,18 +10,18 @@ namespace Serviteca.Backend.Controllers
     [ApiController]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
-    public class BrandController  : GenericController<Brand>
+    public class VehicleTypeController : GenericController<VehicleType>
     {
-        private readonly IBrandRepository _brandRepository;
-        public BrandController(IGenericUnitOfWork<Brand> unitOfWork, IBrandRepository brandRepository) : base(unitOfWork)
+        private readonly IVehicleUseRepository _vehicleTypeRepository;
+        public VehicleTypeController(IGenericUnitOfWork<VehicleType> unitOfWork, IVehicleUseRepository categoriesUnitOfWork) : base(unitOfWork)
         {
-            _brandRepository = brandRepository;
+            _vehicleTypeRepository = categoriesUnitOfWork;
         }
 
         [HttpGet]
         public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
         {
-            var response = await _brandRepository.GetAsync(pagination);
+            var response = await _vehicleTypeRepository.GetAsync(pagination);
             if (response.WasSuccess)
             {
                 return Ok(response.Result);
@@ -32,7 +32,7 @@ namespace Serviteca.Backend.Controllers
         [HttpGet("totalPages")]
         public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
         {
-            var action = await _brandRepository.GetTotalPagesAsync(pagination);
+            var action = await _vehicleTypeRepository.GetTotalPagesAsync(pagination);
             if (action.WasSuccess)
             {
                 return Ok(action.Result);
@@ -44,7 +44,7 @@ namespace Serviteca.Backend.Controllers
         [HttpGet("combo")]
         public async Task<IActionResult> GetComboAsync()
         {
-            return Ok(await _brandRepository.GetComboAsync());
+            return Ok(await _vehicleTypeRepository.GetComboAsync());
         }
     }
 }

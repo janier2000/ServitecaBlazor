@@ -1,36 +1,37 @@
 ﻿using Serviteca.Shared.DTOs;
 using Serviteca.Backend.Data;
-using Serviteca.Backend.Helpers;
 using Serviteca.Shared.Entities;
+using Serviteca.Backend.Helpers;
 using Serviteca.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
 using Serviteca.Backend.Repositories.Interface;
 
 namespace Serviteca.Backend.Repositories.Implementations
 {
-    public class CartTypeRepository : GenericRepository<CartType>, ICartTypeRepository
+    public class VehicleBrandRepository : GenericRepository<VehicleBrand>, IVehicleBrandRepository
     {
         private readonly DataContext _context;
-        public CartTypeRepository(DataContext context) : base(context)
+
+        public VehicleBrandRepository(DataContext context) : base(context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<CartType>> GetComboAsync()
+        public async Task<IEnumerable<VehicleBrand>> GetComboAsync()
         {
-            return await _context.CarTypes.OrderBy(c => c.Name).ToListAsync();
+            return await _context.VehicleBrands.OrderBy(c => c.Name).ToListAsync();
         }
 
-        public override async Task<ActionResponse<IEnumerable<CartType>>> GetAsync(PaginationDTO pagination)
+        public override async Task<ActionResponse<IEnumerable<VehicleBrand>>> GetAsync(PaginationDTO pagination)
         {
-            var queryable = _context.CarTypes.AsQueryable();
+            var queryable = _context.VehicleBrands.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
                 queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
             }
 
-            return new ActionResponse<IEnumerable<CartType>>
+            return new ActionResponse<IEnumerable<VehicleBrand>>
             {
                 WasSuccess = true,
                 Result = await queryable.OrderBy(x => x.Name).Paginate(pagination)
@@ -40,7 +41,7 @@ namespace Serviteca.Backend.Repositories.Implementations
 
         public override async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination)
         {
-            var queryable = _context.CarTypes.AsQueryable();
+            var queryable = _context.VehicleBrands.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
@@ -55,5 +56,6 @@ namespace Serviteca.Backend.Repositories.Implementations
                 Result = totalPages
             };
         }
+
     }
 }

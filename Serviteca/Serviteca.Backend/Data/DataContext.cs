@@ -11,12 +11,13 @@ namespace Serviteca.Backend.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
-        public DbSet<Brand> Brands { get; set; }
-        public DbSet<CartType> CarTypes { get; set; }
+       
         public DbSet<Customer> Customers { get; set; }
         public DbSet<DocumentType> DocumentTypes { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<VehicleUse> VehicleUses { get; set; }
         public DbSet<VehicleType> VehicleTypes { get; set; }
+        public DbSet<VehicleBrand> VehicleBrands { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,10 +25,10 @@ namespace Serviteca.Backend.Data
 
             //evita duplicados de variable (Name ) en la bd 
             modelBuilder.Entity<Customer>().HasIndex(x => x.Document).IsUnique();
-            modelBuilder.Entity<Brand>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<VehicleBrand>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<DocumentType>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<VehicleType>().HasIndex(x => x.Name).IsUnique();
-            modelBuilder.Entity<CartType>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<VehicleUse>().HasIndex(x => x.Name).IsUnique();
         }
     }
 }

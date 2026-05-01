@@ -1,7 +1,7 @@
 ﻿using Serviteca.Shared.DTOs;
 using Serviteca.Backend.Data;
-using Serviteca.Shared.Entities;
 using Serviteca.Backend.Helpers;
+using Serviteca.Shared.Entities;
 using Serviteca.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
 using Serviteca.Backend.Repositories.Interface;
@@ -55,6 +55,5 @@ namespace Serviteca.Backend.Repositories.Implementations
                 Result = totalPages
             };
         }
-
     }
 }

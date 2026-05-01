@@ -39,7 +39,7 @@ namespace Serviteca.Backend.Repositories.Implementations
 
         public override async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination)
         {
-            var queryable = _context.Brands.AsQueryable();
+            var queryable = _context.VehicleBrands.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {
