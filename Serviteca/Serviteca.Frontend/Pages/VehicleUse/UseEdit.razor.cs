@@ -1,4 +1,5 @@
 using System.Net;
+using e = Serviteca.Shared.Entities;
 using Serviteca.Frontend.Shared;
 using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
@@ -9,9 +10,9 @@ namespace Serviteca.Frontend.Pages.VehicleUse
     public partial class UseEdit
     {
 
-        private Serviteca.Shared.Entities.VehicleUse? vehicleUseENT;
+        private e.VehicleUse? vehicleUseENT;
 
-        private FormWithName<Serviteca.Shared.Entities.VehicleUse>? vehicleUseFORM;
+        private FormWithName<e.VehicleUse>? vehicleUseFORM;
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -19,7 +20,7 @@ namespace Serviteca.Frontend.Pages.VehicleUse
 
         protected override async Task OnParametersSetAsync()
         {
-            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.VehicleUse>($"/api/VehUse/{Id}");
+            var responseHttp = await Repository.GetAsync<e.VehicleUse>($"/api/VehUse/{Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)

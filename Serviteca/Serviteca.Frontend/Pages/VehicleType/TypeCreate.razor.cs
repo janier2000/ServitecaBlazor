@@ -1,4 +1,5 @@
 using Serviteca.Frontend.Shared;
+using e = Serviteca.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
@@ -8,8 +9,8 @@ namespace Serviteca.Frontend.Pages.VehicleType
     public partial class TypeCreate
     {
 
-        private Serviteca.Shared.Entities.VehicleType vehicleTypeENT = new();
-        private FormWithName<Serviteca.Shared.Entities.VehicleType>? VehicleTypeFORM;
+        private e.VehicleType vehicleTypeENT = new();
+        private FormWithName<e.VehicleType>? VehicleTypeFORM;
 
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;

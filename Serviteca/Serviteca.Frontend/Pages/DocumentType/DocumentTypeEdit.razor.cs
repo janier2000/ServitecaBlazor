@@ -1,17 +1,19 @@
 using System.Net;
 using Serviteca.Frontend.Shared;
+using e = Serviteca.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
+
 
 namespace Serviteca.Frontend.Pages.DocumentType
 {
     public partial class DocumentTypeEdit
     {
 
-        private Serviteca.Shared.Entities.DocumentType? documentTypeENT;
+        private e.DocumentType? documentTypeENT;
 
-        private FormWithName<Serviteca.Shared.Entities.DocumentType>? documentTypeForm;
+        private FormWithName<e.DocumentType>? documentTypeForm;
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -19,7 +21,7 @@ namespace Serviteca.Frontend.Pages.DocumentType
 
         protected override async Task OnParametersSetAsync()
         {
-            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.DocumentType>($"/api/DocType/{Id}");
+            var responseHttp = await Repository.GetAsync<e.DocumentType>($"/api/DocType/{Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)

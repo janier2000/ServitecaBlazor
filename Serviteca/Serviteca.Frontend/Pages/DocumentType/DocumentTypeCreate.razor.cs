@@ -1,15 +1,17 @@
 using Serviteca.Frontend.Shared;
+using e = Serviteca.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
+
 
 namespace Serviteca.Frontend.Pages.DocumentType
 {
     public partial class DocumentTypeCreate
     {
-        private Serviteca.Shared.Entities.DocumentType documentTypeENT = new();
+        private e.DocumentType documentTypeENT = new();
 
-        private FormWithName<Serviteca.Shared.Entities.DocumentType>? documentTypeForm;
+        private FormWithName<e.DocumentType>? documentTypeForm;
 
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;

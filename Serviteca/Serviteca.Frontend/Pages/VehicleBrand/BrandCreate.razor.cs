@@ -1,4 +1,5 @@
 using Serviteca.Frontend.Shared;
+using e = Serviteca.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
@@ -8,9 +9,9 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
     public partial class BrandCreate
     {
 
-        private Serviteca.Shared.Entities.VehicleBrand vehicleBrandENT = new();
+        private e.VehicleBrand vehicleBrandENT = new();
 
-        private FormWithName<Serviteca.Shared.Entities.VehicleBrand>? vehicleBrandFORM;
+        private FormWithName<e.VehicleBrand>? vehicleBrandFORM;
 
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;

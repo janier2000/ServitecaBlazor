@@ -1,4 +1,5 @@
 using System.Net;
+using e = Serviteca.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
@@ -9,7 +10,7 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
     {
         private int currentPage = 1;
         private int totalPages;
-        public List<Serviteca.Shared.Entities.VehicleBrand>? lstVehicleBrand { get; set; }
+        public List<e.VehicleBrand>? lstVehicleBrand { get; set; }
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -66,7 +67,7 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
                 url += $"&filter={Filter}";
             }
 
-            var responseHttp = await Repository.GetAsync<List<Serviteca.Shared.Entities.VehicleBrand>>(url);
+            var responseHttp = await Repository.GetAsync<List<e.VehicleBrand>>(url);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -102,7 +103,7 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
             await LoadAsync(page);
         }
 
-        private async Task DeleteAsycn(Serviteca.Shared.Entities.VehicleBrand category)
+        private async Task DeleteAsycn(e.VehicleBrand category)
         {
             var result = await SweetAlertService.FireAsync(new SweetAlertOptions
             {
@@ -117,7 +118,7 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
                 return;
             }
 
-            var responseHttp = await Repository.DeleteAsync<Serviteca.Shared.Entities.VehicleBrand>($"api/VehBrand/{category.Id}");
+            var responseHttp = await Repository.DeleteAsync<e.VehicleBrand>($"api/VehBrand/{category.Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)

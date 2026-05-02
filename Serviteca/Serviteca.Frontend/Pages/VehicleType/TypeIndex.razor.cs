@@ -1,4 +1,5 @@
 using System.Net;
+using e = Serviteca.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
@@ -9,7 +10,7 @@ namespace Serviteca.Frontend.Pages.VehicleType
     {
         private int currentPage = 1;
         private int totalPages;
-        public List<Serviteca.Shared.Entities.VehicleType>? lstVehicleType { get; set; }
+        public List<e.VehicleType>? lstVehicleType { get; set; }
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -67,7 +68,7 @@ namespace Serviteca.Frontend.Pages.VehicleType
                 url += $"&filter={Filter}";
             }
 
-            var responseHttp = await Repository.GetAsync<List<Serviteca.Shared.Entities.VehicleType>>(url);
+            var responseHttp = await Repository.GetAsync<List<e.VehicleType>>(url);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -103,7 +104,7 @@ namespace Serviteca.Frontend.Pages.VehicleType
             await LoadAsync(page);
         }
 
-        private async Task DeleteAsycn(Serviteca.Shared.Entities.VehicleType vehicleTypeEnt)
+        private async Task DeleteAsycn(e.VehicleType vehicleTypeEnt)
         {
             var result = await SweetAlertService.FireAsync(new SweetAlertOptions
             {
@@ -118,7 +119,7 @@ namespace Serviteca.Frontend.Pages.VehicleType
                 return;
             }
 
-            var responseHttp = await Repository.DeleteAsync<Serviteca.Shared.Entities.VehicleType>($"api/VehType/{vehicleTypeEnt.Id}");
+            var responseHttp = await Repository.DeleteAsync<e.VehicleType>($"api/VehType/{vehicleTypeEnt.Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)

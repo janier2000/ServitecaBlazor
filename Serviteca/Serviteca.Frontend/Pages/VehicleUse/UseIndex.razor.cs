@@ -1,4 +1,5 @@
 using System.Net;
+using e = Serviteca.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
@@ -9,7 +10,7 @@ namespace Serviteca.Frontend.Pages.VehicleUse
     {
         private int currentPage = 1;
         private int totalPages;
-        public List<Serviteca.Shared.Entities.VehicleUse>? lstVehicleUse { get; set; }
+        public List<e.VehicleUse>? lstVehicleUse { get; set; }
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -66,7 +67,7 @@ namespace Serviteca.Frontend.Pages.VehicleUse
                 url += $"&filter={Filter}";
             }
 
-            var responseHttp = await Repository.GetAsync<List<Serviteca.Shared.Entities.VehicleUse>>(url);
+            var responseHttp = await Repository.GetAsync<List<e.VehicleUse>>(url);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -102,7 +103,7 @@ namespace Serviteca.Frontend.Pages.VehicleUse
             await LoadAsync(page);
         }
 
-        private async Task DeleteAsycn(Serviteca.Shared.Entities.VehicleUse vehicleUseEnt)
+        private async Task DeleteAsycn(e.VehicleUse vehicleUseEnt)
         {
             var result = await SweetAlertService.FireAsync(new SweetAlertOptions
             {
@@ -117,7 +118,7 @@ namespace Serviteca.Frontend.Pages.VehicleUse
                 return;
             }
 
-            var responseHttp = await Repository.DeleteAsync<Serviteca.Shared.Entities.VehicleUse>($"api/VehUse/{vehicleUseEnt.Id}");
+            var responseHttp = await Repository.DeleteAsync<e.VehicleUse>($"api/VehUse/{vehicleUseEnt.Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)

@@ -1,4 +1,5 @@
 using System.Net;
+using e = Serviteca.Shared.Entities;
 using Serviteca.Frontend.Shared;
 using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
@@ -9,9 +10,9 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
     public partial class BrandEdit
     {
 
-        private Serviteca.Shared.Entities.VehicleBrand? vehicleBrandENT;
+        private e.VehicleBrand? vehicleBrandENT;
 
-        private FormWithName<Serviteca.Shared.Entities.VehicleBrand>? vehicleBrandFORM;
+        private FormWithName<e.VehicleBrand>? vehicleBrandFORM;
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -19,7 +20,7 @@ namespace Serviteca.Frontend.Pages.VehicleBrand
 
         protected override async Task OnParametersSetAsync()
         {
-            var responseHttp = await Repository.GetAsync<Serviteca.Shared.Entities.VehicleBrand>($"/api/VehBrand/{Id}");
+            var responseHttp = await Repository.GetAsync<e.VehicleBrand>($"/api/VehBrand/{Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)

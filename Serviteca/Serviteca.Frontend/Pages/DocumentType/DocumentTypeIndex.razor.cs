@@ -1,4 +1,5 @@
 using System.Net;
+using e = Serviteca.Shared.Entities;
 using Microsoft.AspNetCore.Components;
 using Serviteca.Frontend.Repositories;
 using CurrieTechnologies.Razor.SweetAlert2;
@@ -9,7 +10,7 @@ namespace Serviteca.Frontend.Pages.DocumentType
     {
         private int currentPage = 1;
         private int totalPages;
-        public List<Serviteca.Shared.Entities.DocumentType>? lstDocumentType { get; set; }
+        public List<e.DocumentType>? lstDocumentType { get; set; }
         [Inject] private IRepository Repository { get; set; } = null!;
         [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
         [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -65,7 +66,7 @@ namespace Serviteca.Frontend.Pages.DocumentType
                 url += $"&filter={Filter}";
             }
 
-            var responseHttp = await Repository.GetAsync<List<Serviteca.Shared.Entities.DocumentType>>(url);
+            var responseHttp = await Repository.GetAsync<List<e.DocumentType>>(url);
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
@@ -101,7 +102,7 @@ namespace Serviteca.Frontend.Pages.DocumentType
             await LoadAsync(page);
         }
 
-        private async Task DeleteAsycn(Serviteca.Shared.Entities.DocumentType category)
+        private async Task DeleteAsycn(e.DocumentType category)
         {
             var result = await SweetAlertService.FireAsync(new SweetAlertOptions
             {
@@ -116,7 +117,7 @@ namespace Serviteca.Frontend.Pages.DocumentType
                 return;
             }
 
-            var responseHttp = await Repository.DeleteAsync<Serviteca.Shared.Entities.DocumentType>($"api/DocType/{category.Id}");
+            var responseHttp = await Repository.DeleteAsync<e.DocumentType>($"api/DocType/{category.Id}");
             if (responseHttp.Error)
             {
                 if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
