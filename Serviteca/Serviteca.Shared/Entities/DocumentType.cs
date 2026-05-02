@@ -12,6 +12,6 @@ namespace Serviteca.Shared.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public string Name { get; set; } = null!;
 
-        public ICollection<Customer>? Customer { get; set; }
+        //public ICollection<Customer>? Customer { get; set; }
     }
 }

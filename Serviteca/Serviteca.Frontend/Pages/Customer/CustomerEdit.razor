@@ -1,0 +1,121 @@
+﻿@page "/Customer/edit/{Id:int}"
+
+@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <div class="card">
+        <EditForm Model="customerENT" OnValidSubmit="EditAsync">
+            <DataAnnotationsValidator />
+            <div class="card-header text-center">
+                <span>
+                    <i class="bi bi-person-circle" />  Editar cliente
+                </span>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+
+                        <div class="mb-3">
+                            <label>Tipo documento</label>
+                            <div>
+                                <select class="form-select" @bind="customerENT.DocumentTypeId">
+                                    <option value="0">-- Seleccione tipo documento --</option>
+                                    @if (lstDocumentType is not null)
+                                    {
+                                        @foreach (var city in lstDocumentType)
+                                        {
+                                            <option value="@city.Id">@city.Name</option>
+                                        }
+                                    }
+                                </select>
+                                <ValidationMessage For="@(() => customerENT.DocumentTypeId)" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Nombre</label>
+                            <div>
+                                <InputText class="form-control" @bind-Value="@customerENT.FirstName" />
+                                <ValidationMessage For="@(() => customerENT.FirstName)" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Celular</label>
+                            <div>
+                                <InputText class="form-control" @bind-Value="@customerENT.phone" />
+                                <ValidationMessage For="@(() => customerENT.phone)" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-4">
+
+                        <div class="mb-3">
+                            <label>Documento</label>
+                            <div>
+                                <InputText class="form-control" @bind-Value="@customerENT.Document" />
+                                <ValidationMessage For="@(() => customerENT.Document)" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Apellido</label>
+                            <div>
+                                <InputText class="form-control" @bind-Value="@customerENT.LastName" />
+                                <ValidationMessage For="@(() => customerENT.LastName)" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Cliente desde</label>
+                            <div>
+                                <InputText class="form-control" @bind-Value="@customerENT.ClientSince" />
+                                <ValidationMessage For="@(() => customerENT.ClientSince)" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-4">
+
+                        <div class="mb-3">
+                            <label>Email</label>
+                            <div>
+                                <InputText class="form-control" @bind-Value="@customerENT.Email" />
+                                <ValidationMessage For="@(() => customerENT.Email)" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label>Genero</label>
+                            <div>
+                                <select class="form-select" @bind="customerENT.gender">
+                                    <option value="0">-- Seleccione genero --</option>
+                                    <option value="1">Masculino</option>
+                                    <option value="2">Femenino</option>
+                                    <option value="3">Otro</option>
+
+                                </select>
+                                <ValidationMessage For="@(() => customerENT.gender)" />
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class=" card-footer ">
+                <span>
+                    <button class="btn btn-outline-primary" type="submit"><i class="bi bi-floppy" />  Guardar</button>
+                    <button class="btn btn-outline-secondary" @onclick="Return"><i class="bi bi-arrow-left" /> Regresar</button>
+                </span>
+            </div>
+        </EditForm>
+    </div>
+}

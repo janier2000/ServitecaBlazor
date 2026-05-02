@@ -18,20 +18,22 @@ namespace Serviteca.Backend.Repositories.Implementations
 
         public override async Task<ActionResponse<IEnumerable<Customer>>> GetAsync()
         {
-            var countries = await _context.Customers
+            var customers = await _context.Customers
+                                          .Include(s => s.DocumentType!)
                                           .OrderBy(x => x.FirstName)
                                           .ToListAsync();
             return new ActionResponse<IEnumerable<Customer>>
             {
                 WasSuccess = true,
-                Result = countries
+                Result = customers
             };
         }
 
         public override async Task<ActionResponse<IEnumerable<Customer>>> GetAsync(PaginationDTO pagination)
         {
             var queryable = _context.Customers
-                                    .AsQueryable();
+                                  .Include(s => s.DocumentType!)
+                                              .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(pagination.Filter))
             {

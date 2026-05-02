@@ -1,0 +1,59 @@
+﻿@page "/Customer"
+
+
+<div class="card">
+    <div class="card-header text-center">
+        <span>
+            <i class="bi bi-list-check"></i><strong>Cliente</strong>
+            <a class="btn btn-sm btn-primary float-end" href="/Customer/create"><i class="bi bi-plus-square"></i>Agregar cliente</a>
+        </span>
+    </div>
+    <div class="card-body">
+        <Filter PlaceHolder="Buscar cliente..." Callback=@FilterCallBack />
+        <GenericList MyList="lstCustomer">
+            <Body>
+                <Pagination CurrentPage="currentPage"
+                            TotalPages="totalPages"
+                            SelectedPage="SelectedPageAsync"
+                            RecordsNumber="SelectedRecordsNumberAsync" />
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><strong>Tipo</strong></th>
+                            <th><strong>Documento</strong></th>
+                            <th><strong>Nombre</strong></th>
+                            <th><strong>Apellido</strong></th>
+                            <th><strong>Genero</strong></th>
+                            <th><strong>Celular</strong></th>
+                            <th><strong>Email</strong></th>
+                            <th><strong>Cliente desde</strong></th>
+                            <th style="width:168px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in lstCustomer!)
+                        {
+                            <tr>
+                                <td>@item.DocumentType!.Name</td>
+                                <td>@item.Document</td>
+                                <td>@item.FirstName</td>
+                                <td>@item.LastName</td>
+                                <td>@EnumHelper.GetGender(@item.gender)</td>                               
+                                <td>@item.phone</td>
+                                <td>@item.Email</td>
+                                <td>@item.ClientSince</td>
+                                <td>
+                                    <a href="/Customer/edit/@item.Id" class="btn  btn-warning"><i class="bi bi-pencil" /> Editar</a>
+                                    <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-sm btn-danger"><i class="bi bi-trash" /> Borrar</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </Body>
+        </GenericList>
+    </div>
+</div>
+
+
