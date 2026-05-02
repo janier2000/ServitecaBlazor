@@ -29,6 +29,7 @@ namespace Serviteca.Backend.Data
             modelBuilder.Entity<DocumentType>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<VehicleType>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<VehicleUse>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<Vehicle>().HasIndex(x => x.Plate).IsUnique();
         }
     }
 }

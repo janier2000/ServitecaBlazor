@@ -19,6 +19,7 @@ builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWor
 
 builder.Services.AddScoped<IVehicleBrandRepository, VehicleBrandRepository>();
 builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
+builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 builder.Services.AddScoped<IVehicleTypeRepository, VehicleTypeRepository>();
 builder.Services.AddScoped<IVehicleTypeRepository, VehicleTypeRepository>();
 builder.Services.AddScoped<IDocumentTypeRepository, DocumentTypeRepository>();

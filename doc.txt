@@ -1,15 +1,21 @@
 Repository
 
 customers
+
+using e = Serviteca.Shared.Entities;
 ------------------
 add-migration addCustomerEntity
 
 update-database
 
+
+CustomerEdit.razor
+
 drop-database
 
 "ADRAINA"
 
+e
 {
     "id": 8,
     "document": "89664188",
