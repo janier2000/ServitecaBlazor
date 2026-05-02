@@ -1,0 +1,60 @@
+﻿@page "/Vehicle"
+
+
+<div class="card">
+    <div class="card-header text-center">
+        <span>
+            <i class="bi bi-list-check"></i><strong>Cliente</strong>
+            <a class="btn btn-sm btn-primary float-end" href="/Vehicle/create"><i class="bi bi-plus-square"></i>Agregar vehiculo</a>
+        </span>
+    </div>
+    <div class="card-body">
+        <Filter PlaceHolder="Buscar vehiculo..." Callback=@FilterCallBack />
+        <GenericList MyList="lstVehicle">
+            <Body>
+                <Pagination CurrentPage="currentPage"
+                            TotalPages="totalPages"
+                            SelectedPage="SelectedPageAsync"
+                            RecordsNumber="SelectedRecordsNumberAsync" />
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><strong>Cliente</strong></th>
+                            <th><strong>Placa</strong></th>
+                            <th><strong>Marca</strong></th>
+                            <th><strong>Modelo</strong></th>
+                            <th><strong>Km actual</strong></th>
+                            <th><strong>Tipo vehiculo</strong></th>
+                            <th><strong>Uso</strong></th>
+                            <th><strong>Ultimo ingreso</strong></th>
+                            <th style="width:168px"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in lstVehicle!)
+                        {
+                            <tr>
+                                <td>@item.CustomerId</td>
+                                <td>@item.Plate</td>
+                                <td>@item.VehicleBrandId</td>
+                                <td>@item.Model</td>
+                                <td>@item.CurrentKm</td>
+                                <td>@item.VehicleTypeId</td>
+                                <td>@item.VehicleUseId</td>                             
+                                <td>@item.ReturnDate</td>
+                                
+                                <td>
+                                    <a href="/Vehicle/edit/@item.Id" class="btn  btn-warning"><i class="bi bi-pencil" /> Editar</a>
+                                    <button @onclick=@(() => DeleteAsycn(item)) class="btn btn-sm btn-danger"><i class="bi bi-trash" /> Borrar</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </Body>
+        </GenericList>
+    </div>
+</div>
+
+
