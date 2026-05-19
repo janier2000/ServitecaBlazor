@@ -8,6 +8,8 @@ add-migration addCustomerEntity
 
 update-database
 
+VehicleRepository
+
 
 CustomerEdit.razor
 
