@@ -14,11 +14,21 @@ builder.Services
        .AddSingleton(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7057/") });
 
 builder.Services.AddScoped<IRepository, Repository>();
-builder.Services.AddSweetAlert2();
 
-builder.Services.AddMudServices();
+// este es para  e nuge del idioma [Microsoft.Extensions.Localization]
+builder.Services.AddLocalization();
+
+// este es para  el nuge de mensaje  [CurrieTechnologies.Razor.SweetAlert2]
+builder.Services.AddSweetAlert2();
 
 //este es para  el nuge  [MudBlazor]
 builder.Services.AddMudServices();
+
+builder.Services.AddMudServices(config =>
+{
+    config.PopoverOptions.ThrowOnDuplicateProvider = false;
+});
+
+
 
 await builder.Build().RunAsync();

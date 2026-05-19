@@ -17,14 +17,14 @@ public partial class AuthLinks
 
     protected override async Task OnParametersSetAsync()
     {
-        var authenticationState = await AuthenticationStateTask;
-        var claims = authenticationState.User.Claims.ToList();
-        var photoClaim = claims.FirstOrDefault(x => x.Type == "Photo");
-        var nameClaim = claims.FirstOrDefault(x => x.Type == "UserName");
-        if (photoClaim is not null)
-        {
-            photoUser = photoClaim.Value;
-        }
+        //var authenticationState = await AuthenticationStateTask;
+        //var claims = authenticationState.User.Claims.ToList();
+        //var photoClaim = claims.FirstOrDefault(x => x.Type == "Photo");
+        //var nameClaim = claims.FirstOrDefault(x => x.Type == "UserName");
+        //if (photoClaim is not null)
+        //{
+        //    photoUser = photoClaim.Value;
+        //}
     }
 
     private void EditAction()

@@ -10,8 +10,6 @@ public partial class MainLayout
     private string _icon = Icons.Material.Filled.DarkMode;
     private bool _darkMode { get; set; } = true;
 
-    //[Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
-
     private void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;
