@@ -1,72 +1,19 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Serviteca</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+﻿<MudNavMenu>
+    <MudNavLink Href="/Customer" Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.Home">Cliente</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="/Vehicle" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Public">Vehiculo</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="/DocType" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Groups">Tipo Documento</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="/VehBrand" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Info">Marca vehiculo</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="/VehType" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Info">Tipo vehiculo</MudNavLink>
+    <MudDivider />
+    <MudNavLink Href="/VehUse" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Info">Uso vehiculo</MudNavLink>
+</MudNavMenu>
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/Customer">
-                <span class="bi bi-list-stars-fill-nav-menu" aria-hidden="true"></span> Cliente
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/Vehicle">
-                <span class="bi bi-list-stars-fill-nav-menu" aria-hidden="true"></span> Vehiculo
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/DocType">
-                <span class="bi bi-list-stars-fill-nav-menu" aria-hidden="true"></span> Tipo Documento
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/VehBrand">
-                <span class="bi bi-list-stars-fill-nav-menu" aria-hidden="true"></span> Marca vehiculo
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/VehType">
-                <span class="bi bi-list-stars-fill-nav-menu" aria-hidden="true"></span> Tipo vehiculo
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/VehUse">
-                <span class="bi bi-list-stars-fill-nav-menu" aria-hidden="true"></span> Uso vehiculo
-            </NavLink>
-        </div>
-        
 
-      @*   <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div> *@
-    </nav>
-</div>
 
-@code {
-    private bool collapseNavMenu = true;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}

@@ -18,4 +18,7 @@ builder.Services.AddSweetAlert2();
 
 builder.Services.AddMudServices();
 
+//este es para  el nuge  [MudBlazor]
+builder.Services.AddMudServices();
+
 await builder.Build().RunAsync();
