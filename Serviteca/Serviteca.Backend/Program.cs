@@ -17,13 +17,13 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
 
 
-builder.Services.AddScoped<IVehicleBrandRepository, VehicleBrandRepository>();
+builder.Services.AddScoped<IVehicleBrandsRepository, VehicleBrandsRepository>();
 builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
-builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
-builder.Services.AddScoped<IVehicleTypeRepository, VehicleTypeRepository>();
-builder.Services.AddScoped<IVehicleTypeRepository, VehicleTypeRepository>();
+builder.Services.AddScoped<IVehiclesRepository, VehiclesRepository>();
+builder.Services.AddScoped<IVehicleTypesRepository, VehicleTypesRepository>();
+builder.Services.AddScoped<IVehicleTypesRepository, VehicleTypesRepository>();
 builder.Services.AddScoped<IDocumentTypesRepository, DocumentTypesRepository>();
-builder.Services.AddScoped<IVehicleUseRepository, VehicleUseRepository>();
+builder.Services.AddScoped<IVehicleUsesRepository, VehicleUsesRepository>();
 
 var app = builder.Build();
 

@@ -1,6 +1,6 @@
 ﻿using Serviteca.Shared.DTOs;
-using Microsoft.AspNetCore.Mvc;
 using Serviteca.Shared.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Serviteca.Backend.Repositories.Interface;
 using Serviteca.Backend.UnitsOfWork.Interfaces;
@@ -10,19 +10,19 @@ namespace Serviteca.Backend.Controllers;
 [ApiController]
 //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Route("api/[controller]")]
-public class DocumentTypesController : GenericController<DocumentType>
+public class VehicleusesController : GenericController<VehicleUse>
 {
-    private readonly IDocumentTypesRepository _documentTypeRepository;
+    private readonly IVehicleUsesRepository _vehicleUseRepository;
 
-    public DocumentTypesController(IGenericUnitOfWork<DocumentType> unitOfWork, IDocumentTypesRepository documentTypeRepository) : base(unitOfWork)
+    public VehicleusesController(IGenericUnitOfWork<VehicleUse> unitOfWork, IVehicleUsesRepository vehicleUseRepository) : base(unitOfWork)
     {
-        _documentTypeRepository = documentTypeRepository;
+        _vehicleUseRepository = vehicleUseRepository;
     }
 
-    [HttpGet("paginated")]
+    [HttpGet]
     public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
     {
-        var response = await _documentTypeRepository.GetAsync(pagination);
+        var response = await _vehicleUseRepository.GetAsync(pagination);
         if (response.WasSuccess)
         {
             return Ok(response.Result);
@@ -30,10 +30,10 @@ public class DocumentTypesController : GenericController<DocumentType>
         return BadRequest();
     }
 
-    [HttpGet("totalRecordsPaginated")]
+    [HttpGet("totalPages")]
     public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
     {
-        var action = await _documentTypeRepository.GetTotalPagesAsync(pagination);
+        var action = await _vehicleUseRepository.GetTotalPagesAsync(pagination);
         if (action.WasSuccess)
         {
             return Ok(action.Result);
@@ -45,6 +45,6 @@ public class DocumentTypesController : GenericController<DocumentType>
     [HttpGet("combo")]
     public async Task<IActionResult> GetComboAsync()
     {
-        return Ok(await _documentTypeRepository.GetComboAsync());
+        return Ok(await _vehicleUseRepository.GetComboAsync());
     }
 }

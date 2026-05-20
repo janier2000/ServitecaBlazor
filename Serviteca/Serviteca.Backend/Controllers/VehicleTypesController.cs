@@ -10,19 +10,19 @@ namespace Serviteca.Backend.Controllers;
 [ApiController]
 //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Route("api/[controller]")]
-public class DocumentTypesController : GenericController<DocumentType>
+public class VehicleTypesController : GenericController<VehicleType>
 {
-    private readonly IDocumentTypesRepository _documentTypeRepository;
+    private readonly IVehicleTypesRepository _vehicleTypeRepository;
 
-    public DocumentTypesController(IGenericUnitOfWork<DocumentType> unitOfWork, IDocumentTypesRepository documentTypeRepository) : base(unitOfWork)
+    public VehicleTypesController(IGenericUnitOfWork<VehicleType> unitOfWork, IVehicleTypesRepository vehicleTypeRepository) : base(unitOfWork)
     {
-        _documentTypeRepository = documentTypeRepository;
+        _vehicleTypeRepository = vehicleTypeRepository;
     }
 
-    [HttpGet("paginated")]
+    [HttpGet]
     public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
     {
-        var response = await _documentTypeRepository.GetAsync(pagination);
+        var response = await _vehicleTypeRepository.GetAsync(pagination);
         if (response.WasSuccess)
         {
             return Ok(response.Result);
@@ -30,10 +30,10 @@ public class DocumentTypesController : GenericController<DocumentType>
         return BadRequest();
     }
 
-    [HttpGet("totalRecordsPaginated")]
+    [HttpGet("totalPages")]
     public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
     {
-        var action = await _documentTypeRepository.GetTotalPagesAsync(pagination);
+        var action = await _vehicleTypeRepository.GetTotalPagesAsync(pagination);
         if (action.WasSuccess)
         {
             return Ok(action.Result);
@@ -45,6 +45,6 @@ public class DocumentTypesController : GenericController<DocumentType>
     [HttpGet("combo")]
     public async Task<IActionResult> GetComboAsync()
     {
-        return Ok(await _documentTypeRepository.GetComboAsync());
+        return Ok(await _vehicleTypeRepository.GetComboAsync());
     }
 }

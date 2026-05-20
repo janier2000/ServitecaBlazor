@@ -8,39 +8,40 @@ using Serviteca.Backend.Repositories.Interface;
 
 namespace Serviteca.Backend.Repositories.Implementations;
 
-public class DocumentTypesRepository : GenericRepository<DocumentType>, IDocumentTypesRepository
+public class VehicleTypesRepository : GenericRepository<VehicleType>, IVehicleTypesRepository
 {
     private readonly DataContext _context;
 
-    public DocumentTypesRepository(DataContext context) : base(context)
+    public VehicleTypesRepository(DataContext context) : base(context)
     {
         _context = context;
     }
 
-    public async Task<IEnumerable<DocumentType>> GetComboAsync()
+    public async Task<IEnumerable<VehicleType>> GetComboAsync()
     {
-        return await _context.DocumentTypes.OrderBy(c => c.Name).ToListAsync();
+        return await _context.VehicleTypes.OrderBy(c => c.Name).ToListAsync();
     }
 
-    public override async Task<ActionResponse<IEnumerable<DocumentType>>> GetAsync(PaginationDTO pagination)
+    public override async Task<ActionResponse<IEnumerable<VehicleType>>> GetAsync(PaginationDTO pagination)
     {
-        var queryable = _context.DocumentTypes.AsQueryable();
+        var queryable = _context.VehicleTypes.AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {
             queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
         }
 
-        return new ActionResponse<IEnumerable<DocumentType>>
+        return new ActionResponse<IEnumerable<VehicleType>>
         {
             WasSuccess = true,
-            Result = await queryable.OrderBy(x => x.Name).Paginate(pagination).ToListAsync()
+            Result = await queryable.OrderBy(x => x.Name).Paginate(pagination)
+                                                         .ToListAsync()
         };
     }
 
     public override async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination)
     {
-        var queryable = _context.VehicleBrands.AsQueryable();
+        var queryable = _context.VehicleTypes.AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {
@@ -48,11 +49,11 @@ public class DocumentTypesRepository : GenericRepository<DocumentType>, IDocumen
         }
 
         double count = await queryable.CountAsync();
-        //int totalPages = (int)Math.Ceiling(count / pagination.RecordsNumber);
+        int totalPages = (int)Math.Ceiling(count / pagination.RecordsNumber);
         return new ActionResponse<int>
         {
             WasSuccess = true,
-            Result = (int)count
+            Result = totalPages
         };
     }
 }

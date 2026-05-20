@@ -4,11 +4,11 @@ using Serviteca.Shared.Responses;
 
 namespace Serviteca.Backend.Repositories.Interface;
 
-public interface IDocumentTypesRepository
+public interface IVehicleUsesRepository
 {
-    Task<IEnumerable<DocumentType>> GetComboAsync();
+    Task<IEnumerable<VehicleUse>> GetComboAsync();
 
-    Task<ActionResponse<IEnumerable<DocumentType>>> GetAsync(PaginationDTO pagination);
+    Task<ActionResponse<IEnumerable<VehicleUse>>> GetAsync(PaginationDTO pagination);
 
     Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination);
 }
