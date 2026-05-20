@@ -1,138 +1,137 @@
 using Microsoft.AspNetCore.Components;
 
-namespace Serviteca.Frontend.Shared
+namespace Serviteca.Frontend.Shared;
+
+public partial class Pagination
 {
-    public partial class Pagination
+    private List<PageModel> links = [];
+    private List<OptionModel> options = [];
+    private int selectedOptionValue = 5;
+
+    [Parameter] public int CurrentPage { get; set; } = 1;
+    [Parameter] public int Radio { get; set; } = 5;
+    [Parameter] public EventCallback<int> RecordsNumber { get; set; }
+    [Parameter] public EventCallback<int> SelectedPage { get; set; }
+    [Parameter] public int TotalPages { get; set; }
+    [Parameter] public bool IsHome { get; set; } = false;
+
+    protected override void OnParametersSet()
     {
-        private List<PageModel> links = [];
-        private List<OptionModel> options = [];
-        private int selectedOptionValue = 5;
+        BuildPages();
+        BuildOptions();
+    }
 
-        [Parameter] public int CurrentPage { get; set; } = 1;
-        [Parameter] public int Radio { get; set; } = 5;
-        [Parameter] public EventCallback<int> RecordsNumber { get; set; }
-        [Parameter] public EventCallback<int> SelectedPage { get; set; }
-        [Parameter] public int TotalPages { get; set; }
-        [Parameter] public bool IsHome { get; set; } = false;
+    private void BuildPages()
+    {
+        links = [];
+        var previousLinkEnable = CurrentPage != 1;
+        var previousLinkPage = CurrentPage - 1;
 
-        protected override void OnParametersSet()
+        links.Add(new PageModel
         {
-            BuildPages();
-            BuildOptions();
-        }
+            Text = "Anterior",
+            Page = previousLinkPage,
+            Enable = previousLinkEnable
+        });
 
-        private void BuildPages()
+        for (int i = 1; i <= TotalPages; i++)
         {
-            links = [];
-            var previousLinkEnable = CurrentPage != 1;
-            var previousLinkPage = CurrentPage - 1;
-
-            links.Add(new PageModel
+            if (TotalPages <= Radio)
             {
-                Text = "Anterior",
-                Page = previousLinkPage,
-                Enable = previousLinkEnable
-            });
-
-            for (int i = 1; i <= TotalPages; i++)
-            {
-                if (TotalPages <= Radio)
+                links.Add(new PageModel
                 {
-                    links.Add(new PageModel
-                    {
-                        Page = i,
-                        Enable = CurrentPage == i,
-                        Text = $"{i}"
-                    });
-                }
+                    Page = i,
+                    Enable = CurrentPage == i,
+                    Text = $"{i}"
+                });
+            }
 
-                if (TotalPages > Radio && i <= Radio && CurrentPage <= Radio)
+            if (TotalPages > Radio && i <= Radio && CurrentPage <= Radio)
+            {
+                links.Add(new PageModel
                 {
-                    links.Add(new PageModel
-                    {
-                        Page = i,
-                        Enable = CurrentPage == i,
-                        Text = $"{i}"
-                    });
-                }
+                    Page = i,
+                    Enable = CurrentPage == i,
+                    Text = $"{i}"
+                });
+            }
 
-                if (CurrentPage > Radio && i > CurrentPage - Radio && i <= CurrentPage)
+            if (CurrentPage > Radio && i > CurrentPage - Radio && i <= CurrentPage)
+            {
+                links.Add(new PageModel
                 {
-                    links.Add(new PageModel
-                    {
-                        Page = i,
-                        Enable = CurrentPage == i,
-                        Text = $"{i}"
-                    });
-                }
-            }
-
-            var linkNextEnable = CurrentPage != TotalPages;
-            var linkNextPage = CurrentPage != TotalPages ? CurrentPage + 1 : CurrentPage;
-            links.Add(new PageModel
-            {
-                Text = "Siguiente",
-                Page = linkNextPage,
-                Enable = linkNextEnable
-            });
-        }
-
-        private void BuildOptions()
-        {
-            if (IsHome)
-            {
-                options =
-                [
-                    new OptionModel { Value = 8, Name = "8" },
-                    new OptionModel { Value = 16, Name = "16" },
-                    new OptionModel { Value = 32, Name = "32" },
-                    new OptionModel { Value = int.MaxValue, Name = "Todos" },
-                ];
-            }
-            else
-            {
-                options =
-                [
-                    new OptionModel { Value = 5, Name = "5" },
-                    new OptionModel { Value = 10, Name = "10" },
-                    new OptionModel { Value = 25, Name = "25" },
-                    new OptionModel { Value = 50, Name = "50" },
-                    new OptionModel { Value = int.MaxValue, Name = "Todos" },
-                ];
+                    Page = i,
+                    Enable = CurrentPage == i,
+                    Text = $"{i}"
+                });
             }
         }
 
-        private async Task InternalRecordsNumberSelected(ChangeEventArgs e)
+        var linkNextEnable = CurrentPage != TotalPages;
+        var linkNextPage = CurrentPage != TotalPages ? CurrentPage + 1 : CurrentPage;
+        links.Add(new PageModel
         {
-            if (e.Value != null)
-            {
-                selectedOptionValue = Convert.ToInt32(e.Value.ToString());
-            }
-            await RecordsNumber.InvokeAsync(selectedOptionValue);
+            Text = "Siguiente",
+            Page = linkNextPage,
+            Enable = linkNextEnable
+        });
+    }
+
+    private void BuildOptions()
+    {
+        if (IsHome)
+        {
+            options =
+            [
+                new OptionModel { Value = 8, Name = "8" },
+                new OptionModel { Value = 16, Name = "16" },
+                new OptionModel { Value = 32, Name = "32" },
+                new OptionModel { Value = int.MaxValue, Name = "Todos" },
+            ];
+        }
+        else
+        {
+            options =
+            [
+                new OptionModel { Value = 5, Name = "5" },
+                new OptionModel { Value = 10, Name = "10" },
+                new OptionModel { Value = 25, Name = "25" },
+                new OptionModel { Value = 50, Name = "50" },
+                new OptionModel { Value = int.MaxValue, Name = "Todos" },
+            ];
+        }
+    }
+
+    private async Task InternalRecordsNumberSelected(ChangeEventArgs e)
+    {
+        if (e.Value != null)
+        {
+            selectedOptionValue = Convert.ToInt32(e.Value.ToString());
+        }
+        await RecordsNumber.InvokeAsync(selectedOptionValue);
+    }
+
+    private async Task InternalSelectedPage(PageModel pageModel)
+    {
+        if (pageModel.Page == CurrentPage || pageModel.Page == 0)
+        {
+            return;
         }
 
-        private async Task InternalSelectedPage(PageModel pageModel)
-        {
-            if (pageModel.Page == CurrentPage || pageModel.Page == 0)
-            {
-                return;
-            }
+        await SelectedPage.InvokeAsync(pageModel.Page);
+    }
 
-            await SelectedPage.InvokeAsync(pageModel.Page);
-        }
+    private class OptionModel
+    {
+        public string Name { get; set; } = null!;
+        public int Value { get; set; }
+    }
 
-        private class OptionModel
-        {
-            public string Name { get; set; } = null!;
-            public int Value { get; set; }
-        }
-
-        private class PageModel
-        {
-            public bool Active { get; set; } = false;
-            public bool Enable { get; set; } = true;
-            public int Page { get; set; }
-            public string Text { get; set; } = null!;
-        }
+    private class PageModel
+    {
+        public bool Active { get; set; } = false;
+        public bool Enable { get; set; } = true;
+        public int Page { get; set; }
+        public string Text { get; set; } = null!;
     }
 }

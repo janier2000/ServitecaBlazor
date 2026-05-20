@@ -1,21 +1,20 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace Serviteca.Frontend.Shared
+namespace Serviteca.Frontend.Shared;
+
+public partial class Filter
 {
-    public partial class Filter
+    [Parameter, SupplyParameterFromQuery] public string TextToFilter { get; set; } = string.Empty;
+    [Parameter] public string PlaceHolder { get; set; } = string.Empty;
+    [Parameter] public Func<string, Task> Callback { get; set; } = async (text) => await Task.CompletedTask;
+
+    private async Task CleanFilterAsync()
     {
-        [Parameter, SupplyParameterFromQuery] public string TextToFilter { get; set; } = string.Empty;
-        [Parameter] public string PlaceHolder { get; set; } = string.Empty;
-        [Parameter] public Func<string, Task> Callback { get; set; } = async (text) => await Task.CompletedTask;
+        await Callback(string.Empty);
+    }
 
-        private async Task CleanFilterAsync()
-        {
-            await Callback(string.Empty);
-        }
-
-        private async Task ApplyFilterAsync()
-        {
-            await Callback(TextToFilter);
-        }
+    private async Task ApplyFilterAsync()
+    {
+        await Callback(TextToFilter);
     }
 }

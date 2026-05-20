@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Serviteca.Shared\Serviteca.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\VehicleTypes\" />
+  </ItemGroup>
+
 </Project>
