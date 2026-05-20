@@ -19,7 +19,7 @@ public class VehicleusesController : GenericController<VehicleUse>
         _vehicleUseRepository = vehicleUseRepository;
     }
 
-    [HttpGet]
+    [HttpGet("paginated")]
     public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
     {
         var response = await _vehicleUseRepository.GetAsync(pagination);
@@ -30,7 +30,7 @@ public class VehicleusesController : GenericController<VehicleUse>
         return BadRequest();
     }
 
-    [HttpGet("totalPages")]
+    [HttpGet("totalRecordsPaginated")]
     public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
     {
         var action = await _vehicleUseRepository.GetTotalPagesAsync(pagination);

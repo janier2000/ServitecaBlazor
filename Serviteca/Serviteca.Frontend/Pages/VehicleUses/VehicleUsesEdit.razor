@@ -1,0 +1,15 @@
+﻿@if (vehicleUseENT is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <VehicleUsesForm @ref="vehicleUsesForm"
+                               VehicleUseENT="vehicleUseENT"
+                               OnValidSubmit="EditAsync"
+                               ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}
