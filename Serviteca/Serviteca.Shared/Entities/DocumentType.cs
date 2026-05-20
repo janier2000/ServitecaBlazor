@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Serviteca.Shared.Entities
 {
-    public class DocumentType : IEntityWithName
+    public class DocumentType 
     {
         public int Id { get; set; }
 

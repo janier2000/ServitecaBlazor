@@ -10,15 +10,16 @@ namespace Serviteca.Backend.Controllers
     [ApiController]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
-    public class DocTypeController : GenericController<DocumentType>
+    public class DocumentTypesController : GenericController<DocumentType>
     {
-        private readonly IDocumentTypeRepository _documentTypeRepository;
-        public DocTypeController(IGenericUnitOfWork<DocumentType> unitOfWork, IDocumentTypeRepository documentTypeRepository) : base(unitOfWork)
+        private readonly IDocumentTypesRepository _documentTypeRepository;
+
+        public DocumentTypesController(IGenericUnitOfWork<DocumentType> unitOfWork, IDocumentTypesRepository documentTypeRepository) : base(unitOfWork)
         {
             _documentTypeRepository = documentTypeRepository;
         }
 
-        [HttpGet]
+        [HttpGet("paginated")]
         public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
         {
             var response = await _documentTypeRepository.GetAsync(pagination);
@@ -29,7 +30,7 @@ namespace Serviteca.Backend.Controllers
             return BadRequest();
         }
 
-        [HttpGet("totalPages")]
+        [HttpGet("totalRecordsPaginated")]
         public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
         {
             var action = await _documentTypeRepository.GetTotalPagesAsync(pagination);

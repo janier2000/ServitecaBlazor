@@ -9,7 +9,7 @@ namespace Serviteca.Frontend.Repositories
 
         private JsonSerializerOptions _jsonDefaultOptions => new JsonSerializerOptions
         {
-            PropertyNameCaseInsensitive = true // propiedad de jason para que mape en amyuscula o minuscula 
+            PropertyNameCaseInsensitive = true // propiedad de jason para que mape en amyuscula o minuscula
         };
 
         public Repository(HttpClient httpClient)
@@ -56,6 +56,12 @@ namespace Serviteca.Frontend.Repositories
         }
 
         public async Task<HttpResponseWrapper<object>> DeleteAsync<T>(string url)
+        {
+            var responseHttp = await _httpClient.DeleteAsync(url);
+            return new HttpResponseWrapper<object>(null, !responseHttp.IsSuccessStatusCode, responseHttp); ;
+        }
+
+        public async Task<HttpResponseWrapper<object>> Delete2Async(string url)
         {
             var responseHttp = await _httpClient.DeleteAsync(url);
             return new HttpResponseWrapper<object>(null, !responseHttp.IsSuccessStatusCode, responseHttp); ;

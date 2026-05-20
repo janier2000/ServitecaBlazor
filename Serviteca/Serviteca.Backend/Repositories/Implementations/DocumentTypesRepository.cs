@@ -8,10 +8,11 @@ using Serviteca.Backend.Repositories.Interface;
 
 namespace Serviteca.Backend.Repositories.Implementations
 {
-    public class DocumentTypeRepository : GenericRepository<DocumentType>, IDocumentTypeRepository
+    public class DocumentTypesRepository : GenericRepository<DocumentType>, IDocumentTypesRepository
     {
         private readonly DataContext _context;
-        public DocumentTypeRepository(DataContext context) : base(context)
+
+        public DocumentTypesRepository(DataContext context) : base(context)
         {
             _context = context;
         }
@@ -47,13 +48,12 @@ namespace Serviteca.Backend.Repositories.Implementations
             }
 
             double count = await queryable.CountAsync();
-            int totalPages = (int)Math.Ceiling(count / pagination.RecordsNumber);
+            //int totalPages = (int)Math.Ceiling(count / pagination.RecordsNumber);
             return new ActionResponse<int>
             {
                 WasSuccess = true,
-                Result = totalPages
+                Result = (int)count
             };
         }
-
     }
 }
