@@ -1,7 +1,6 @@
-﻿namespace Serviteca.Shared.Interfaces
+﻿namespace Serviteca.Shared.Interfaces;
+
+public interface IEntityWithName
 {
-    public interface IEntityWithName
-    {
-        string Name { get; set; }
-    }
+    string Name { get; set; }
 }

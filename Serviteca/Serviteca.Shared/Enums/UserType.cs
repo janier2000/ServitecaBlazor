@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel;
 
-namespace Serviteca.Shared.Enums
-{
-    public enum UserType
-    {
-        [Description("Administrador")]
-        Admin,
+namespace Serviteca.Shared.Enums;
 
-        [Description("Usuario")]
-        User
-    }
+public enum UserType
+{
+    [Description("Administrador")]
+    Admin,
+
+    [Description("Usuario")]
+    User
 }

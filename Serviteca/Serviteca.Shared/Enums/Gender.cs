@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
-namespace Serviteca.Shared.Enums
+namespace Serviteca.Shared.Enums;
+
+public enum Gender
 {
-    public enum Gender
-    {
-        [Description("Masculino")]
-        Male,
+    [Description("Masculino")]
+    Male,
 
-        [Description("Femenino")]
-        Female,
+    [Description("Femenino")]
+    Female,
 
-        [Description("Otros")]
-        Others,
-    }
+    [Description("Otros")]
+    Others,
 }
