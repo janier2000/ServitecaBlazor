@@ -8,41 +8,39 @@ namespace Serviteca.Frontend.Pages.VehicleType
 {
     public partial class TypeCreate
     {
+        //private e.VehicleType vehicleTypeENT = new();
+        //private FormWithName<e.VehicleType>? VehicleTypeFORM;
 
-        private e.VehicleType vehicleTypeENT = new();
-        private FormWithName<e.VehicleType>? VehicleTypeFORM;
+        //[Inject] private IRepository Repository { get; set; } = null!;
+        //[Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
+        //[Inject] private NavigationManager NavigationManager { get; set; } = null!;
 
-        [Inject] private IRepository Repository { get; set; } = null!;
-        [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
-        [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+        //private async Task CreateAsync()
+        //{
+        //    var responseHttp = await Repository.PostAsync("/api/VehType", vehicleTypeENT);
+        //    if (responseHttp.Error)
+        //    {
+        //        var message = await responseHttp.GetErrorMessageAsync();
+        //        await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+        //        return;
+        //    }
 
+        //    Return();
 
-        private async Task CreateAsync()
-        {
-            var responseHttp = await Repository.PostAsync("/api/VehType", vehicleTypeENT);
-            if (responseHttp.Error)
-            {
-                var message = await responseHttp.GetErrorMessageAsync();
-                await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
-                return;
-            }
+        //    var toast = SweetAlertService.Mixin(new SweetAlertOptions
+        //    {
+        //        Toast = true,
+        //        Position = SweetAlertPosition.BottomEnd,
+        //        ShowConfirmButton = true,
+        //        Timer = 3000
+        //    });
+        //    await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Tipo vehiculo creado con éxito.");
+        //}
 
-            Return();
-
-            var toast = SweetAlertService.Mixin(new SweetAlertOptions
-            {
-                Toast = true,
-                Position = SweetAlertPosition.BottomEnd,
-                ShowConfirmButton = true,
-                Timer = 3000
-            });
-            await toast.FireAsync(icon: SweetAlertIcon.Success, message: "Tipo vehiculo creado con éxito.");
-        }
-
-        private void Return()
-        {
-            VehicleTypeFORM!.FormPostedSuccessfully = true;
-            NavigationManager.NavigateTo("/VehType");
-        }
+        //private void Return()
+        //{
+        //    VehicleTypeFORM!.FormPostedSuccessfully = true;
+        //    NavigationManager.NavigateTo("/VehType");
+        //}
     }
 }
