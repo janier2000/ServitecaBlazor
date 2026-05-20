@@ -1,0 +1,15 @@
+﻿@if (documentTypeENT is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <DocumentTypesForm @ref="documentTypesForm"
+                               DocumentTypeENT="documentTypeENT"
+                               OnValidSubmit="EditAsync"
+                               ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}

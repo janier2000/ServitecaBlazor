@@ -87,22 +87,47 @@ public partial class DocumentTypesIndex
         };
     }
 
+    private async Task SetFilterValue(string value)
+    {
+        Filter = value;
+        await LoadTotalRecordsAsync();
+        await table.ReloadServerData();
+    }
+
     private async Task ShowModalCreateAsync()
     {
-        //var options = new DialogOptions()
-        //{
-        //    CloseOnEscapeKey = true,
-        //    CloseButton = true
-        //};
-        //IDialogReference? dialog = DialogService
-        //                           .Show<CountryCreate>($"{Localizer["New"]} {Localizer["Country"]}", options);
+        var options = new DialogOptions()
+        {
+            CloseOnEscapeKey = true,
+            CloseButton = true
+        };
+        IDialogReference? dialog = DialogService.Show<DocumentTypesCreate>($"Nuevo tipo documento", options);
+        var result = await dialog.Result;
+        if (result!.Canceled)
+        {
+            await LoadTotalRecordsAsync();
+            await table.ReloadServerData();
+        }
+    }
 
-        //var result = await dialog.Result;
-        //if (result!.Canceled)
-        //{
-        //    await LoadTotalRecordsAsync();
-        //    await table.ReloadServerData();
-        //}
+    private async Task ShowModalEditAsync(int Id)
+    {
+        var options = new DialogOptions()
+        {
+            CloseOnEscapeKey = true,
+            CloseButton = true
+        };
+        var parameters = new DialogParameters
+        {
+            { "Id", Id }
+        };
+        IDialogReference? dialog = DialogService.Show<DocumentTypesEdit>($"Editar tipo documento", parameters, options);
+        var result = await dialog.Result;
+        if (result!.Canceled)
+        {
+            await LoadTotalRecordsAsync();
+            await table.ReloadServerData();
+        }
     }
 
     private async Task DeleteAsync(e.DocumentType documentType)
@@ -131,7 +156,7 @@ public partial class DocumentTypesIndex
         {
             if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)
             {
-                NavigationManager.NavigateTo("/countries");
+                NavigationManager.NavigateTo("/DocumentTypes");
             }
             else
             {
@@ -142,17 +167,6 @@ public partial class DocumentTypesIndex
         }
         await LoadTotalRecordsAsync();
         await table.ReloadServerData();
-        Snackbar.Add("Registro borrado con éxito.", Severity.Success);
-    }
-
-    private async Task ShowModalEditAsync(int Id)
-    {
-    }
-
-    private async Task SetFilterValue(string value)
-    {
-        Filter = value;
-        await LoadTotalRecordsAsync();
-        await table.ReloadServerData();
+        Snackbar.Add("Tipo documento borrado con éxito.", Severity.Success);
     }
 }
