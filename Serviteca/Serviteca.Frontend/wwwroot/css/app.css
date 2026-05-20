@@ -1,11 +1,5 @@
-/*para la pantalla principal*/
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-image: url('/images/61gpbM.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
 }
 
 h1:focus {

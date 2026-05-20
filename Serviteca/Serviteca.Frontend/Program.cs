@@ -24,11 +24,9 @@ builder.Services.AddSweetAlert2();
 //este es para  el nuge  [MudBlazor]
 builder.Services.AddMudServices();
 
-builder.Services.AddMudServices(config =>
-{
-    config.PopoverOptions.ThrowOnDuplicateProvider = false;
-});
-
-
+//builder.Services.AddMudServices(config =>
+//{
+//    config.PopoverOptions.ThrowOnDuplicateProvider = false;
+//});
 
 await builder.Build().RunAsync();
