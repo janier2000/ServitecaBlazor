@@ -1,0 +1,15 @@
+﻿@if (vehicleBrandENT is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <VehicleBrandsForm @ref="vehicleBrandsForm"
+                               VehicleBrandENT="vehicleBrandENT"
+                               OnValidSubmit="EditAsync"
+                               ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}

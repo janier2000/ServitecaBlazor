@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Serviteca.Shared.Entities;
 
-public class VehicleBrand : IEntityWithName
+public class VehicleBrand
 {
     public int Id { get; set; }
 
