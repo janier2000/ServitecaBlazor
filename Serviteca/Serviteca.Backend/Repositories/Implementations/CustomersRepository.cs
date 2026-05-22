@@ -1,10 +1,11 @@
-﻿using Serviteca.Shared.DTOs;
+﻿using Microsoft.EntityFrameworkCore;
 using Serviteca.Backend.Data;
-using Serviteca.Shared.Entities;
 using Serviteca.Backend.Helpers;
-using Serviteca.Shared.Responses;
-using Microsoft.EntityFrameworkCore;
 using Serviteca.Backend.Repositories.Interface;
+using Serviteca.Shared.DTOs;
+using Serviteca.Shared.Entities;
+using Serviteca.Shared.Responses;
+using System.Text.RegularExpressions;
 
 namespace Serviteca.Backend.Repositories.Implementations;
 
@@ -92,5 +93,67 @@ public class CustomersRepository : GenericRepository<Customer>, ICustomersReposi
         return await _context.Customers
                              .OrderBy(c => c.FirstName)
                              .ToListAsync();
+    }
+
+    public async Task<ActionResponse<Customer>> CreateAsync(CustomerDTO customerDTO)
+    {
+        //var admin = await _usersRepository.GetUserAsync(customerDTO.AdminId);
+        //if (admin == null)
+        //{
+        //    return new ActionResponse<Customer>
+        //    {
+        //        WasSuccess = false,
+        //        Message = "ERR013"// usuario no existe
+        //    };
+        //}
+
+        var documentType = await _context.DocumentTypes.FindAsync(customerDTO.DocumentTypeId);
+        if (documentType == null)
+        {
+            return new ActionResponse<Customer>
+            {
+                WasSuccess = false,
+                Message = "tipo de documento no existe"
+            };
+        }
+
+        var customerENT = new Customer
+        {
+            ClientSince = customerDTO.ClientSince.ToString(),
+            DocumentType = documentType,
+            Document = customerDTO.Document,
+            Email = customerDTO.Email,
+            FirstName = customerDTO.FirstName,
+            LastName = customerDTO.LastName,
+            gender = customerDTO.gender,
+            phone = customerDTO.phone,
+        };
+
+        _context.Add(customerENT);
+        try
+        {
+            await _context.SaveChangesAsync();
+            return new ActionResponse<Customer>
+            {
+                WasSuccess = true,
+                Result = customerENT
+            };
+        }
+        catch (DbUpdateException)
+        {
+            return new ActionResponse<Customer>
+            {
+                WasSuccess = false,
+                Message = "Ya existe el cliente que estas intentando crear"
+            };
+        }
+        catch (Exception exception)
+        {
+            return new ActionResponse<Customer>
+            {
+                WasSuccess = false,
+                Message = exception.Message
+            };
+        }
     }
 }

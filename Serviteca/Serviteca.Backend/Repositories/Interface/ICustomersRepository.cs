@@ -1,6 +1,7 @@
 ﻿using Serviteca.Shared.DTOs;
 using Serviteca.Shared.Entities;
 using Serviteca.Shared.Responses;
+using System.Text.RegularExpressions;
 
 namespace Serviteca.Backend.Repositories.Interface;
 
@@ -15,4 +16,6 @@ public interface ICustomersRepository
     Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination);
 
     Task<IEnumerable<Customer>> GetComboAsync();
+
+    Task<ActionResponse<Customer>> CreateAsync(CustomerDTO customerDTO);
 }

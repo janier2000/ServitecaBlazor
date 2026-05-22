@@ -29,17 +29,6 @@ public class CustomersController : GenericController<Customer>
         return BadRequest();
     }
 
-    [HttpGet]
-    public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
-    {
-        var response = await _customersRepository.GetAsync(pagination);
-        if (response.WasSuccess)
-        {
-            return Ok(response.Result);
-        }
-        return BadRequest();
-    }
-
     [HttpGet("{id}")]
     public override async Task<IActionResult> GetAsync(int id)
     {
@@ -51,7 +40,18 @@ public class CustomersController : GenericController<Customer>
         return NotFound(response.Message);
     }
 
-    [HttpGet("totalPages")]
+    [HttpGet("Paginated")]
+    public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
+    {
+        var response = await _customersRepository.GetAsync(pagination);
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest();
+    }
+
+    [HttpGet("TotalRecordsPaginated")]
     public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
     {
         var action = await _customersRepository.GetTotalPagesAsync(pagination);
@@ -67,5 +67,16 @@ public class CustomersController : GenericController<Customer>
     public async Task<IActionResult> GetComboAsync()
     {
         return Ok(await _customersRepository.GetComboAsync());
+    }
+
+    [HttpPost("Create")]
+    public async Task<IActionResult> PostAsync(CustomerDTO customerDTO)
+    {
+        var action = await _customersRepository.CreateAsync(customerDTO);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest(action.Message);
     }
 }
