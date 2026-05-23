@@ -18,4 +18,6 @@ public interface ICustomersRepository
     Task<IEnumerable<Customer>> GetComboAsync();
 
     Task<ActionResponse<Customer>> CreateAsync(CustomerDTO customerDTO);
+
+    Task<ActionResponse<Customer>> UpdateAsync(CustomerDTO customerDTO);
 }

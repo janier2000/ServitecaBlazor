@@ -79,4 +79,15 @@ public class CustomersController : GenericController<Customer>
         }
         return BadRequest(action.Message);
     }
+
+    [HttpPut("Edit")]
+    public async Task<IActionResult> PutAsync(CustomerDTO customerDTO)
+    {
+        var action = await _customersRepository.UpdateAsync(customerDTO);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest(action.Message);
+    }
 }

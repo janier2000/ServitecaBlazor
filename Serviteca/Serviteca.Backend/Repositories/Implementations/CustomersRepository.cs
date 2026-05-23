@@ -113,7 +113,7 @@ public class CustomersRepository : GenericRepository<Customer>, ICustomersReposi
             return new ActionResponse<Customer>
             {
                 WasSuccess = false,
-                Message = "tipo de documento no existe"
+                Message = "Tipo de documento no existe"
             };
         }
 
@@ -145,6 +145,65 @@ public class CustomersRepository : GenericRepository<Customer>, ICustomersReposi
             {
                 WasSuccess = false,
                 Message = "Ya existe el cliente que estas intentando crear"
+            };
+        }
+        catch (Exception exception)
+        {
+            return new ActionResponse<Customer>
+            {
+                WasSuccess = false,
+                Message = exception.Message
+            };
+        }
+    }
+
+    public async Task<ActionResponse<Customer>> UpdateAsync(CustomerDTO customerDTO)
+    {
+        try
+        {
+            var customerENT = await _context.Customers.FindAsync(customerDTO.Id);
+            if (customerENT == null)
+            {
+                return new ActionResponse<Customer>
+                {
+                    WasSuccess = false,
+                    Message = "El Cliente no es válido."//
+                };
+            }
+
+            var documentType = await _context.DocumentTypes.FindAsync(customerDTO.DocumentTypeId);
+            if (documentType == null)
+            {
+                return new ActionResponse<Customer>
+                {
+                    WasSuccess = false,
+                    Message = "Tipo de documento no existe"
+                };
+            }
+
+            customerENT.phone = customerDTO.phone;
+            customerENT.Email = customerDTO.Email;
+            customerENT.FirstName = customerDTO.FirstName;
+            customerENT.LastName = customerDTO.LastName;
+            customerENT.gender = customerDTO.gender;
+            customerENT.ClientSince = customerDTO.ClientSince.ToString();
+            customerENT.DocumentType = documentType;
+            customerENT.phone = customerDTO.phone;
+
+            _context.Update(customerENT);
+            await _context.SaveChangesAsync();
+            return new ActionResponse<Customer>
+            {
+                WasSuccess = true,
+                Result = customerENT
+            };
+        }
+        catch (DbUpdateException)
+        {
+            return new ActionResponse<Customer>
+            {
+                WasSuccess = false,
+                Message = "Error al actualizar el registro"
             };
         }
         catch (Exception exception)

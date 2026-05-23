@@ -1,5 +1,4 @@
-﻿using Serviteca.Shared.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Serviteca.Shared.DTOs;
 
@@ -13,7 +12,7 @@ public class CustomerDTO
 
     [Display(Name = "Documento")]
     [MaxLength(20, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-    [Required(ErrorMessage = "{0} es obligatorio.")]
+    [Required(ErrorMessage = "El campo {0} es obligatorio.")]
     public string Document { get; set; } = null!;
 
     [Display(Name = "Nombres")]
@@ -23,12 +22,12 @@ public class CustomerDTO
 
     [Display(Name = "Apellidos")]
     [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-    [Required(ErrorMessage = "{0} es obligatorio.")]
+    [Required(ErrorMessage = "El campo {0} es obligatorio.")]
     public string LastName { get; set; } = null!;
 
     [Display(Name = "Email")]
     [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-    [Required(ErrorMessage = "{0} es obligatorio.")]
+    [Required(ErrorMessage = "El campo {0} es obligatorio.")]
     public string Email { get; set; } = null!;
 
     [Display(Name = "Genero ")]
@@ -37,11 +36,11 @@ public class CustomerDTO
 
     [Display(Name = "Celular")]
     [MaxLength(50, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
-    [Required(ErrorMessage = "{0} es obligatorio.")]
+    [Required(ErrorMessage = "El campo {0} es obligatorio.")]
     public string phone { get; set; } = null!;
 
     [Display(Name = "Cliente desde")]
-    [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
+    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
     [Required(ErrorMessage = "El campo {0} es obligatorio.")]
     public DateTime ClientSince { get; set; }
 }

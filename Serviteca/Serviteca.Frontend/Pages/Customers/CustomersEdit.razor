@@ -1,3 +1,15 @@
-﻿<h3>CustomersEdit</h3>
-
-
+﻿@if (customerDtoENT is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <CustomersForm @ref="customersForm"
+                           CustomerDtoENT="customerDtoENT"
+                           OnValidSubmit="EditAsync"
+                           ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}

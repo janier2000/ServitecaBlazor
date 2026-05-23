@@ -37,7 +37,8 @@ public partial class CustomersForm
         editContext = new(CustomerDtoENT);
         await LoadDocumentTypeAsync();
         LoadGenderAsync();
-        selectedDate = DateTime.Now;
+
+        LoadCustomers();
     }
 
     private async Task LoadDocumentTypeAsync()
@@ -77,6 +78,28 @@ public partial class CustomersForm
         //selectedGender = LstGenderENT.First();
 
         //List<GenderDTO> LstGenderDTO = new List<GenderDTO>((Gender[])Enum.GetValues(typeof(Gender)));
+    }
+
+    private void LoadCustomers()
+    {
+        if (CustomerDtoENT.DocumentTypeId != 0)
+        {
+            selectedDocumentType = LstDocumentType!.FirstOrDefault(x => x.Id == CustomerDtoENT.DocumentTypeId)!;
+        }
+
+        if (CustomerDtoENT.gender != 0)
+        {
+            selectedGender = LstGenderENT!.FirstOrDefault(x => x.Id == CustomerDtoENT.gender)!;
+        }
+
+        if (CustomerDtoENT.ClientSince != default)
+        {
+            selectedDate = CustomerDtoENT.ClientSince;
+        }
+        else
+        {
+            selectedDate = DateTime.Now;
+        }
     }
 
     protected override void OnParametersSet()
