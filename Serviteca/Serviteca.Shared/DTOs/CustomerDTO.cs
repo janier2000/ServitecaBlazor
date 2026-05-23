@@ -8,6 +8,7 @@ public class CustomerDTO
     public int Id { get; set; }
 
     [Display(Name = "Tipo documento")]
+    [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
     public int DocumentTypeId { get; set; }
 
     [Display(Name = "Documento")]
@@ -41,6 +42,6 @@ public class CustomerDTO
 
     [Display(Name = "Cliente desde")]
     [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
-    [Required(ErrorMessage = "{0} es obligatorio.")]
+    [Required(ErrorMessage = "El campo {0} es obligatorio.")]
     public DateTime ClientSince { get; set; }
 }

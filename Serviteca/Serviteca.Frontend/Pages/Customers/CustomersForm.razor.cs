@@ -7,6 +7,7 @@ using MudBlazor;
 using Serviteca.Frontend.Repositories;
 using Serviteca.Shared.DTOs;
 using Serviteca.Shared.Entities;
+using Serviteca.Shared.Enums;
 
 using E = Serviteca.Shared.Entities;
 
@@ -18,6 +19,7 @@ public partial class CustomersForm
     private EditContext editContext = null!;
     private DocumentType selectedDocumentType = new();
     private List<DocumentType>? LstDocumentType;
+    private List<EnumGenericDTO>? LstGenderENT;
 
     [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
     [Inject] private IRepository Repository { get; set; } = null!;
@@ -26,6 +28,7 @@ public partial class CustomersForm
     [EditorRequired, Parameter] public EventCallback OnValidSubmit { get; set; }
     [EditorRequired, Parameter] public EventCallback ReturnAction { get; set; }
     private DateTime? selectedDate { get; set; } = DateTime.Now.Date;
+    private EnumGenericDTO? selectedGender { get; set; }
 
     public bool FormPostedSuccessfully { get; set; } = false;
 
@@ -33,6 +36,8 @@ public partial class CustomersForm
     {
         editContext = new(CustomerDtoENT);
         await LoadDocumentTypeAsync();
+        LoadGenderAsync();
+        selectedDate = DateTime.Now;
     }
 
     private async Task LoadDocumentTypeAsync()
@@ -45,6 +50,33 @@ public partial class CustomersForm
             return;
         }
         LstDocumentType = responseHttp.Response;
+    }
+
+    private void LoadGenderAsync()
+    {
+        // Obtener todos los valores del enum en una lista
+        List<string> LstGender = new List<string>(Enum.GetNames(typeof(Gender)));
+        LstGenderENT = new List<EnumGenericDTO>();
+        EnumGenericDTO genero = new EnumGenericDTO();
+        //genero = new EnumGenericDTO
+        //{
+        //    Id = -1,
+        //    Name = "-- Seleccione género --"
+        //};
+        //LstGenderENT.Add(genero);
+
+        foreach (var item in LstGender)
+        {
+            genero = new EnumGenericDTO
+            {
+                Id = (int)Enum.Parse(typeof(Gender), item),
+                Name = item
+            };
+            LstGenderENT.Add(genero);
+        }
+        //selectedGender = LstGenderENT.First();
+
+        //List<GenderDTO> LstGenderDTO = new List<GenderDTO>((Gender[])Enum.GetValues(typeof(Gender)));
     }
 
     protected override void OnParametersSet()
@@ -82,12 +114,6 @@ public partial class CustomersForm
         }
 
         return LstDocumentType!.Where(x => x.Name.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
-    }
-
-    private void ChangedDocumentType(DocumentType documentTypeEnt)
-    {
-        selectedDocumentType = documentTypeEnt;
-        CustomerDtoENT.DocumentTypeId = documentTypeEnt.Id;
     }
 
     private void OnDateChanged(DateTime? newDate)
@@ -130,5 +156,27 @@ public partial class CustomersForm
         }
 
         return LstDocumentType!.Where(x => x.Name.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
+    }
+
+    private void ChangedDocumentType(DocumentType documentTypeEnt)
+    {
+        selectedDocumentType = documentTypeEnt;
+        CustomerDtoENT.DocumentTypeId = documentTypeEnt.Id;
+    }
+
+    private async Task<IEnumerable<EnumGenericDTO>> SearchFuncGender(string searchText, CancellationToken cancellationToken)
+    {
+        await Task.Delay(5);
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            return LstGenderENT!;
+        }
+        return LstGenderENT!.Where(x => x.Name.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
+    }
+
+    private void ChangedGender(EnumGenericDTO genderDTOEnt)
+    {
+        selectedGender = genderDTOEnt;
+        CustomerDtoENT.gender = genderDTOEnt.Id;
     }
 }

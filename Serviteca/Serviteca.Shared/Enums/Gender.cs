@@ -4,12 +4,12 @@ namespace Serviteca.Shared.Enums;
 
 public enum Gender
 {
-    [Description("Masculino")]
-    Male,
+    //[Description("Masculino")]
+    Masculino,
 
-    [Description("Femenino")]
-    Female,
+    //[Description("Femenino")]
+    Femenino,
 
-    [Description("Otros")]
-    Others,
+    //[Description("Otros")]
+    Otros,
 }
