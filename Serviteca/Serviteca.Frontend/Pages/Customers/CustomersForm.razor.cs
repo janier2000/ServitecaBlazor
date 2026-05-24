@@ -37,7 +37,6 @@ public partial class CustomersForm
         editContext = new(CustomerDtoENT);
         await LoadDocumentTypeAsync();
         LoadGenderAsync();
-
         LoadCustomers();
     }
 
@@ -51,6 +50,10 @@ public partial class CustomersForm
             return;
         }
         LstDocumentType = responseHttp.Response;
+        if (CustomerDtoENT.DocumentTypeId != 0)
+        {
+            selectedDocumentType = LstDocumentType!.FirstOrDefault(x => x.Id == CustomerDtoENT.DocumentTypeId)!;
+        }
     }
 
     private void LoadGenderAsync()
@@ -75,6 +78,11 @@ public partial class CustomersForm
             };
             LstGenderENT.Add(genero);
         }
+
+        if (CustomerDtoENT.gender != 0)
+        {
+            selectedGender = LstGenderENT!.FirstOrDefault(x => x.Id == CustomerDtoENT.gender)!;
+        }
         //selectedGender = LstGenderENT.First();
 
         //List<GenderDTO> LstGenderDTO = new List<GenderDTO>((Gender[])Enum.GetValues(typeof(Gender)));
@@ -82,16 +90,6 @@ public partial class CustomersForm
 
     private void LoadCustomers()
     {
-        if (CustomerDtoENT.DocumentTypeId != 0)
-        {
-            selectedDocumentType = LstDocumentType!.FirstOrDefault(x => x.Id == CustomerDtoENT.DocumentTypeId)!;
-        }
-
-        if (CustomerDtoENT.gender != 0)
-        {
-            selectedGender = LstGenderENT!.FirstOrDefault(x => x.Id == CustomerDtoENT.gender)!;
-        }
-
         if (CustomerDtoENT.ClientSince != default)
         {
             selectedDate = CustomerDtoENT.ClientSince;
