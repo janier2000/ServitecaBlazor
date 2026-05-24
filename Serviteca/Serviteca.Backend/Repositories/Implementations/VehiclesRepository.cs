@@ -20,7 +20,10 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
     public override async Task<ActionResponse<IEnumerable<Vehicle>>> GetAsync()
     {
         var customers = await _context.Vehicles
-                                      //.Include(s => s.DocumentType!)
+                                      .Include(s => s.Customer!)
+                                      .Include(s => s.VehicleBrand!)
+                                      .Include(s => s.VehicleType!)
+                                      .Include(s => s.VehicleUse)
                                       .OrderBy(x => x.Plate)
                                       .ToListAsync();
         return new ActionResponse<IEnumerable<Vehicle>>
@@ -33,7 +36,10 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
     public override async Task<ActionResponse<IEnumerable<Vehicle>>> GetAsync(PaginationDTO pagination)
     {
         var queryable = _context.Vehicles
-                                //.Include(s => s.DocumentType!)
+                                .Include(s => s.Customer!)
+                                .Include(s => s.VehicleBrand!)
+                                .Include(s => s.VehicleType!)
+                                .Include(s => s.VehicleUse)
                                 .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
@@ -52,7 +58,12 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
 
     public override async Task<ActionResponse<Vehicle>> GetAsync(int id)
     {
-        var vehicle = await _context.Vehicles.FirstOrDefaultAsync(c => c.Id == id);
+        var vehicle = await _context.Vehicles
+                                    .Include(s => s.Customer!)
+                                    .Include(s => s.VehicleBrand!)
+                                    .Include(s => s.VehicleType!)
+                                    .Include(s => s.VehicleUse)
+                                    .FirstOrDefaultAsync(c => c.Id == id);
         if (vehicle == null)
         {
             return new ActionResponse<Vehicle>

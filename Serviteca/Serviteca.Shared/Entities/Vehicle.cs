@@ -6,12 +6,6 @@ public class Vehicle
 {
     public int Id { get; set; }
 
-    public Customer? Customer { get; set; }
-
-    [Display(Name = "Cliente")]
-    [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
-    public int CustomerId { get; set; }
-
     [Display(Name = "Placa")]
     [MaxLength(20, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
     [Required(ErrorMessage = "El campo {0} es obligatorio.")]
@@ -29,6 +23,12 @@ public class Vehicle
     [Display(Name = "Kilometraje actual")]
     [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
     public int CurrentKm { get; set; }
+
+    public Customer? Customer { get; set; }
+
+    [Display(Name = "Cliente")]
+    [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
+    public int CustomerId { get; set; }
 
     public VehicleType? VehicleType { get; set; }
 

@@ -29,5 +29,17 @@ public class DataContext : IdentityDbContext<User>
         modelBuilder.Entity<VehicleType>().HasIndex(x => x.Name).IsUnique();
         modelBuilder.Entity<VehicleUse>().HasIndex(x => x.Name).IsUnique();
         modelBuilder.Entity<Vehicle>().HasIndex(x => x.Plate).IsUnique();
+
+        // deshabilita el borrado en cascada,
+        DisableCascadingDelete(modelBuilder);
+    }
+
+    private void DisableCascadingDelete(ModelBuilder modelBuilder)
+    {
+        var relationships = modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys());
+        foreach (var relationship in relationships)
+        {
+            relationship.DeleteBehavior = DeleteBehavior.Restrict;
+        }
     }
 }

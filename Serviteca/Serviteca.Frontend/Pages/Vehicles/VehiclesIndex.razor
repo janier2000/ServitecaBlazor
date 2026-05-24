@@ -1,0 +1,83 @@
+﻿@page "/Vehicles"
+@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <MudTable Items="@lstVehicle"
+              @ref="table"
+              ServerData="LoadListAsync"
+              Dense="true"
+              Hover="true"
+              Striped="true"
+              FixedHeader="true"
+              FixedFooter="true">
+        <ToolBarContent>
+            <div class="d-flex justify-content-between">
+                <MudText Typo="Typo.h6" Class="me-4"> Marca</MudText>
+                <MudButton Variant="Variant.Outlined"
+                           EndIcon="@Icons.Material.Filled.Add"
+                           Color="Color.Success" OnClick="@(() => ShowModalCreateAsync())">
+                    Nuevo
+                </MudButton>
+            </div>
+            <MudSpacer />
+            <FilterComponent ApplyFilter="SetFilterValue" />
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Placa</MudTh>
+            <MudTh>Ultima Visita</MudTh>
+            <MudTh>Doc </MudTh>
+            <MudTh>Cliente</MudTh>
+            <MudTh>Ultimo KM</MudTh>
+            <MudTh>Modelo</MudTh>
+            <MudTh>Marca</MudTh>
+            <MudTh>Tipo</MudTh>
+         @*    <MudTh>Uso</MudTh> *@
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.Plate</MudTd>
+            <MudTd>@context.ReturnDate</MudTd>
+            <MudTd>@context.Customer!.Document </MudTd>
+            <MudTd>@context.Customer!.FirstName @context.Customer.LastName </MudTd>
+            <MudTd>@context.CurrentKm</MudTd>
+            <MudTd>@context.Model</MudTd>
+            <MudTd>@context.VehicleBrand!.Name</MudTd>
+            <MudTd>@context.VehicleType!.Name</MudTd>
+         @*    <MudTd>@context.VehicleUse!.Name</MudTd>  *@
+            <MudTd>
+                <MudTooltip Text="Detalle">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Success"
+                               OnClick="@(() => ShowModalDetailAsync(context.Id))">
+                        <MudIcon Icon="@Icons.Material.TwoTone.DensitySmall" />
+                    </MudButton>
+                </MudTooltip>
+                <MudTooltip Text="Editar">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Warning"
+                               OnClick="@(() => ShowModalEditAsync(context.Id))">
+                        <MudIcon Icon="@Icons.Material.Filled.Edit" />
+                    </MudButton>
+                </MudTooltip>
+                <MudTooltip Text="Eliminar">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Error"
+                               OnClick="@(() => DeleteAsync(@context))">
+                        <MudIcon Icon="@Icons.Material.Filled.Delete" />
+                    </MudButton>
+                </MudTooltip>
+            </MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText>No hay registros para mostrar...</MudText>
+        </NoRecordsContent>
+        <PagerContent>
+            <MudTablePager RowsPerPageString=Número de Registros:
+                           PageSizeOptions="pageSizeOptions"
+                           AllItemsText=Todos
+                           InfoFormat="@infoFormat" />
+        </PagerContent>
+    </MudTable>
+}

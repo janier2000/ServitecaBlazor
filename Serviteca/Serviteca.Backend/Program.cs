@@ -4,8 +4,13 @@ using Serviteca.Backend.Repositories.Implementations;
 using Serviteca.Backend.Repositories.Interface;
 using Serviteca.Backend.UnitsOfWork.Implementations;
 using Serviteca.Backend.UnitsOfWork.Interfaces;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//evite ciclo en cascada
+builder.Services.AddControllers()
+                .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -15,7 +20,6 @@ builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer("name=LocalConnec
 builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
-
 
 builder.Services.AddScoped<IVehicleBrandsRepository, VehicleBrandsRepository>();
 builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
@@ -27,7 +31,7 @@ builder.Services.AddScoped<IVehicleUsesRepository, VehicleUsesRepository>();
 
 var app = builder.Build();
 
-// inyection manual Tutorial 72 - Parte 19 - Alimentador de base de datos https://www.youtube.com/watch?v=VD1b8yAMC7o&list=PLuEZQoW9bRnRBThyGs208ZMrCYBRTvIg2&index=19 
+// inyection manual Tutorial 72 - Parte 19 - Alimentador de base de datos https://www.youtube.com/watch?v=VD1b8yAMC7o&list=PLuEZQoW9bRnRBThyGs208ZMrCYBRTvIg2&index=19
 SeedData(app);
 
 void SeedData(WebApplication app)
@@ -47,7 +51,6 @@ app.UseCors(x => x
     .AllowAnyHeader()
     .SetIsOriginAllowed(origin => true)
     .AllowCredentials());
-
 
 if (app.Environment.IsDevelopment())
 {
