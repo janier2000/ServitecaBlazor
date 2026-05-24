@@ -53,7 +53,9 @@ public class CustomersRepository : GenericRepository<Customer>, ICustomersReposi
 
     public override async Task<ActionResponse<Customer>> GetAsync(int id)
     {
-        var customer = await _context.Customers.FirstOrDefaultAsync(c => c.Id == id);
+        var customer = await _context.Customers
+                                     .Include(s => s.DocumentType!)
+                                     .FirstOrDefaultAsync(c => c.Id == id);
         if (customer == null)
         {
             return new ActionResponse<Customer>

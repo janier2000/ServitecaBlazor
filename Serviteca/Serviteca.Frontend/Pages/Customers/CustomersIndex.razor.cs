@@ -129,6 +129,26 @@ public partial class CustomersIndex
         }
     }
 
+    private async Task ShowModalDetailAsync(int Id)
+    {
+        var options = new DialogOptions()
+        {
+            CloseOnEscapeKey = true,
+            CloseButton = true
+        };
+        var parameters = new DialogParameters
+        {
+            { "Id", Id }
+        };
+        IDialogReference? dialog = DialogService.Show<CustomersDetail>($"Detalle del cliente", parameters, options);
+        var result = await dialog.Result;
+        if (result!.Canceled)
+        {
+            await LoadTotalRecordsAsync();
+            await table.ReloadServerData();
+        }
+    }
+
     private async Task DeleteAsync(E.Customer Customer)
     {
         var parameters = new DialogParameters

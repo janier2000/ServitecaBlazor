@@ -40,6 +40,13 @@ else
             <MudTd>@context.phone</MudTd>
             <MudTd>@context.ClientSince</MudTd>
             <MudTd>
+                <MudTooltip Text="Detalle">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Success"
+                               OnClick="@(() => ShowModalDetailAsync(context.Id))">
+                        <MudIcon Icon="@Icons.Material.TwoTone.DensitySmall" />
+                    </MudButton>
+                </MudTooltip>
                 <MudTooltip Text="Editar">
                     <MudButton Variant="Variant.Filled"
                                Color="Color.Warning"

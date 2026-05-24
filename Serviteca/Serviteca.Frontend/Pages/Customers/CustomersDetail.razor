@@ -1,0 +1,91 @@
+﻿<MudDialog>
+    <DialogContent>
+        @if (customerENT is null)
+        {
+            <Loading />
+        }
+        else
+        {
+            <MudPaper Class="p-4 my-4">
+
+                <MudGrid AlignItems="Left" JustifyContent="Left">
+                    <MudItem xs="6" Class="text-center mb-6">
+                        <MudText Align="Align.Left"><b>Cliente desde:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-6">
+                        <MudText Align="Align.Left">@customerENT!.ClientSince</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-6">
+                        <MudText Align="Align.Left"><b>Tipo documento:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-6">
+                        <MudText Align="Align.Left">@customerENT!.DocumentType!.Name</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-6">
+                        <MudText Align="Align.Left"><b>Documento:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-6">
+                        <MudText Align="Align.Left">@customerENT!.Document</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-6">
+                        <MudText Align="Align.Left"><b>Nombres:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-6">
+                        <MudText Align="Align.Left">@customerENT!.FirstName</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-6">
+                        <MudText Align="Align.Left"><b>Apellidos:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-6">
+                        <MudText Align="Align.Left">@customerENT!.LastName</MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-6">
+                        <MudText Align="Align.Left"><b>Email:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-6">
+                        <MudText Align="Align.Left">@customerENT!.Email</MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-6">
+                        <MudText Align="Align.Left"><b>Genero:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-6">
+                        <MudText Align="Align.Left"> @EnumHelper.GetGender(@customerENT!.gender)</MudText>
+                    </MudItem>
+
+                    <MudItem xs="8" Class="text-center">
+                        <MudButton Variant="Variant.Filled"
+                                   StartIcon="@Icons.Material.Filled.ArrowBack"
+                                   Color="Color.Error"
+                                   OnClick="Return">
+                            Regresar
+                        </MudButton>
+                    </MudItem>
+                </MudGrid>
+                @* <MudGrid AlignItems="Center" JustifyContent="Center">
+                <MudItem xs="4" Class="d-flex justify-center">
+                    <MudText Typo="Typo.h4" Align="Align.Center">@customerENT!.Email</MudText>
+                </MudItem>
+                <MudItem xs="4" Class="d-flex justify-center">
+                    <MudText Typo="Typo.h4" Align="Align.Center">@customerENT!.gender</MudText>
+                </MudItem>
+                <MudItem xs="4" Class="d-flex justify-center">
+                    <MudText Typo="Typo.h4" Align="Align.Center">GetGender(@customerENT!.gender)</MudText>
+                </MudItem>
+            </MudGrid> *@
+                @*   <MudGrid AlignItems="Center" JustifyContent="Center">
+                <MudButton Variant="Variant.Filled"
+                           StartIcon="@Icons.Material.Filled.ArrowBack"
+                           Color="Color.Error"
+                           OnClick="Return">
+                    Regresar
+                </MudButton>
+            </MudGrid> *@
+            </MudPaper>
+        }
+    </DialogContent>
+</MudDialog>
+
