@@ -1,3 +1,8 @@
-﻿<h3>VehiclesCreate</h3>
-
-
+﻿<MudDialog>
+    <DialogContent>
+        <VehiclesForm @ref="vehiclesForm"
+                       VehicleDtoENT="vehicleDtoENT"
+                       OnValidSubmit="CreateAsync"
+                       ReturnAction="Return" />
+    </DialogContent>
+</MudDialog> 

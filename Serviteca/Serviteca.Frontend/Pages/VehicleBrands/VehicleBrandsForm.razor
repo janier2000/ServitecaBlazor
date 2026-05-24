@@ -1,23 +1,31 @@
-﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+﻿<MudPaper Class="p-4 my-4">
 
-<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
-    <DataAnnotationsValidator />
-    <MudTextField Label="Nombre"
-                  @bind-Value="@VehicleBrandENT.Name"
-                  For="@(() => VehicleBrandENT.Name)"
-                  Class="mb-4" />
+    <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
 
-    <MudButton Variant="Variant.Outlined"
-               StartIcon="@Icons.Material.Filled.ArrowBack"
-               Color="Color.Info"
-               OnClick="ReturnAction">
-        Regresar
-    </MudButton>
+    <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
 
-    <MudButton Variant="Variant.Outlined"
-               StartIcon="@Icons.Material.Filled.Check"
-               Color="Color.Primary"
-               ButtonType="ButtonType.Submit">
-        Guardar Cambios
-    </MudButton>
-</EditForm>
+        <MudGrid AlignItems="Left" JustifyContent="Left">
+
+            <DataAnnotationsValidator />
+            <MudTextField Label="Nombre"
+                          @bind-Value="@VehicleBrandENT.Name"
+                          For="@(() => VehicleBrandENT.Name)"
+                          Class="mb-4" />
+
+            <MudButton Variant="Variant.Outlined"
+                       StartIcon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Info"
+                       OnClick="ReturnAction">
+                Regresar
+            </MudButton>
+
+            <MudButton Variant="Variant.Outlined"
+                       StartIcon="@Icons.Material.Filled.Check"
+                       Color="Color.Primary"
+                       ButtonType="ButtonType.Submit">
+                Guardar Cambios
+            </MudButton>
+        </MudGrid>
+    </EditForm>
+
+</MudPaper>

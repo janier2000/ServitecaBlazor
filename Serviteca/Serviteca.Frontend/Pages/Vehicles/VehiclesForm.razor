@@ -1,3 +1,121 @@
-﻿<h3>VehiclesForm</h3>
+﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+<EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit">
+    <DataAnnotationsValidator />
+    <MudGrid>
+
+        <MudItem xs="6" sm="6">
+            <MudDatePicker Label="Retorno cliente"
+                           Date="selectedReturnDate"
+                           DateChanged="ChangedReturnDate"
+                           Variant="Variant.Outlined"
+                           Margin="Margin.Dense"
+                           DateFormat="dd/MM/yyyy"
+                           Class="mb-2" />
 
 
+            <MudAutocomplete Label="Marca"
+                             T="VehicleBrand"
+                             Value="selectedBrand"
+                             SearchFunc="SearchBrand"
+                             ValueChanged="ChangedBrand"
+                             Placeholder="-- Seleccione  marca --"
+                             ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
+                             Variant="Variant.Outlined"
+                             Margin="Margin.Dense"
+                             Class="mb-2">
+                <ItemTemplate Context="itemContext">
+                    @itemContext.Name
+                </ItemTemplate>
+            </MudAutocomplete>
+
+
+            <MudAutocomplete Label="Tipo"
+                             T="VehicleType"
+                             Value="selectedType"
+                             SearchFunc="SearchType"
+                             ValueChanged="ChangedType"
+                             Placeholder="-- Seleccione  tipo --"
+                             Variant="Variant.Outlined"
+                             Margin="Margin.Dense"
+                             ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
+                             Class="mb-2">
+                <ItemTemplate Context="itemContext">
+                    @itemContext.Name
+                </ItemTemplate>
+            </MudAutocomplete>
+
+            <MudTextField Label="Modelo"
+                          Variant="Variant.Outlined"
+                          Margin="Margin.Dense"
+                          @bind-Value="@VehicleDtoENT.Model"
+                          For="@(() => VehicleDtoENT.Model)"
+                          Class="mb-4" />
+
+        </MudItem>
+
+        <MudItem xs="6" sm="6">
+            <MudAutocomplete Label="Cliente"
+                             T="Customer"
+                             Value="selectedCustomer"
+                             SearchFunc="SearchCustomer"
+                             ValueChanged="ChangedCustomer"
+                             Placeholder="-- Seleccione  cliente --"
+                             Variant="Variant.Outlined"
+                             Margin="Margin.Dense"
+                             ToStringFunc="@(e=> e==null?null : $"{e.FirstName}")"
+                             Class="mb-2">
+                <ItemTemplate Context="itemContext">
+                    @itemContext.FirstName
+                </ItemTemplate>
+            </MudAutocomplete>
+
+            <MudTextField Label="Placa"
+                          Variant="Variant.Outlined"
+                          Margin="Margin.Dense"
+                          @bind-Value="@VehicleDtoENT.Plate"
+                          For="@(() => VehicleDtoENT.Plate)"
+                          Class="mb-4" />
+
+            <MudAutocomplete Label="Uso"
+                             T="VehicleUse"
+                             Value="selectedUse"
+                             SearchFunc="SearchUse"
+                             ValueChanged="ChangedUse"
+                             Placeholder="-- Seleccione  uso --"
+                             Variant="Variant.Outlined"
+                             Margin="Margin.Dense"
+                             ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
+                             Class="mb-2" />
+
+            <MudTextField Label="Kilometraje actual"
+                          Variant="Variant.Outlined"
+                          Margin="Margin.Dense"
+                          @bind-Value="@VehicleDtoENT.CurrentKm"
+                          For="@(() => VehicleDtoENT.CurrentKm)"
+                          Class="mb-4" />
+
+        </MudItem>
+
+        <MudItem xs="12" sm="12">
+
+            <MudButton Variant="Variant.Filled"
+                       StartIcon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Error"
+                       OnClick="ReturnAction">
+                Regresar
+            </MudButton>
+
+            <MudButton Variant="Variant.Filled"
+                       StartIcon="@Icons.Material.Filled.Save"
+                       Color="Color.Info"
+                       ButtonType="ButtonType.Submit">
+                @accion
+            </MudButton>
+
+        </MudItem>
+
+    </MudGrid>
+
+
+
+</EditForm>
