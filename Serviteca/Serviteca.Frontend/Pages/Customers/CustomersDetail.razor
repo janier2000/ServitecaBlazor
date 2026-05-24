@@ -9,54 +9,65 @@
             <MudPaper Class="p-4 my-4">
 
                 <MudGrid AlignItems="Left" JustifyContent="Left">
-                    <MudItem xs="6" Class="text-center mb-6">
+
+                    <MudItem xs="6" Class="text-center mb-1">
                         <MudText Align="Align.Left"><b>Cliente desde:</b></MudText>
                     </MudItem>
-                    <MudItem xs="6" Class="text-center mb-6">
+                    <MudItem xs="6" Class="text-center mb-1">
                         <MudText Align="Align.Left">@customerENT!.ClientSince</MudText>
                     </MudItem>
 
-                    <MudItem xs="6" Class="text-center mb-6">
+                    <MudItem xs="6" Class="text-center mb-1">
                         <MudText Align="Align.Left"><b>Tipo documento:</b></MudText>
                     </MudItem>
-                    <MudItem xs="6" Class="text-center mb-6">
+                    <MudItem xs="6" Class="text-center mb-1">
                         <MudText Align="Align.Left">@customerENT!.DocumentType!.Name</MudText>
                     </MudItem>
 
-                    <MudItem xs="6" Class="text-center mb-6">
+                    <MudItem xs="6" Class="text-center mb-1">
                         <MudText Align="Align.Left"><b>Documento:</b></MudText>
                     </MudItem>
-                    <MudItem xs="6" Class="text-center mb-6">
+                    <MudItem xs="6" Class="text-center mb-1">
                         <MudText Align="Align.Left">@customerENT!.Document</MudText>
                     </MudItem>
 
-                    <MudItem xs="6" Class="text-center mb-6">
+                    <MudItem xs="6" Class="text-center mb-1">
                         <MudText Align="Align.Left"><b>Nombres:</b></MudText>
                     </MudItem>
-                    <MudItem xs="6" Class="text-center mb-6">
+                    <MudItem xs="6" Class="text-center mb-1">
                         <MudText Align="Align.Left">@customerENT!.FirstName</MudText>
                     </MudItem>
 
-                    <MudItem xs="6" Class="text-center mb-6">
+                    <MudItem xs="6" Class="text-center mb-1">
                         <MudText Align="Align.Left"><b>Apellidos:</b></MudText>
                     </MudItem>
-                    <MudItem xs="6" Class="text-center mb-6">
+                    <MudItem xs="6" Class="text-center mb-1">
                         <MudText Align="Align.Left">@customerENT!.LastName</MudText>
                     </MudItem>
-                    <MudItem xs="6" Class="text-center mb-6">
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Celular:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@customerENT.phone</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-1">
                         <MudText Align="Align.Left"><b>Email:</b></MudText>
                     </MudItem>
-                    <MudItem xs="6" Class="text-center mb-6">
+                    <MudItem xs="6" Class="text-center mb-1">
                         <MudText Align="Align.Left">@customerENT!.Email</MudText>
                     </MudItem>
-                    <MudItem xs="6" Class="text-center mb-6">
+
+                    <MudItem xs="6" Class="text-center mb-1">
                         <MudText Align="Align.Left"><b>Genero:</b></MudText>
                     </MudItem>
-                    <MudItem xs="6" Class="text-center mb-6">
+                    <MudItem xs="6" Class="text-center mb-1">
                         <MudText Align="Align.Left"> @EnumHelper.GetGender(@customerENT!.gender)</MudText>
                     </MudItem>
 
-                    <MudItem xs="8" Class="text-center">
+
+                    <MudItem xs="12" Class="text-center">
                         <MudButton Variant="Variant.Filled"
                                    StartIcon="@Icons.Material.Filled.ArrowBack"
                                    Color="Color.Error"
