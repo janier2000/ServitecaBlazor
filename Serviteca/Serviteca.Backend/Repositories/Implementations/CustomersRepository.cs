@@ -18,85 +18,6 @@ public class CustomersRepository : GenericRepository<Customer>, ICustomersReposi
         _context = context;
     }
 
-    public override async Task<ActionResponse<IEnumerable<Customer>>> GetAsync()
-    {
-        var customers = await _context.Customers
-                                      .Include(s => s.DocumentType!)
-                                      .OrderBy(x => x.FirstName)
-                                      .ToListAsync();
-        return new ActionResponse<IEnumerable<Customer>>
-        {
-            WasSuccess = true,
-            Result = customers
-        };
-    }
-
-    public override async Task<ActionResponse<IEnumerable<Customer>>> GetAsync(PaginationDTO pagination)
-    {
-        var queryable = _context.Customers
-                              .Include(s => s.DocumentType!)
-                                          .AsQueryable();
-
-        if (!string.IsNullOrWhiteSpace(pagination.Filter))
-        {
-            queryable = queryable.Where(x => x.FirstName.ToLower().Contains(pagination.Filter.ToLower()));
-        }
-
-        return new ActionResponse<IEnumerable<Customer>>
-        {
-            WasSuccess = true,
-            Result = await queryable.OrderBy(x => x.FirstName)
-                                    .Paginate(pagination)
-                                    .ToListAsync()
-        };
-    }
-
-    public override async Task<ActionResponse<Customer>> GetAsync(int id)
-    {
-        var customer = await _context.Customers
-                                     .Include(s => s.DocumentType!)
-                                     .FirstOrDefaultAsync(c => c.Id == id);
-        if (customer == null)
-        {
-            return new ActionResponse<Customer>
-            {
-                WasSuccess = false,
-                Message = "Usuario no existe"
-            };
-        }
-
-        return new ActionResponse<Customer>
-        {
-            WasSuccess = true,
-            Result = customer
-        };
-    }
-
-    public override async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination)
-    {
-        var queryable = _context.Customers.AsQueryable();
-
-        if (!string.IsNullOrWhiteSpace(pagination.Filter))
-        {
-            queryable = queryable.Where(x => x.FirstName.ToLower().Contains(pagination.Filter.ToLower()));
-        }
-
-        double count = await queryable.CountAsync();
-        int totalPages = (int)Math.Ceiling(count / pagination.RecordsNumber);
-        return new ActionResponse<int>
-        {
-            WasSuccess = true,
-            Result = totalPages
-        };
-    }
-
-    public async Task<IEnumerable<Customer>> GetComboAsync()
-    {
-        return await _context.Customers
-                             .OrderBy(c => c.FirstName)
-                             .ToListAsync();
-    }
-
     public async Task<ActionResponse<Customer>> CreateAsync(CustomerDTO customerDTO)
     {
         //var admin = await _usersRepository.GetUserAsync(customerDTO.AdminId);
@@ -216,5 +137,84 @@ public class CustomersRepository : GenericRepository<Customer>, ICustomersReposi
                 Message = exception.Message
             };
         }
+    }
+
+    public override async Task<ActionResponse<IEnumerable<Customer>>> GetAsync()
+    {
+        var customers = await _context.Customers
+                                      .Include(s => s.DocumentType!)
+                                      .OrderBy(x => x.FirstName)
+                                      .ToListAsync();
+        return new ActionResponse<IEnumerable<Customer>>
+        {
+            WasSuccess = true,
+            Result = customers
+        };
+    }
+
+    public override async Task<ActionResponse<IEnumerable<Customer>>> GetAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Customers
+                              .Include(s => s.DocumentType!)
+                                          .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.FirstName.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
+        return new ActionResponse<IEnumerable<Customer>>
+        {
+            WasSuccess = true,
+            Result = await queryable.OrderBy(x => x.FirstName)
+                                    .Paginate(pagination)
+                                    .ToListAsync()
+        };
+    }
+
+    public override async Task<ActionResponse<Customer>> GetAsync(int id)
+    {
+        var customer = await _context.Customers
+                                     .Include(s => s.DocumentType!)
+                                     .FirstOrDefaultAsync(c => c.Id == id);
+        if (customer == null)
+        {
+            return new ActionResponse<Customer>
+            {
+                WasSuccess = false,
+                Message = "Usuario no existe"
+            };
+        }
+
+        return new ActionResponse<Customer>
+        {
+            WasSuccess = true,
+            Result = customer
+        };
+    }
+
+    public override async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Customers.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.FirstName.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
+        double count = await queryable.CountAsync();
+        int totalPages = (int)Math.Ceiling(count / pagination.RecordsNumber);
+        return new ActionResponse<int>
+        {
+            WasSuccess = true,
+            Result = totalPages
+        };
+    }
+
+    public async Task<IEnumerable<Customer>> GetComboAsync()
+    {
+        return await _context.Customers
+                             .OrderBy(c => c.FirstName)
+                             .ToListAsync();
     }
 }

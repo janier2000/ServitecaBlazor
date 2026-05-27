@@ -1,3 +1,15 @@
-﻿<h3>VehiclesEdit</h3>
-
-
+﻿@if (vehicleDtoENT is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <VehiclesForm @ref="vehiclesForm"
+                          VehicleDtoENT="vehicleDtoENT"
+                          OnValidSubmit="EditAsync"
+                          ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}

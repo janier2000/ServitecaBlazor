@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Serviteca.Backend.Repositories.Implementations;
 using Serviteca.Backend.Repositories.Interface;
 using Serviteca.Backend.UnitsOfWork.Interfaces;
 using Serviteca.Shared.DTOs;
@@ -16,6 +17,28 @@ public class VehiclesController : GenericController<Vehicle>
     public VehiclesController(IGenericUnitOfWork<Vehicle> unitOfWork, IVehiclesRepository customersRepository) : base(unitOfWork)
     {
         _vehicleRepository = customersRepository;
+    }
+
+    [HttpPost("Create")]
+    public async Task<IActionResult> PostAsync(VehicleDTO vehicleDTO)
+    {
+        var action = await _vehicleRepository.CreateAsync(vehicleDTO);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest(action.Message);
+    }
+
+    [HttpPut("Edit")]
+    public async Task<IActionResult> PutAsync(VehicleDTO vehicleDTO)
+    {
+        var action = await _vehicleRepository.UpdateAsync(vehicleDTO);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest(action.Message);
     }
 
     [HttpGet("full")]

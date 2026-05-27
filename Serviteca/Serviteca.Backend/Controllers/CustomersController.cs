@@ -18,6 +18,28 @@ public class CustomersController : GenericController<Customer>
         _customersRepository = customersRepository;
     }
 
+    [HttpPost("Create")]
+    public async Task<IActionResult> PostAsync(CustomerDTO customerDTO)
+    {
+        var action = await _customersRepository.CreateAsync(customerDTO);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest(action.Message);
+    }
+
+    [HttpPut("Edit")]
+    public async Task<IActionResult> PutAsync(CustomerDTO customerDTO)
+    {
+        var action = await _customersRepository.UpdateAsync(customerDTO);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest(action.Message);
+    }
+
     [HttpGet("full")]
     public override async Task<IActionResult> GetAsync()
     {
@@ -67,27 +89,5 @@ public class CustomersController : GenericController<Customer>
     public async Task<IActionResult> GetComboAsync()
     {
         return Ok(await _customersRepository.GetComboAsync());
-    }
-
-    [HttpPost("Create")]
-    public async Task<IActionResult> PostAsync(CustomerDTO customerDTO)
-    {
-        var action = await _customersRepository.CreateAsync(customerDTO);
-        if (action.WasSuccess)
-        {
-            return Ok(action.Result);
-        }
-        return BadRequest(action.Message);
-    }
-
-    [HttpPut("Edit")]
-    public async Task<IActionResult> PutAsync(CustomerDTO customerDTO)
-    {
-        var action = await _customersRepository.UpdateAsync(customerDTO);
-        if (action.WasSuccess)
-        {
-            return Ok(action.Result);
-        }
-        return BadRequest(action.Message);
     }
 }

@@ -7,6 +7,10 @@ namespace Serviteca.Backend.Repositories.Interface;
 
 public interface ICustomersRepository
 {
+    Task<ActionResponse<Customer>> CreateAsync(CustomerDTO customerDTO);
+
+    Task<ActionResponse<Customer>> UpdateAsync(CustomerDTO customerDTO);
+
     Task<ActionResponse<Customer>> GetAsync(int id);
 
     Task<ActionResponse<IEnumerable<Customer>>> GetAsync();
@@ -16,8 +20,4 @@ public interface ICustomersRepository
     Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination);
 
     Task<IEnumerable<Customer>> GetComboAsync();
-
-    Task<ActionResponse<Customer>> CreateAsync(CustomerDTO customerDTO);
-
-    Task<ActionResponse<Customer>> UpdateAsync(CustomerDTO customerDTO);
 }
