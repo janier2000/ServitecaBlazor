@@ -2,15 +2,15 @@ using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Serviteca.Frontend.Repositories;
 using Serviteca.Frontend.Shared;
+using Serviteca.Shared.Entities;
 using System.Net;
-using E = Serviteca.Shared.Entities;
 
 namespace Serviteca.Frontend.Pages.Vehicles;
 
 public partial class VehiclesIndex
 {
-    private List<E.Vehicle>? lstVehicle { get; set; }
-    private MudTable<E.Vehicle> table = new();
+    private List<Vehicle>? lstVehicle { get; set; }
+    private MudTable<Vehicle> table = new();
     private readonly int[] pageSizeOptions = { 10, 25, 50, int.MaxValue };
     private int totalRecords = 0;
     private bool loading;
@@ -48,7 +48,7 @@ public partial class VehiclesIndex
         loading = false;
     }
 
-    private async Task<TableData<E.Vehicle>> LoadListAsync(TableState state, CancellationToken cancellationToken)
+    private async Task<TableData<Vehicle>> LoadListAsync(TableState state, CancellationToken cancellationToken)
     {
         int page = state.Page + 1;
         int pageSize = state.PageSize;
@@ -59,12 +59,12 @@ public partial class VehiclesIndex
             url += $"&filter={Filter}";
         }
 
-        var responseHttp = await Repository.GetAsync<List<E.Vehicle>>(url);
+        var responseHttp = await Repository.GetAsync<List<Vehicle>>(url);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             Snackbar.Add(message, Severity.Error);
-            return new TableData<E.Vehicle>
+            return new TableData<Vehicle>
             {
                 Items = [],
                 TotalItems = 0
@@ -72,13 +72,13 @@ public partial class VehiclesIndex
         }
         if (responseHttp.Response == null)
         {
-            return new TableData<E.Vehicle>
+            return new TableData<Vehicle>
             {
                 Items = [],
                 TotalItems = 0
             };
         }
-        return new TableData<E.Vehicle>
+        return new TableData<Vehicle>
         {
             Items = responseHttp.Response,
             TotalItems = totalRecords
@@ -148,7 +148,7 @@ public partial class VehiclesIndex
         }
     }
 
-    private async Task DeleteAsync(E.Vehicle Vehicle)
+    private async Task DeleteAsync(Vehicle Vehicle)
     {
         var parameters = new DialogParameters
         {

@@ -14,9 +14,9 @@ public class DataContext : IdentityDbContext<User>
     public DbSet<Customer> Customers { get; set; }
     public DbSet<DocumentType> DocumentTypes { get; set; }
     public DbSet<Vehicle> Vehicles { get; set; }
-    public DbSet<VehicleUse> VehicleUses { get; set; }
-    public DbSet<VehicleType> VehicleTypes { get; set; }
-    public DbSet<VehicleBrand> VehicleBrands { get; set; }
+    public DbSet<Use> Uses { get; set; }
+    public DbSet<TypeV> Types { get; set; }
+    public DbSet<Brand> Brands { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -24,10 +24,10 @@ public class DataContext : IdentityDbContext<User>
 
         //evita duplicados de variable (Name ) en la bd
         modelBuilder.Entity<Customer>().HasIndex(x => x.Document).IsUnique();
-        modelBuilder.Entity<VehicleBrand>().HasIndex(x => x.Name).IsUnique();
+        modelBuilder.Entity<Brand>().HasIndex(x => x.Name).IsUnique();
         modelBuilder.Entity<DocumentType>().HasIndex(x => x.Name).IsUnique();
-        modelBuilder.Entity<VehicleType>().HasIndex(x => x.Name).IsUnique();
-        modelBuilder.Entity<VehicleUse>().HasIndex(x => x.Name).IsUnique();
+        modelBuilder.Entity<TypeV>().HasIndex(x => x.Name).IsUnique();
+        modelBuilder.Entity<Use>().HasIndex(x => x.Name).IsUnique();
         modelBuilder.Entity<Vehicle>().HasIndex(x => x.Plate).IsUnique();
 
         // deshabilita el borrado en cascada,

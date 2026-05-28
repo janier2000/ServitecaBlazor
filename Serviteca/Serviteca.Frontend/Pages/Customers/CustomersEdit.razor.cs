@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using MudBlazor;
 using Serviteca.Frontend.Repositories;
 using Serviteca.Shared.DTOs;
-using System.Text.RegularExpressions;
-using E = Serviteca.Shared.Entities;
+using Serviteca.Shared.Entities;
 
 namespace Serviteca.Frontend.Pages.Customers;
 
@@ -21,7 +19,7 @@ public partial class CustomersEdit
 
     protected override async Task OnInitializedAsync()
     {
-        var responseHttp = await Repository.GetAsync<E.Customer>($"api/Customers/{Id}");
+        var responseHttp = await Repository.GetAsync<Customer>($"api/Customers/{Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)

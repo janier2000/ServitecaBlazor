@@ -157,37 +157,37 @@ public class SeedDb
 
     private async Task CheckVehicleTypesAsync()
     {
-        if (!_context.VehicleTypes.Any())
+        if (!_context.Types.Any())
         {
-            _ = _context.VehicleTypes.Add(new VehicleType
+            _ = _context.Types.Add(new TypeV
             {
                 Name = "AUTOMOVILES"
             });
-            _ = _context.VehicleTypes.Add(new VehicleType
+            _ = _context.Types.Add(new TypeV
             {
                 Name = "CAMIONES"
             });
-            _ = _context.VehicleTypes.Add(new VehicleType
+            _ = _context.Types.Add(new TypeV
             {
                 Name = "TAXIS"
             });
-            _ = _context.VehicleTypes.Add(new VehicleType
+            _ = _context.Types.Add(new TypeV
             {
                 Name = "CAMPEROS"
             });
-            _ = _context.VehicleTypes.Add(new VehicleType
+            _ = _context.Types.Add(new TypeV
             {
                 Name = "CAMIONETAS"
             });
-            _ = _context.VehicleTypes.Add(new VehicleType
+            _ = _context.Types.Add(new TypeV
             {
                 Name = "CARGA"
             });
-            _ = _context.VehicleTypes.Add(new VehicleType
+            _ = _context.Types.Add(new TypeV
             {
                 Name = "BUSES"
             });
-            _ = _context.VehicleTypes.Add(new VehicleType
+            _ = _context.Types.Add(new TypeV
             {
                 Name = "VANS"
             });
@@ -197,17 +197,17 @@ public class SeedDb
 
     private async Task CheckVehicleUseAsync()
     {
-        if (!_context.VehicleUses.Any())
+        if (!_context.Uses.Any())
         {
-            _ = _context.VehicleUses.Add(new VehicleUse
+            _ = _context.Uses.Add(new Use
             {
                 Name = "Particular"
             });
-            _ = _context.VehicleUses.Add(new VehicleUse
+            _ = _context.Uses.Add(new Use
             {
                 Name = "Publico"
             });
-            _ = _context.VehicleUses.Add(new VehicleUse
+            _ = _context.Uses.Add(new Use
             {
                 Name = "Particular trabajo"
             });
@@ -217,145 +217,145 @@ public class SeedDb
 
     private async Task CheckVehicleBrandsAsync()
     {
-        if (!_context.VehicleBrands.Any())
+        if (!_context.Brands.Any())
         {
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "CHEVROLET"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "FORD"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "DAIHATSU"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "ALFA  ROMERO"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "AMPLE"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "AUDI"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "AUSTIN"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "BMW"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "KIA"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "BENTLEY"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "BRILLANCE"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "BUGATTI"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "BUICK"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "CADILLAC"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "CHANA"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "CHANGHE"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "CHERY"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "DAEWOO"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "DATSUN"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "DODGE"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "FERRARI"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "MG"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "GLOW"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "GREEN"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "HAFEI"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "HONDA"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "HYUNDAI"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "JAGUAR"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "MITSUBISHI"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "NISSAN"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "RENAULT"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "PEUGEOT"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "SUBARU"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "MAZDA"
             });
-            _ = _context.VehicleBrands.Add(new VehicleBrand
+            _ = _context.Brands.Add(new Brand
             {
                 Name = "TOYOTA"
             });
@@ -367,106 +367,106 @@ public class SeedDb
     {
         if (!_context.Vehicles.Any())
         {
-            var Brand = await _context.VehicleBrands.FirstOrDefaultAsync(x => x.Name == "CHEVROLET");
-            var Type = await _context.VehicleTypes.FirstOrDefaultAsync(x => x.Name == "AUTOMOVILES");
+            var Brand = await _context.Brands.FirstOrDefaultAsync(x => x.Name == "CHEVROLET");
+            var Type = await _context.Types.FirstOrDefaultAsync(x => x.Name == "AUTOMOVILES");
             var Customer = await _context.Customers.FirstOrDefaultAsync(x => x.FirstName == "ADRAINA");
-            var Use = await _context.VehicleUses.FirstOrDefaultAsync(x => x.Name == "Particular");
+            var Use = await _context.Uses.FirstOrDefaultAsync(x => x.Name == "Particular");
 
             _ = _context.Vehicles.Add(new Vehicle
             {
-                VehicleBrand = Brand,
-                VehicleUse = Use,
+                Brand = Brand,
+                Use = Use,
                 CurrentKm = 3000,
                 Customer = Customer,
                 Plate = "JUR540",
-                VehicleType = Type,
+                TypeV = Type,
                 Model = 2024,
-                ReturnDate = "02-02-2026",
+                ReturnDate = Convert.ToDateTime("02-02-2026"),
             });
 
-            Brand = await _context.VehicleBrands.FirstOrDefaultAsync(x => x.Name == "FORD");
-            Type = await _context.VehicleTypes.FirstOrDefaultAsync(x => x.Name == "CAMIONES");
+            Brand = await _context.Brands.FirstOrDefaultAsync(x => x.Name == "FORD");
+            Type = await _context.Types.FirstOrDefaultAsync(x => x.Name == "CAMIONES");
             Customer = await _context.Customers.FirstOrDefaultAsync(x => x.FirstName == "EDUARDO");
-            Use = await _context.VehicleUses.FirstOrDefaultAsync(x => x.Name == "Publico");
+            Use = await _context.Uses.FirstOrDefaultAsync(x => x.Name == "Publico");
 
             _ = _context.Vehicles.Add(new Vehicle
             {
-                VehicleBrand = Brand,
-                VehicleUse = Use,
+                Brand = Brand,
+                Use = Use,
                 CurrentKm = 4000,
                 Customer = Customer,
                 Plate = "JUR580",
-                VehicleType = Type,
+                TypeV = Type,
                 Model = 1850,
-                ReturnDate = "02-02-2026",
+                ReturnDate = Convert.ToDateTime("02-02-2026"),
             });
 
-            Brand = await _context.VehicleBrands.FirstOrDefaultAsync(x => x.Name == "DAIHATSU");
-            Type = await _context.VehicleTypes.FirstOrDefaultAsync(x => x.Name == "TAXIS");
+            Brand = await _context.Brands.FirstOrDefaultAsync(x => x.Name == "DAIHATSU");
+            Type = await _context.Types.FirstOrDefaultAsync(x => x.Name == "TAXIS");
             Customer = await _context.Customers.FirstOrDefaultAsync(x => x.FirstName == "ALAN");
-            Use = await _context.VehicleUses.FirstOrDefaultAsync(x => x.Name == "Publico");
+            Use = await _context.Uses.FirstOrDefaultAsync(x => x.Name == "Publico");
 
             _ = _context.Vehicles.Add(new Vehicle
             {
-                VehicleBrand = Brand,
-                VehicleUse = Use,
+                Brand = Brand,
+                Use = Use,
                 CurrentKm = 4000,
                 Customer = Customer,
                 Plate = "HTR894",
-                VehicleType = Type,
+                TypeV = Type,
                 Model = 2000,
-                ReturnDate = "02-02-2026",
+                ReturnDate = Convert.ToDateTime("02-02-2026"),
             });
 
-            Brand = await _context.VehicleBrands.FirstOrDefaultAsync(x => x.Name == "ALFA  ROMERO");
-            Type = await _context.VehicleTypes.FirstOrDefaultAsync(x => x.Name == "CAMPEROS");
+            Brand = await _context.Brands.FirstOrDefaultAsync(x => x.Name == "ALFA  ROMERO");
+            Type = await _context.Types.FirstOrDefaultAsync(x => x.Name == "CAMPEROS");
             Customer = await _context.Customers.FirstOrDefaultAsync(x => x.FirstName == "ALEJANDRA");
-            Use = await _context.VehicleUses.FirstOrDefaultAsync(x => x.Name == "Particular trabajo");
+            Use = await _context.Uses.FirstOrDefaultAsync(x => x.Name == "Particular trabajo");
 
             _ = _context.Vehicles.Add(new Vehicle
             {
-                VehicleBrand = Brand,
-                VehicleUse = Use,
+                Brand = Brand,
+                Use = Use,
                 CurrentKm = 5000,
                 Customer = Customer,
                 Plate = "DRE852",
-                VehicleType = Type,
+                TypeV = Type,
                 Model = 2010,
-                ReturnDate = "02-02-2026",
+                ReturnDate = Convert.ToDateTime("02-02-2026"),
             });
 
-            Brand = await _context.VehicleBrands.FirstOrDefaultAsync(x => x.Name == "AMPLE");
-            Type = await _context.VehicleTypes.FirstOrDefaultAsync(x => x.Name == "CAMIONETAS");
+            Brand = await _context.Brands.FirstOrDefaultAsync(x => x.Name == "AMPLE");
+            Type = await _context.Types.FirstOrDefaultAsync(x => x.Name == "CAMIONETAS");
             Customer = await _context.Customers.FirstOrDefaultAsync(x => x.FirstName == "camila");
-            Use = await _context.VehicleUses.FirstOrDefaultAsync(x => x.Name == "Particular trabajo");
+            Use = await _context.Uses.FirstOrDefaultAsync(x => x.Name == "Particular trabajo");
 
             _ = _context.Vehicles.Add(new Vehicle
             {
-                VehicleBrand = Brand,
-                VehicleUse = Use,
+                Brand = Brand,
+                Use = Use,
                 CurrentKm = 6000,
                 Customer = Customer,
                 Plate = "TRF456",
-                VehicleType = Type,
+                TypeV = Type,
                 Model = 2024,
-                ReturnDate = "02-02-2026",
+                ReturnDate = Convert.ToDateTime("02-02-2026"),
             });
 
-            Brand = await _context.VehicleBrands.FirstOrDefaultAsync(x => x.Name == "AUDI");
-            Type = await _context.VehicleTypes.FirstOrDefaultAsync(x => x.Name == "CARGA");
+            Brand = await _context.Brands.FirstOrDefaultAsync(x => x.Name == "AUDI");
+            Type = await _context.Types.FirstOrDefaultAsync(x => x.Name == "CARGA");
             Customer = await _context.Customers.FirstOrDefaultAsync(x => x.FirstName == "jose");
-            Use = await _context.VehicleUses.FirstOrDefaultAsync(x => x.Name == "Particular");
+            Use = await _context.Uses.FirstOrDefaultAsync(x => x.Name == "Particular");
 
             _ = _context.Vehicles.Add(new Vehicle
             {
-                VehicleBrand = Brand,
-                VehicleUse = Use,
+                Brand = Brand,
+                Use = Use,
                 CurrentKm = 7000,
                 Customer = Customer,
                 Plate = "LKJ652",
-                VehicleType = Type,
+                TypeV = Type,
                 Model = 2018,
-                ReturnDate = "02-02-2026",
+                ReturnDate = Convert.ToDateTime("02-02-2026"),
             });
         }
         await _context.SaveChangesAsync();

@@ -2,20 +2,18 @@ using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Serviteca.Frontend.Repositories;
 using Serviteca.Frontend.Shared;
-using System.Diagnostics.Metrics;
+using Serviteca.Shared.Entities;
 using System.Net;
-using e = Serviteca.Shared.Entities;
 
 namespace Serviteca.Frontend.Pages.DocumentTypes;
 
 public partial class DocumentTypesIndex
 {
-    private List<e.DocumentType>? lstDocumentType { get; set; }
-    private MudTable<e.DocumentType> table = new();
+    private List<DocumentType>? lstDocumentType { get; set; }
+    private MudTable<DocumentType> table = new();
     private readonly int[] pageSizeOptions = { 10, 25, 50, int.MaxValue };
     private int totalRecords = 0;
     private bool loading;
-    private const string baseUrl = "api/DocumentTypes";
     private string infoFormat = "{first_item}-{last_item} => {all_items}";
 
     [Inject] private IRepository Repository { get; set; } = null!;
@@ -32,7 +30,7 @@ public partial class DocumentTypesIndex
     private async Task LoadTotalRecordsAsync()
     {
         loading = true;
-        var url = $"{baseUrl}/totalRecordsPaginated";
+        var url = $"api/DocumentTypes/totalRecordsPaginated";
 
         if (!string.IsNullOrWhiteSpace(Filter))
         {
@@ -50,23 +48,23 @@ public partial class DocumentTypesIndex
         loading = false;
     }
 
-    private async Task<TableData<e.DocumentType>> LoadListAsync(TableState state, CancellationToken cancellationToken)
+    private async Task<TableData<DocumentType>> LoadListAsync(TableState state, CancellationToken cancellationToken)
     {
         int page = state.Page + 1;
         int pageSize = state.PageSize;
-        var url = $"{baseUrl}/paginated/?page={page}&recordsnumber={pageSize}";
+        var url = $"api/DocumentTypes/paginated/?page={page}&recordsnumber={pageSize}";
 
         if (!string.IsNullOrWhiteSpace(Filter))
         {
             url += $"&filter={Filter}";
         }
 
-        var responseHttp = await Repository.GetAsync<List<e.DocumentType>>(url);
+        var responseHttp = await Repository.GetAsync<List<DocumentType>>(url);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             Snackbar.Add(message, Severity.Error);
-            return new TableData<e.DocumentType>
+            return new TableData<DocumentType>
             {
                 Items = [],
                 TotalItems = 0
@@ -74,13 +72,13 @@ public partial class DocumentTypesIndex
         }
         if (responseHttp.Response == null)
         {
-            return new TableData<e.DocumentType>
+            return new TableData<DocumentType>
             {
                 Items = [],
                 TotalItems = 0
             };
         }
-        return new TableData<e.DocumentType>
+        return new TableData<DocumentType>
         {
             Items = responseHttp.Response,
             TotalItems = totalRecords
@@ -130,7 +128,7 @@ public partial class DocumentTypesIndex
         }
     }
 
-    private async Task DeleteAsync(e.DocumentType documentType)
+    private async Task DeleteAsync(DocumentType documentType)
     {
         var parameters = new DialogParameters
         {
@@ -151,7 +149,7 @@ public partial class DocumentTypesIndex
             return;
         }
 
-        var responseHttp = await Repository.Delete2Async($"{baseUrl}/{documentType.Id}");
+        var responseHttp = await Repository.Delete2Async($"api/DocumentTypes/{documentType.Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == HttpStatusCode.NotFound)

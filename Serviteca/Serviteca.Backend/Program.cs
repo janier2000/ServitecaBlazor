@@ -21,13 +21,13 @@ builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped(typeof(IGenericUnitOfWork<>), typeof(GenericUnitOfWork<>));
 
-builder.Services.AddScoped<IVehicleBrandsRepository, VehicleBrandsRepository>();
+builder.Services.AddScoped<IBrandsRepository, BrandsRepository>();
 builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
 builder.Services.AddScoped<IVehiclesRepository, VehiclesRepository>();
-builder.Services.AddScoped<IVehicleTypesRepository, VehicleTypesRepository>();
-builder.Services.AddScoped<IVehicleTypesRepository, VehicleTypesRepository>();
+builder.Services.AddScoped<ITypesRepository, VehicleTypesRepository>();
+builder.Services.AddScoped<ITypesRepository, VehicleTypesRepository>();
 builder.Services.AddScoped<IDocumentTypesRepository, DocumentTypesRepository>();
-builder.Services.AddScoped<IVehicleUsesRepository, VehicleUsesRepository>();
+builder.Services.AddScoped<IUsesRepository, UsesRepository>();
 
 var app = builder.Build();
 

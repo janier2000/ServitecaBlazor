@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Serviteca.Frontend.Repositories;
 using Serviteca.Shared.DTOs;
-using E = Serviteca.Shared.Entities;
+using Serviteca.Shared.Entities;
 
 namespace Serviteca.Frontend.Pages.Vehicles;
 
@@ -19,7 +19,7 @@ public partial class VehiclesCreate
     private async Task CreateAsync()
     {
         var responseHttp = await Repository
-            .PostAsync<VehicleDTO, E.Vehicle>("/api/Vehicles/Create", vehicleDtoENT);
+            .PostAsync<VehicleDTO, Vehicle>("/api/Vehicles/Create", vehicleDtoENT);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();

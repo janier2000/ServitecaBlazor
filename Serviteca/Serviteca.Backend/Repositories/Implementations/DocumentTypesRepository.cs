@@ -40,7 +40,7 @@ public class DocumentTypesRepository : GenericRepository<DocumentType>, IDocumen
 
     public override async Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination)
     {
-        var queryable = _context.VehicleBrands.AsQueryable();
+        var queryable = _context.Brands.AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {

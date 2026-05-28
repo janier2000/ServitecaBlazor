@@ -15,14 +15,14 @@ public partial class VehiclesForm
     private string? isActiveMessage;
     private EditContext editContext = null!;
 
-    private List<VehicleBrand>? LstVehicleBrand;
-    private VehicleBrand selectedBrand = new();
+    private List<Brand>? LstBrand;
+    private Brand selectedBrand = new();
 
-    private List<VehicleUse>? LstVehicleUse;
-    private VehicleUse selectedUse = new();
+    private List<Use>? LstUse;
+    private Use selectedUse = new();
 
-    private List<VehicleType>? LstVehicleType;
-    private VehicleType selectedType = new();
+    private List<TypeV>? LstType;
+    private TypeV selectedType = new();
 
     private List<Customer>? LstCustomer;
     private Customer selectedCustomer = new();
@@ -64,49 +64,49 @@ public partial class VehiclesForm
 
     private async Task LoadBrandAsync()
     {
-        var responseHttp = await Repository.GetAsync<List<VehicleBrand>>("/api/VehicleBrands/combo");
+        var responseHttp = await Repository.GetAsync<List<Brand>>("/api/Brands/combo");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return;
         }
-        LstVehicleBrand = responseHttp.Response;
-        if (VehicleDtoENT.VehicleBrandId != 0)
+        LstBrand = responseHttp.Response;
+        if (VehicleDtoENT.BrandId != 0)
         {
-            selectedBrand = LstVehicleBrand!.FirstOrDefault(x => x.Id == VehicleDtoENT.VehicleBrandId)!;
+            selectedBrand = LstBrand!.FirstOrDefault(x => x.Id == VehicleDtoENT.BrandId)!;
         }
     }
 
     private async Task LoadTypeAsync()
     {
-        var responseHttp = await Repository.GetAsync<List<VehicleType>>("/api/VehicleTypes/combo");
+        var responseHttp = await Repository.GetAsync<List<TypeV>>("/api/Types/combo");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return;
         }
-        LstVehicleType = responseHttp.Response;
-        if (VehicleDtoENT.VehicleTypeId != 0)
+        LstType = responseHttp.Response;
+        if (VehicleDtoENT.TypeVId != 0)
         {
-            selectedType = LstVehicleType!.FirstOrDefault(x => x.Id == VehicleDtoENT.VehicleTypeId)!;
+            selectedType = LstType!.FirstOrDefault(x => x.Id == VehicleDtoENT.TypeVId)!;
         }
     }
 
     private async Task LoadUseAsync()
     {
-        var responseHttp = await Repository.GetAsync<List<VehicleUse>>("/api/VehicleUses/combo");
+        var responseHttp = await Repository.GetAsync<List<Use>>("/api/Uses/combo");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return;
         }
-        LstVehicleUse = responseHttp.Response;
-        if (VehicleDtoENT.VehicleUseId != 0)
+        LstUse = responseHttp.Response;
+        if (VehicleDtoENT.UseId != 0)
         {
-            selectedUse = LstVehicleUse!.FirstOrDefault(x => x.Id == VehicleDtoENT.VehicleUseId)!;
+            selectedUse = LstUse!.FirstOrDefault(x => x.Id == VehicleDtoENT.UseId)!;
         }
     }
 
@@ -148,22 +148,22 @@ public partial class VehiclesForm
         //isActiveMessage = CustomerDTOENT.IsActive ? $"{Localizer["Group"]} {Localizer["Active"]}" : $"{Localizer["Group"]} {Localizer["Inactive"]}";
     }
 
-    private void ChangedBrand(VehicleBrand vehicleBrandEnt)
+    private void ChangedBrand(Brand brandEnt)
     {
-        selectedBrand = vehicleBrandEnt;
-        VehicleDtoENT.VehicleBrandId = vehicleBrandEnt.Id;
+        selectedBrand = brandEnt;
+        VehicleDtoENT.BrandId = brandEnt.Id;
     }
 
-    private void ChangedUse(VehicleUse vehicleUseEnt)
+    private void ChangedUse(Use useEnt)
     {
-        selectedUse = vehicleUseEnt;
-        VehicleDtoENT.VehicleUseId = vehicleUseEnt.Id;
+        selectedUse = useEnt;
+        VehicleDtoENT.UseId = useEnt.Id;
     }
 
-    private void ChangedType(VehicleType vehicleTypeEnt)
+    private void ChangedType(TypeV typeEnt)
     {
-        selectedType = vehicleTypeEnt;
-        VehicleDtoENT.VehicleTypeId = vehicleTypeEnt.Id;
+        selectedType = typeEnt;
+        VehicleDtoENT.TypeVId = typeEnt.Id;
     }
 
     private void ChangedCustomer(Customer customerEnt)
@@ -178,35 +178,35 @@ public partial class VehiclesForm
         VehicleDtoENT.ReturnDate = selectedReturnDate.HasValue ? selectedReturnDate.Value : default;
     }
 
-    private async Task<IEnumerable<VehicleBrand>> SearchBrand(string searchText, CancellationToken cancellationToken)
+    private async Task<IEnumerable<Brand>> SearchBrand(string searchText, CancellationToken cancellationToken)
     {
         await Task.Delay(5);
         if (string.IsNullOrWhiteSpace(searchText))
         {
-            return LstVehicleBrand!;
+            return LstBrand!;
         }
 
-        return LstVehicleBrand!.Where(x => x.Name.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
+        return LstBrand!.Where(x => x.Name.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
     }
 
-    private async Task<IEnumerable<VehicleUse>> SearchUse(string searchText, CancellationToken cancellationToken)
+    private async Task<IEnumerable<Use>> SearchUse(string searchText, CancellationToken cancellationToken)
     {
         await Task.Delay(5);
         if (string.IsNullOrWhiteSpace(searchText))
         {
-            return LstVehicleUse!;
+            return LstUse!;
         }
-        return LstVehicleUse!.Where(x => x.Name.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
+        return LstUse!.Where(x => x.Name.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
     }
 
-    private async Task<IEnumerable<VehicleType>> SearchType(string searchText, CancellationToken cancellationToken)
+    private async Task<IEnumerable<TypeV>> SearchType(string searchText, CancellationToken cancellationToken)
     {
         await Task.Delay(5);
         if (string.IsNullOrWhiteSpace(searchText))
         {
-            return LstVehicleType!;
+            return LstType!;
         }
-        return LstVehicleType!.Where(x => x.Name.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
+        return LstType!.Where(x => x.Name.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
     }
 
     private async Task<IEnumerable<Customer>> SearchCustomer(string searchText, CancellationToken cancellationToken)

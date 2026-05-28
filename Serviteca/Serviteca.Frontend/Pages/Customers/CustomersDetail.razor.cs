@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using MudBlazor;
 using Serviteca.Frontend.Repositories;
 using Serviteca.Shared.Entities;
-using System.Text.RegularExpressions;
 
 namespace Serviteca.Frontend.Pages.Customers;
 

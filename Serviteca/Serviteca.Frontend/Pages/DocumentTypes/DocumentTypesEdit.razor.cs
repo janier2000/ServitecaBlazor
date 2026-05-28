@@ -1,15 +1,13 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using MudBlazor;
 using Serviteca.Frontend.Repositories;
-using System.Diagnostics.Metrics;
-using E = Serviteca.Shared.Entities;
+using Serviteca.Shared.Entities;
 
 namespace Serviteca.Frontend.Pages.DocumentTypes;
 
 public partial class DocumentTypesEdit
 {
-    private E.DocumentType? documentTypeENT;
+    private DocumentType? documentTypeENT;
     private DocumentTypesForm? documentTypesForm;
 
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
@@ -20,13 +18,13 @@ public partial class DocumentTypesEdit
 
     protected override async Task OnInitializedAsync()
     {
-        var responseHttp = await Repository.GetAsync<E.DocumentType>($"api/DocumentTypes/{Id}");
+        var responseHttp = await Repository.GetAsync<DocumentType>($"api/DocumentTypes/{Id}");
 
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                NavigationManager.NavigateTo("DocumentTypes");
+                NavigationManager.NavigateTo("/DocumentTypes");
             }
             else
             {
@@ -58,6 +56,6 @@ public partial class DocumentTypesEdit
     private void Return()
     {
         documentTypesForm!.FormPostedSuccessfully = true;
-        NavigationManager.NavigateTo("DocumentTypes");
+        NavigationManager.NavigateTo("/DocumentTypes");
     }
 }

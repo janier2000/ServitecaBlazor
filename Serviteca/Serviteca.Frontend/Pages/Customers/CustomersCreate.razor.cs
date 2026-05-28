@@ -1,14 +1,9 @@
 using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.Extensions.Localization;
 using MudBlazor;
 using Serviteca.Frontend.Repositories;
 using Serviteca.Shared.DTOs;
 using Serviteca.Shared.Entities;
-
-using E = Serviteca.Shared.Entities;
 
 namespace Serviteca.Frontend.Pages.Customers;
 
@@ -24,7 +19,7 @@ public partial class CustomersCreate
     private async Task CreateAsync()
     {
         var responseHttp = await Repository
-            .PostAsync<CustomerDTO, E.Customer>("/api/Customers/Create", customerDtoENT);
+            .PostAsync<CustomerDTO, Customer>("/api/Customers/Create", customerDtoENT);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();

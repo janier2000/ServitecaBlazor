@@ -18,7 +18,7 @@ public class Vehicle
     [Display(Name = "Fecha regreso vehiculo")]
     [MaxLength(20, ErrorMessage = "El campo {0} debe tener máximo {1} caractéres.")]
     [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-    public string ReturnDate { get; set; } = null!;
+    public DateTime ReturnDate { get; set; }
 
     [Display(Name = "Kilometraje actual")]
     [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
@@ -30,21 +30,21 @@ public class Vehicle
     [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
     public int CustomerId { get; set; }
 
-    public VehicleType? VehicleType { get; set; }
+    public TypeV? TypeV { get; set; }
 
     [Display(Name = "Tipo")]
     [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
-    public int VehicleTypeId { get; set; }
+    public int TypeVId { get; set; }
 
-    public VehicleUse? VehicleUse { get; set; }
+    public Use? Use { get; set; }
 
     [Display(Name = "Uso")]
     [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
-    public int VehicleUseId { get; set; }
+    public int UseId { get; set; }
 
-    public VehicleBrand? VehicleBrand { get; set; }
+    public Brand? Brand { get; set; }
 
     [Display(Name = "Marca")]
     [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
-    public int VehicleBrandId { get; set; }
+    public int BrandId { get; set; }
 }

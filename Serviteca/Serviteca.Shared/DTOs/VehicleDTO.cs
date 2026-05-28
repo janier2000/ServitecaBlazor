@@ -30,13 +30,13 @@ public class VehicleDTO
 
     [Display(Name = "Tipo")]
     [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
-    public int VehicleTypeId { get; set; }
+    public int TypeVId { get; set; }
 
     [Display(Name = "Uso")]
     [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
-    public int VehicleUseId { get; set; }
+    public int UseId { get; set; }
 
     [Display(Name = "Marca")]
     [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
-    public int VehicleBrandId { get; set; }
+    public int BrandId { get; set; }
 }

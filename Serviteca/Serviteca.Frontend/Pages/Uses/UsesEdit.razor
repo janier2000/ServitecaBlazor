@@ -1,0 +1,15 @@
+﻿@if (useENT is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <UsesForm @ref="usesForm"
+                      UseENT="useENT"
+                               OnValidSubmit="EditAsync"
+                               ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}

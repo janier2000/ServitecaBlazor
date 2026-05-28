@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Serviteca.Frontend.Pages.Customers;
 using Serviteca.Frontend.Repositories;
 using Serviteca.Shared.DTOs;
-using E = Serviteca.Shared.Entities;
+using Serviteca.Shared.Entities;
 
 namespace Serviteca.Frontend.Pages.Vehicles;
 
@@ -20,7 +19,7 @@ public partial class VehiclesEdit
 
     protected override async Task OnInitializedAsync()
     {
-        var responseHttp = await Repository.GetAsync<E.Vehicle>($"api/Vehicles/{Id}");
+        var responseHttp = await Repository.GetAsync<Vehicle>($"api/Vehicles/{Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -44,9 +43,9 @@ public partial class VehiclesEdit
                 Plate = vehicle.Plate,
                 ReturnDate = Convert.ToDateTime(vehicle.ReturnDate),
                 CustomerId = vehicle.CustomerId,
-                VehicleBrandId = vehicle.VehicleBrandId,
-                VehicleTypeId = vehicle.VehicleTypeId,
-                VehicleUseId = vehicle.VehicleUseId,
+                BrandId = vehicle.BrandId,
+                TypeVId = vehicle.TypeVId,
+                UseId = vehicle.UseId,
             };
         }
     }

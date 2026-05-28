@@ -1,0 +1,15 @@
+﻿@if (brandENT is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <BrandsForm @ref="brandsForm"
+                        BrandENT="brandENT"
+                        OnValidSubmit="EditAsync"
+                        ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}

@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using Serviteca.Frontend.Repositories;
-using E = Serviteca.Shared.Entities;
+using Serviteca.Shared.Entities;
 
 namespace Serviteca.Frontend.Pages.DocumentTypes;
 
 public partial class DocumentTypesCreate
 {
-    private E.DocumentType documentTypeENT = new();
+    private DocumentType documentTypeENT = new();
     private DocumentTypesForm? documentTypesForm;
 
     [Inject] private IRepository Repository { get; set; } = null!;

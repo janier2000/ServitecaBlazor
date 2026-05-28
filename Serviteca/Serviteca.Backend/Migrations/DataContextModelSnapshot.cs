@@ -155,6 +155,27 @@ namespace Serviteca.Backend.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Serviteca.Shared.Entities.Brand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Brands");
+                });
+
             modelBuilder.Entity("Serviteca.Shared.Entities.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -228,6 +249,48 @@ namespace Serviteca.Backend.Migrations
                         .IsUnique();
 
                     b.ToTable("DocumentTypes");
+                });
+
+            modelBuilder.Entity("Serviteca.Shared.Entities.TypeV", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Types");
+                });
+
+            modelBuilder.Entity("Serviteca.Shared.Entities.Use", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Uses");
                 });
 
             modelBuilder.Entity("Serviteca.Shared.Entities.User", b =>
@@ -321,6 +384,9 @@ namespace Serviteca.Backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CurrentKm")
                         .HasColumnType("int");
 
@@ -335,94 +401,30 @@ namespace Serviteca.Backend.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("ReturnDate")
-                        .IsRequired()
+                    b.Property<DateTime>("ReturnDate")
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("VehicleBrandId")
+                    b.Property<int>("TypeVId")
                         .HasColumnType("int");
 
-                    b.Property<int>("VehicleTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VehicleUseId")
+                    b.Property<int>("UseId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BrandId");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("VehicleBrandId");
+                    b.HasIndex("Plate")
+                        .IsUnique();
 
-                    b.HasIndex("VehicleTypeId");
+                    b.HasIndex("TypeVId");
 
-                    b.HasIndex("VehicleUseId");
+                    b.HasIndex("UseId");
 
                     b.ToTable("Vehicles");
-                });
-
-            modelBuilder.Entity("Serviteca.Shared.Entities.VehicleBrand", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("VehicleBrands");
-                });
-
-            modelBuilder.Entity("Serviteca.Shared.Entities.VehicleType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("VehicleTypes");
-                });
-
-            modelBuilder.Entity("Serviteca.Shared.Entities.VehicleUse", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("VehicleUses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -430,7 +432,7 @@ namespace Serviteca.Backend.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -439,7 +441,7 @@ namespace Serviteca.Backend.Migrations
                     b.HasOne("Serviteca.Shared.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -448,7 +450,7 @@ namespace Serviteca.Backend.Migrations
                     b.HasOne("Serviteca.Shared.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -457,13 +459,13 @@ namespace Serviteca.Backend.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Serviteca.Shared.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -472,16 +474,16 @@ namespace Serviteca.Backend.Migrations
                     b.HasOne("Serviteca.Shared.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Serviteca.Shared.Entities.Customer", b =>
                 {
                     b.HasOne("Serviteca.Shared.Entities.DocumentType", "DocumentType")
-                        .WithMany("Customer")
+                        .WithMany()
                         .HasForeignKey("DocumentTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("DocumentType");
@@ -489,55 +491,50 @@ namespace Serviteca.Backend.Migrations
 
             modelBuilder.Entity("Serviteca.Shared.Entities.Vehicle", b =>
                 {
+                    b.HasOne("Serviteca.Shared.Entities.Brand", "Brand")
+                        .WithMany("Vehicle")
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Serviteca.Shared.Entities.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Serviteca.Shared.Entities.VehicleBrand", "VehicleBrand")
+                    b.HasOne("Serviteca.Shared.Entities.TypeV", "TypeV")
                         .WithMany("Vehicle")
-                        .HasForeignKey("VehicleBrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("TypeVId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Serviteca.Shared.Entities.VehicleType", "VehicleType")
+                    b.HasOne("Serviteca.Shared.Entities.Use", "Use")
                         .WithMany("Vehicle")
-                        .HasForeignKey("VehicleTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("UseId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Serviteca.Shared.Entities.VehicleUse", "VehicleUse")
-                        .WithMany("Vehicle")
-                        .HasForeignKey("VehicleUseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Brand");
 
                     b.Navigation("Customer");
 
-                    b.Navigation("VehicleBrand");
+                    b.Navigation("TypeV");
 
-                    b.Navigation("VehicleType");
-
-                    b.Navigation("VehicleUse");
+                    b.Navigation("Use");
                 });
 
-            modelBuilder.Entity("Serviteca.Shared.Entities.DocumentType", b =>
-                {
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("Serviteca.Shared.Entities.VehicleBrand", b =>
+            modelBuilder.Entity("Serviteca.Shared.Entities.Brand", b =>
                 {
                     b.Navigation("Vehicle");
                 });
 
-            modelBuilder.Entity("Serviteca.Shared.Entities.VehicleType", b =>
+            modelBuilder.Entity("Serviteca.Shared.Entities.TypeV", b =>
                 {
                     b.Navigation("Vehicle");
                 });
 
-            modelBuilder.Entity("Serviteca.Shared.Entities.VehicleUse", b =>
+            modelBuilder.Entity("Serviteca.Shared.Entities.Use", b =>
                 {
                     b.Navigation("Vehicle");
                 });

@@ -1,17 +1,16 @@
-namespace Serviteca.Frontend.Pages.Customers;
-
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
-using Serviteca.Frontend.Pages.Customers;
 using Serviteca.Frontend.Repositories;
 using Serviteca.Frontend.Shared;
+using Serviteca.Shared.Entities;
 using System.Net;
-using E = Serviteca.Shared.Entities;
+
+namespace Serviteca.Frontend.Pages.Customers;
 
 public partial class CustomersIndex
 {
-    private List<E.Customer>? lstCustomer { get; set; }
-    private MudTable<E.Customer> table = new();
+    private List<Customer>? lstCustomer { get; set; }
+    private MudTable<Customer> table = new();
     private readonly int[] pageSizeOptions = { 10, 25, 50, int.MaxValue };
     private int totalRecords = 0;
     private bool loading;
@@ -49,7 +48,7 @@ public partial class CustomersIndex
         loading = false;
     }
 
-    private async Task<TableData<E.Customer>> LoadListAsync(TableState state, CancellationToken cancellationToken)
+    private async Task<TableData<Customer>> LoadListAsync(TableState state, CancellationToken cancellationToken)
     {
         int page = state.Page + 1;
         int pageSize = state.PageSize;
@@ -60,12 +59,12 @@ public partial class CustomersIndex
             url += $"&filter={Filter}";
         }
 
-        var responseHttp = await Repository.GetAsync<List<E.Customer>>(url);
+        var responseHttp = await Repository.GetAsync<List<Customer>>(url);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             Snackbar.Add(message, Severity.Error);
-            return new TableData<E.Customer>
+            return new TableData<Customer>
             {
                 Items = [],
                 TotalItems = 0
@@ -73,13 +72,13 @@ public partial class CustomersIndex
         }
         if (responseHttp.Response == null)
         {
-            return new TableData<E.Customer>
+            return new TableData<Customer>
             {
                 Items = [],
                 TotalItems = 0
             };
         }
-        return new TableData<E.Customer>
+        return new TableData<Customer>
         {
             Items = responseHttp.Response,
             TotalItems = totalRecords
@@ -149,7 +148,7 @@ public partial class CustomersIndex
         }
     }
 
-    private async Task DeleteAsync(E.Customer Customer)
+    private async Task DeleteAsync(Customer Customer)
     {
         var parameters = new DialogParameters
         {

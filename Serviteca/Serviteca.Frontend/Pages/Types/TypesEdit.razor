@@ -1,0 +1,17 @@
+﻿@if (typeENT is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <TypesForm @ref="typesForm"
+                               TypeENT="typeENT"
+                               OnValidSubmit="EditAsync"
+                               ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}
+
+

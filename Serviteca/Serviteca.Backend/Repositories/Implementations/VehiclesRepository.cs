@@ -30,7 +30,7 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
                 vehicleENT.Plate = vehicleDTO.Plate;
                 vehicleENT.CurrentKm = vehicleDTO.CurrentKm;
                 vehicleENT.Model = vehicleDTO.Model;
-                vehicleENT.ReturnDate = vehicleDTO.ReturnDate.ToString().Substring(0, 10);
+                vehicleENT.ReturnDate = vehicleDTO.ReturnDate;
                 _context.Add(vehicleENT);
                 await _context.SaveChangesAsync();
                 return new ActionResponse<Vehicle>
@@ -82,10 +82,10 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
                 Vehicle vehicleENT = idCheckResponse.Result!;
                 vehicleENT.CurrentKm = vehicleDTO.CurrentKm;
                 vehicleENT.Model = vehicleDTO.Model;
-                vehicleENT.ReturnDate = vehicleDTO.ReturnDate.ToString().Substring(0, 10);
-                vehicleENT.VehicleBrand = ResponseVehicle.Result!.VehicleBrand;
-                vehicleENT.VehicleType = ResponseVehicle.Result!.VehicleType;
-                vehicleENT.VehicleUse = ResponseVehicle.Result!.VehicleUse;
+                vehicleENT.ReturnDate = vehicleDTO.ReturnDate;
+                vehicleENT.Brand = ResponseVehicle.Result!.Brand;
+                vehicleENT.TypeV = ResponseVehicle.Result!.TypeV;
+                vehicleENT.Use = ResponseVehicle.Result!.Use;
                 _context.Update(vehicleENT);
                 await _context.SaveChangesAsync();
                 return new ActionResponse<Vehicle>
@@ -125,9 +125,9 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
     {
         var customers = await _context.Vehicles
                                       .Include(s => s.Customer!)
-                                      .Include(s => s.VehicleBrand!)
-                                      .Include(s => s.VehicleType!)
-                                      .Include(s => s.VehicleUse)
+                                      .Include(s => s.Brand!)
+                                      .Include(s => s.TypeV!)
+                                      .Include(s => s.Use)
                                       .OrderBy(x => x.Plate)
                                       .ToListAsync();
         return new ActionResponse<IEnumerable<Vehicle>>
@@ -141,9 +141,9 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
     {
         var queryable = _context.Vehicles
                                 .Include(s => s.Customer!)
-                                .Include(s => s.VehicleBrand!)
-                                .Include(s => s.VehicleType!)
-                                .Include(s => s.VehicleUse)
+                                .Include(s => s.Brand!)
+                                .Include(s => s.TypeV!)
+                                .Include(s => s.Use)
                                 .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
@@ -164,9 +164,9 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
     {
         var vehicle = await _context.Vehicles
                                     .Include(s => s.Customer!)
-                                    .Include(s => s.VehicleBrand!)
-                                    .Include(s => s.VehicleType!)
-                                    .Include(s => s.VehicleUse)
+                                    .Include(s => s.Brand!)
+                                    .Include(s => s.TypeV!)
+                                    .Include(s => s.Use)
                                     .FirstOrDefaultAsync(c => c.Id == id);
         if (vehicle == null)
         {
@@ -221,7 +221,7 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
             };
         }
 
-        var vehicleUse = await _context.VehicleUses.FindAsync(vehicleDTO.VehicleUseId);
+        var vehicleUse = await _context.Uses.FindAsync(vehicleDTO.UseId);
         if (vehicleUse == null)
         {
             return new ActionResponse<Vehicle>
@@ -231,7 +231,7 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
             };
         }
 
-        var vehicleType = await _context.VehicleTypes.FindAsync(vehicleDTO.VehicleTypeId);
+        var vehicleType = await _context.Types.FindAsync(vehicleDTO.TypeVId);
         if (vehicleType == null)
         {
             return new ActionResponse<Vehicle>
@@ -241,7 +241,7 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
             };
         }
 
-        var vehicleBrand = await _context.VehicleBrands.FindAsync(vehicleDTO.VehicleBrandId);
+        var vehicleBrand = await _context.Brands.FindAsync(vehicleDTO.BrandId);
         if (vehicleBrand == null)
         {
             return new ActionResponse<Vehicle>
@@ -253,9 +253,9 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
 
         Vehicle vehicleENT = new Vehicle()
         {
-            VehicleUse = vehicleUse,
-            VehicleType = vehicleType,
-            VehicleBrand = vehicleBrand,
+            Use = vehicleUse,
+            TypeV = vehicleType,
+            Brand = vehicleBrand,
             Customer = customer
         };
 
