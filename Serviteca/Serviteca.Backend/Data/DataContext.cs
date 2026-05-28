@@ -17,6 +17,8 @@ public class DataContext : IdentityDbContext<User>
     public DbSet<Use> Uses { get; set; }
     public DbSet<TypeV> Types { get; set; }
     public DbSet<Brand> Brands { get; set; }
+    public DbSet<Insurer> Insurers { get; set; }
+    public DbSet<Soat> Soats { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -24,7 +24,7 @@ public partial class VehiclesEdit
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                NavigationManager.NavigateTo("Vehicles");
+                NavigationManager.NavigateTo("/Vehicles");
             }
             else
             {
