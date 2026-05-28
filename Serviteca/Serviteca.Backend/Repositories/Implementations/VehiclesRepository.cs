@@ -30,7 +30,7 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
                 vehicleENT.Plate = vehicleDTO.Plate;
                 vehicleENT.CurrentKm = vehicleDTO.CurrentKm;
                 vehicleENT.Model = vehicleDTO.Model;
-                vehicleENT.ReturnDate = vehicleDTO.ReturnDate.ToString();
+                vehicleENT.ReturnDate = vehicleDTO.ReturnDate.ToString().Substring(0, 10);
                 _context.Add(vehicleENT);
                 await _context.SaveChangesAsync();
                 return new ActionResponse<Vehicle>
@@ -79,16 +79,13 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
             var ResponseVehicle = await CheckVehicle(vehicleDTO);
             if (ResponseVehicle.WasSuccess)
             {
-                Vehicle vehicleENT = new Vehicle()
-                {
-                    Plate = vehicleDTO.Plate,
-                    CurrentKm = vehicleDTO.CurrentKm,
-                    Model = vehicleDTO.Model,
-                    ReturnDate = vehicleDTO.ReturnDate.ToString(),
-                    VehicleBrand = ResponseVehicle.Result!.VehicleBrand,
-                    VehicleType = ResponseVehicle.Result!.VehicleType,
-                    VehicleUse = ResponseVehicle.Result!.VehicleUse,
-                };
+                Vehicle vehicleENT = idCheckResponse.Result!;
+                vehicleENT.CurrentKm = vehicleDTO.CurrentKm;
+                vehicleENT.Model = vehicleDTO.Model;
+                vehicleENT.ReturnDate = vehicleDTO.ReturnDate.ToString().Substring(0, 10);
+                vehicleENT.VehicleBrand = ResponseVehicle.Result!.VehicleBrand;
+                vehicleENT.VehicleType = ResponseVehicle.Result!.VehicleType;
+                vehicleENT.VehicleUse = ResponseVehicle.Result!.VehicleUse;
                 _context.Update(vehicleENT);
                 await _context.SaveChangesAsync();
                 return new ActionResponse<Vehicle>
@@ -240,7 +237,7 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
             return new ActionResponse<Vehicle>
             {
                 WasSuccess = false,
-                Message = "Tipo de vehículo no existe";
+                Message = "Tipo de vehículo no existe",
             };
         }
 
@@ -250,7 +247,7 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
             return new ActionResponse<Vehicle>
             {
                 WasSuccess = false,
-                Message = "Marca de vehículo no existe";
+                Message = "Marca de vehículo no existe",
             };
         }
 
