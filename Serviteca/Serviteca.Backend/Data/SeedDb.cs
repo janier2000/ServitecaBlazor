@@ -18,10 +18,12 @@ public class SeedDb
         await _context.Database.EnsureCreatedAsync();
         await CheckDocumentTypeAsync();
         await CheckCustomersAsync();
-        await CheckVehicleTypesAsync();
-        await CheckVehicleUseAsync();
-        await CheckVehicleBrandsAsync();
+        await CheckTypesAsync();
+        await CheckUseAsync();
+        await CheckBrandsAsync();
         await CheckVehicleAsync();
+        await CheckInsurersAsync();
+        await CheckSoatsAsync();
     }
 
     private async Task CheckDocumentTypeAsync()
@@ -155,7 +157,7 @@ public class SeedDb
         await _context.SaveChangesAsync();
     }
 
-    private async Task CheckVehicleTypesAsync()
+    private async Task CheckTypesAsync()
     {
         if (!_context.Types.Any())
         {
@@ -195,7 +197,7 @@ public class SeedDb
         await _context.SaveChangesAsync();
     }
 
-    private async Task CheckVehicleUseAsync()
+    private async Task CheckUseAsync()
     {
         if (!_context.Uses.Any())
         {
@@ -215,7 +217,7 @@ public class SeedDb
         await _context.SaveChangesAsync();
     }
 
-    private async Task CheckVehicleBrandsAsync()
+    private async Task CheckBrandsAsync()
     {
         if (!_context.Brands.Any())
         {
@@ -467,6 +469,65 @@ public class SeedDb
                 TypeV = Type,
                 Model = 2018,
                 ReturnDate = Convert.ToDateTime("02-02-2026"),
+            });
+        }
+        await _context.SaveChangesAsync();
+    }
+
+    private async Task CheckInsurersAsync()
+    {
+        if (!_context.Insurers.Any())
+        {
+            _ = _context.Insurers.Add(new Insurer
+            {
+                Name = "ALLIANZ"
+            });
+            _ = _context.Insurers.Add(new Insurer
+            {
+                Name = "AXA COLPATRIA"
+            });
+            _ = _context.Insurers.Add(new Insurer
+            {
+                Name = "LIBERTY SEGUROS"
+            });
+            _ = _context.Insurers.Add(new Insurer
+            {
+                Name = "MAPFRE COLOMBIA"
+            });
+            _ = _context.Insurers.Add(new Insurer
+            {
+                Name = "SEGUROS BOLÍVAR"
+            });
+        }
+        await _context.SaveChangesAsync();
+    }
+
+    private async Task CheckSoatsAsync()
+    {
+        if (!_context.Soats.Any())
+        {
+            var Insurer = await _context.Insurers.FirstOrDefaultAsync(x => x.Name == "ALLIANZ");
+            var Vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Plate == "JUR540");
+            _ = _context.Soats.Add(new Soat
+            {
+                Insurer = Insurer,
+                Vehicle = Vehicle,
+                ExpirationDate = Convert.ToDateTime("02-02-2026"),
+                Price = "500000",
+                PolicyData = "SOAT CHEVROLET JUR540",
+                RateCategory = "Categoria A"
+            });
+
+            Insurer = await _context.Insurers.FirstOrDefaultAsync(x => x.Name == "AXA COLPATRIA");
+            Vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Plate == "HTR894");
+            _ = _context.Soats.Add(new Soat
+            {
+                Insurer = Insurer,
+                Vehicle = Vehicle,
+                ExpirationDate = Convert.ToDateTime("02-02-2026"),
+                Price = "700000",
+                PolicyData = "SOAT CHEVROLET HTR894",
+                RateCategory = "Categoria BB"
             });
         }
         await _context.SaveChangesAsync();

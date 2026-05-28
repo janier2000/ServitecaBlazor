@@ -29,6 +29,7 @@ public class SoatsRepository : GenericRepository<Soat>, ISoatsRepository
                 soatENT.ExpirationDate = soatDTO.ExpirationDate;
                 soatENT.RateCategory = soatDTO.RateCategory;
                 soatENT.PolicyData = soatDTO.PolicyData;
+                soatENT.Price = soatDTO.Price;
                 _context.Add(soatENT);
                 await _context.SaveChangesAsync();
                 return new ActionResponse<Soat>
@@ -82,6 +83,7 @@ public class SoatsRepository : GenericRepository<Soat>, ISoatsRepository
                 soatENT.ExpirationDate = soatDTO.ExpirationDate;
                 soatENT.RateCategory = soatDTO.RateCategory;
                 soatENT.PolicyData = soatDTO.PolicyData;
+                soatENT.Price = soatDTO.Price;
                 _context.Update(soatENT);
                 await _context.SaveChangesAsync();
                 return new ActionResponse<Soat>
@@ -248,5 +250,10 @@ public class SoatsRepository : GenericRepository<Soat>, ISoatsRepository
             WasSuccess = true,
             Result = soat
         };
+    }
+
+    Task<IEnumerable<Soat>> ISoatsRepository.GetComboAsync()
+    {
+        throw new NotImplementedException();
     }
 }

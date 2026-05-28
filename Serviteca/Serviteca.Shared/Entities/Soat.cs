@@ -33,4 +33,7 @@ public class Soat
 
     [Display(Name = "Datos de póliza")]
     public string PolicyData { get; set; } = null!;
+
+    [Display(Name = "Precio")]
+    public string Price { get; set; } = null!;
 }

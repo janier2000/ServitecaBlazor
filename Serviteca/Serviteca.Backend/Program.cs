@@ -29,6 +29,7 @@ builder.Services.AddScoped<ITypesRepository, VehicleTypesRepository>();
 builder.Services.AddScoped<IDocumentTypesRepository, DocumentTypesRepository>();
 builder.Services.AddScoped<IUsesRepository, UsesRepository>();
 builder.Services.AddScoped<IInsurersRepository, InsurersRepository>();
+builder.Services.AddScoped<ISoatsRepository, SoatsRepository>();
 
 var app = builder.Build();
 
