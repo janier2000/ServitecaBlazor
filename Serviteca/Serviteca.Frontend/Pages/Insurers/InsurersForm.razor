@@ -1,0 +1,31 @@
+﻿<MudPaper Class="p-4 my-4">
+
+    <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+
+    <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit">
+
+        <MudGrid AlignItems="Left" JustifyContent="Left">
+
+            <DataAnnotationsValidator />
+            <MudTextField Label="Nombre"
+                          @bind-Value="@InsurerENT.Name"
+                          For="@(() => InsurerENT.Name)"
+                          Class="mb-4" />
+
+            <MudButton Variant="Variant.Outlined"
+                       StartIcon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Info"
+                       OnClick="ReturnAction">
+                Regresar
+            </MudButton>
+
+            <MudButton Variant="Variant.Outlined"
+                       StartIcon="@Icons.Material.Filled.Check"
+                       Color="Color.Primary"
+                       ButtonType="ButtonType.Submit">
+                Guardar Cambios
+            </MudButton>
+        </MudGrid>
+    </EditForm>
+
+</MudPaper>

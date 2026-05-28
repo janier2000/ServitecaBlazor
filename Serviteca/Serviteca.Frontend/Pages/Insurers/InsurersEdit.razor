@@ -1,0 +1,15 @@
+﻿@if (insurerENT is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <InsurersForm @ref="insurersForm"
+                        InsurerENT="insurerENT"
+                        OnValidSubmit="EditAsync"
+                        ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}
