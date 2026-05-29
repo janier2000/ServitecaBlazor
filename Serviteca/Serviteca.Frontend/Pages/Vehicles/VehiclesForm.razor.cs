@@ -12,7 +12,6 @@ namespace Serviteca.Frontend.Pages.Vehicles;
 
 public partial class VehiclesForm
 {
-    private string? isActiveMessage;
     private EditContext editContext = null!;
 
     private List<Brand>? LstBrand;
@@ -33,10 +32,8 @@ public partial class VehiclesForm
     [EditorRequired, Parameter] public VehicleDTO VehicleDtoENT { get; set; } = null!;
     [EditorRequired, Parameter] public EventCallback OnValidSubmit { get; set; }
     [EditorRequired, Parameter] public EventCallback ReturnAction { get; set; }
-
     private DateTime? selectedReturnDate { get; set; } = DateTime.Now.Date;
     private string? accion { get; set; }
-
     public bool FormPostedSuccessfully { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
@@ -52,14 +49,7 @@ public partial class VehiclesForm
 
     private void LoadData()
     {
-        if (VehicleDtoENT.Id == 0)
-        {
-            accion = "Crear";
-        }
-        else
-        {
-            accion = "Editar";
-        }
+        accion = VehicleDtoENT.Id == 0 ? "Crear" : "Editar";
     }
 
     private async Task LoadBrandAsync()

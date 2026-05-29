@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Routing;
 using Serviteca.Shared.Entities;
+using System;
 
 namespace Serviteca.Frontend.Pages.Insurers;
 
@@ -14,10 +15,17 @@ public partial class InsurersForm
     [EditorRequired, Parameter] public EventCallback ReturnAction { get; set; }
     public bool FormPostedSuccessfully { get; set; } = false;
     [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
+    private string? accion { get; set; }
 
     protected override void OnInitialized()
     {
         editContext = new(InsurerENT);
+        LoadData();
+    }
+
+    private void LoadData()
+    {
+        accion = InsurerENT.Id == 0 ? "Crear" : "Editar";
     }
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)
