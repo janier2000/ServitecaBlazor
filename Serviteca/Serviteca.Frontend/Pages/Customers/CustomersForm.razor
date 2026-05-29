@@ -2,98 +2,105 @@
 
 <MudContainer Style="max-height: 400px; overflow-y: scroll" Class="m-0 p-0">
 
-    <EditForm EditContext="editContext"
-        OnValidSubmit="OnValidSubmit"
-        OnInvalidSubmit="OnInvalidSubmit">
-        <DataAnnotationsValidator />
+    <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit">
+        <MudGrid>
 
-        <MudDatePicker Label="Cliente desde"
-                       Date="selectedDate"
-                       Variant="Variant.Outlined"
-                       Margin="Margin.Dense"
-                       DateChanged="OnDateChanged"
-                       DateFormat="dd/MM/yyyy"
-                       Class="mb-2" />
+            <DataAnnotationsValidator />
 
-        <MudAutocomplete T="DocumentType"
-                         Label="Tipo documento"
-                         Variant="Variant.Outlined"
-                         Margin="Margin.Dense"
-                         Placeholder="-- Seleccione  tipo documento --"
-                         SearchFunc="SearchFuncDocumentType"
-                         Value="selectedDocumentType"
-                         ValueChanged="ChangedDocumentType"
-                         ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
-                         Class="mb-2">
-            <ItemTemplate Context="itemContext">
-                @itemContext.Name
-            </ItemTemplate>
-        </MudAutocomplete>
 
-        <MudTextField Label="Documento"
-                      Variant="Variant.Outlined"
-                      Margin="Margin.Dense"
-                      @bind-Value="@CustomerDtoENT.Document"
-                      For="@(() => CustomerDtoENT.Document)"
-                      Class="mb-4" />
+            <MudItem xs="6" sm="6">
+                <MudDatePicker Label="Cliente desde"
+                               Date="selectedDate"
+                               Variant="Variant.Outlined"
+                               Margin="Margin.Dense"
+                               DateChanged="OnDateChanged"
+                               DateFormat="dd/MM/yyyy"
+                               Class="mb-2" />
 
-        <MudTextField Label="Nombres"
-                      Variant="Variant.Outlined"
-                      Margin="Margin.Dense"
-                      @bind-Value="@CustomerDtoENT.FirstName"
-                      For="@(() => CustomerDtoENT.FirstName)"
-                      Class="mb-4" />
+                <MudTextField Label="Documento"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              @bind-Value="@CustomerDtoENT.Document"
+                              For="@(() => CustomerDtoENT.Document)"
+                              Class="mb-4" />
+                <MudTextField Label="Apellidos"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              @bind-Value="@CustomerDtoENT.LastName"
+                              For="@(() => CustomerDtoENT.LastName)"
+                              Class="mb-4" />
 
-        <MudTextField Label="Apellidos"
-                      Variant="Variant.Outlined"
-                      Margin="Margin.Dense"
-                      @bind-Value="@CustomerDtoENT.LastName"
-                      For="@(() => CustomerDtoENT.LastName)"
-                      Class="mb-4" />
+                <MudTextField Label="Email"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              @bind-Value="@CustomerDtoENT.Email"
+                              For="@(() => CustomerDtoENT.Email)"
+                              Class="mb-4" />
 
-        <MudTextField Label="Email"
-                      Variant="Variant.Outlined"
-                      Margin="Margin.Dense"
-                      @bind-Value="@CustomerDtoENT.Email"
-                      For="@(() => CustomerDtoENT.Email)"
-                      Class="mb-4" />
+            </MudItem>
 
-        <MudAutocomplete T="EnumGenericDTO"
-                         Label="Género"
-                         Placeholder="-- Seleccione género --"
-                         Variant="Variant.Outlined"
-                         Margin="Margin.Dense"
-                         SearchFunc="SearchFuncGender"
-                         Value="selectedGender"
-                         ValueChanged="ChangedGender"
-                         ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
-                         Class="mb-2">
-            <ItemTemplate Context="itemContext">
-                @itemContext.Name
-            </ItemTemplate>
-        </MudAutocomplete>
+            <MudItem xs="6" sm="6">
+                <MudAutocomplete T="DocumentType"
+                                 Label="Tipo documento"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense"
+                                 Placeholder="-- Seleccione  tipo documento --"
+                                 SearchFunc="SearchFuncDocumentType"
+                                 Value="selectedDocumentType"
+                                 ValueChanged="ChangedDocumentType"
+                                 ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
+                                 Class="mb-2">
+                    <ItemTemplate Context="itemContext">
+                        @itemContext.Name
+                    </ItemTemplate>
+                </MudAutocomplete>
 
-        <MudTextField Label="Celular"
-                      @bind-Value="@CustomerDtoENT.phone"
-                      Variant="Variant.Outlined"
-                      Margin="Margin.Dense"
-                      For="@(() => CustomerDtoENT.phone)"
-                      Class="mb-4" />
+                <MudTextField Label="Nombres"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              @bind-Value="@CustomerDtoENT.FirstName"
+                              For="@(() => CustomerDtoENT.FirstName)"
+                              Class="mb-4" />
 
-        <MudButton Variant="Variant.Filled"
-                   StartIcon="@Icons.Material.Filled.ArrowBack"
-                   Color="Color.Error"
-                   OnClick="ReturnAction">
-            Regresar
-        </MudButton>
+                <MudAutocomplete T="EnumGenericDTO"
+                                 Label="Género"
+                                 Placeholder="-- Seleccione género --"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense"
+                                 SearchFunc="SearchFuncGender"
+                                 Value="selectedGender"
+                                 ValueChanged="ChangedGender"
+                                 ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
+                                 Class="mb-2">
+                    <ItemTemplate Context="itemContext">
+                        @itemContext.Name
+                    </ItemTemplate>
+                </MudAutocomplete>
 
-        <MudButton Variant="Variant.Filled"
-                   StartIcon="@Icons.Material.Filled.Save"
-                   Color="Color.Info"
-                   ButtonType="ButtonType.Submit">
-            @accion
-        </MudButton>
+                <MudTextField Label="Celular"
+                              @bind-Value="@CustomerDtoENT.phone"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              For="@(() => CustomerDtoENT.phone)"
+                              Class="mb-4" />
 
+            </MudItem>
+
+            <MudButton Variant="Variant.Filled"
+                       StartIcon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Error"
+                       OnClick="ReturnAction">
+                Regresar
+            </MudButton>
+
+            <MudButton Variant="Variant.Filled"
+                       StartIcon="@Icons.Material.Filled.Save"
+                       Color="Color.Info"
+                       ButtonType="ButtonType.Submit">
+                @accion
+            </MudButton>
+
+        </MudGrid>
     </EditForm>
 
 </MudContainer>
