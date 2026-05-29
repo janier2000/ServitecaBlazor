@@ -133,10 +133,9 @@ public class SoatsRepository : GenericRepository<Soat>, ISoatsRepository
 
     public override async Task<ActionResponse<IEnumerable<Soat>>> GetAsync(PaginationDTO pagination)
     {
-        var queryable = _context.Soats
-                                .Include(s => s.Insurer!)
-                                .Include(s => s.Vehicle!)
-                                .AsQueryable();
+        var queryable = _context.Soats.Include(s => s.Insurer!)
+                                      .Include(s => s.Vehicle!)
+                                      .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {

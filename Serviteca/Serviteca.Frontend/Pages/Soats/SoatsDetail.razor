@@ -1,3 +1,78 @@
-﻿<h3>SoatsDetail</h3>
+﻿<MudDialog>
+    <DialogContent>
+        @if (soatENT is null)
+        {
+            <Loading />
+        }
+        else
+        {
+            <MudPaper Class="p-4 my-4">
+
+                <MudGrid AlignItems="Left" JustifyContent="Left">
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Fecha registro:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@soatENT.Date</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Fecha vencimiento:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@soatENT.ExpirationDate</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Aseguradora:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@soatENT.Insurer!.Name!</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Vehículo:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@soatENT!.Vehicle!.Plate</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Categoria tarifa:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@soatENT.RateCategory</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Datos póliza:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@soatENT.PolicyData</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Precio:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@soatENT.Price</MudText>
+                    </MudItem>
+
+                    <MudItem xs="12" Class="text-center">
+                        <MudButton Variant="Variant.Filled"
+                                   StartIcon="@Icons.Material.Filled.ArrowBack"
+                                   Color="Color.Error"
+                                   OnClick="Return">
+                            Regresar
+                        </MudButton>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+        }
+    </DialogContent>
+</MudDialog>
+
+
 
 

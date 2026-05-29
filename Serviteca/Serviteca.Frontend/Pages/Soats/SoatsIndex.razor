@@ -31,8 +31,8 @@ else
             <MudTh>Fecha vencimiento</MudTh>
             <MudTh>Aseguradora </MudTh>
             <MudTh>Placa</MudTh>
-            <MudTh>Cedula Cliente</MudTh>
-            <MudTh>Nombre Cliente</MudTh>
+         @*    <MudTh>Cedula Cliente</MudTh>
+            <MudTh>Nombre Cliente</MudTh> *@
             <MudTh>Póliza</MudTh>
         </HeaderContent>
         <RowTemplate>
@@ -40,8 +40,8 @@ else
             <MudTd>@context.ExpirationDate</MudTd>
             <MudTd>@context.Insurer!.Name</MudTd>
             <MudTd>@context.Vehicle!.Plate </MudTd>
-            <MudTd>@context.Vehicle!.Customer!.Document</MudTd>
-            <MudTd>@context.Vehicle!.Customer!.FirstName</MudTd>
+       @*      <MudTd>@context.Vehicle!.Customer!.Document</MudTd>
+            <MudTd>@context.Vehicle!.Customer!.FirstName</MudTd> *@
             <MudTd>@context.PolicyData</MudTd>
             <MudTd>
 

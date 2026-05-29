@@ -1,3 +1,10 @@
-﻿<h3>SoatsCreate</h3>
+﻿<MudDialog>
+    <DialogContent>
+        <SoatsForm @ref="soatsForm"
+                       SoatDtoENT="soatDtoENT"
+                       OnValidSubmit="CreateAsync"
+                       ReturnAction="Return" />
+    </DialogContent>
+</MudDialog> 
 
 
