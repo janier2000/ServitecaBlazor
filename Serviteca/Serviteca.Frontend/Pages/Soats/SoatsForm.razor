@@ -1,3 +1,104 @@
-﻿<h3>SoatsForm</h3>
+﻿<NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+
+<MudContainer Style="max-height: 400px; overflow-y: scroll" Class="m-0 p-0">
+
+    <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit">
+        <MudGrid>
+
+            <DataAnnotationsValidator />
+
+            <MudItem xs="6" sm="6">
+
+                <MudDatePicker Label="Retorno cliente"
+                               Date="selectedDate"
+                               DateChanged="ChangedDate"
+                               Variant="Variant.Outlined"
+                               Margin="Margin.Dense"
+                               DateFormat="dd/MM/yyyy"
+                               Class="mb-2" />
+
+                <MudAutocomplete Label="Aseguradora"
+                                 T="Insurer"
+                                 Value="selectedInsurer"
+                                 SearchFunc="SearchInsurer"
+                                 ValueChanged="ChangedInsurer"
+                                 Placeholder="-- Seleccione  aseguradora --"
+                                 ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense"
+                                 Class="mb-2">
+                    <ItemTemplate Context="itemContext">
+                        @itemContext.Name
+                    </ItemTemplate>
+                </MudAutocomplete>
+
+           
+
+                <MudAutocomplete Label="Vehiculo"
+                                 T="Vehicle"
+                                 Value="selectedVehicle"
+                                 SearchFunc="SearchVehicle"
+                                 ValueChanged="ChangedVehicle"
+                                 Placeholder="-- Seleccione  vehiculo --"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense"
+                                 ToStringFunc="@(e=> e==null?null : $"{e.Plate}")"
+                                 Class="mb-2">
+                    <ItemTemplate Context="itemContext">
+                        @itemContext.Plate
+                    </ItemTemplate>
+                </MudAutocomplete>
 
 
+            </MudItem>
+
+            <MudItem xs="6" sm="6">
+
+
+                <MudTextField Label="Datos de la póliza "
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              @bind-Value="@SoatDtoENT.PolicyData"
+                              For="@(() => SoatDtoENT.PolicyData)"
+                              Class="mb-4" />
+
+
+                <MudTextField Label="Precio"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              @bind-Value="@SoatDtoENT.Price"
+                              For="@(() => SoatDtoENT.Price)"
+                              Class="mb-4" />
+
+
+                <MudTextField Label="Tarifa categoria"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              @bind-Value="@SoatDtoENT.RateCategory"
+                              For="@(() => SoatDtoENT.RateCategory)"
+                              Class="mb-4" />
+
+            </MudItem>
+
+            <MudItem xs="12" sm="12">
+
+                <MudButton Variant="Variant.Filled"
+                           StartIcon="@Icons.Material.Filled.ArrowBack"
+                           Color="Color.Error"
+                           OnClick="ReturnAction">
+                    Regresar
+                </MudButton>
+
+                <MudButton Variant="Variant.Filled"
+                           StartIcon="@Icons.Material.Filled.Save"
+                           Color="Color.Info"
+                           ButtonType="ButtonType.Submit">
+                    @accion
+                </MudButton>
+
+            </MudItem>
+
+        </MudGrid>
+    </EditForm>
+
+</MudContainer>
