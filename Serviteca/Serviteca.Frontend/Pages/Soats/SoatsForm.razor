@@ -7,7 +7,46 @@
 
             <DataAnnotationsValidator />
 
+             <MudItem xs="12" sm="12">
+                <MudAutocomplete Label="Buscar vehiculo"
+                                 T="VehicleDTO"
+                                 Value="selectedVehicle"
+                                 SearchFunc="SearchVehicle"
+                                 ValueChanged="ChangedVehicle"
+                                 Placeholder="Buscar  vehiculo"
+                                 ResetValueOnEmptyText="true"
+                                 AdornmentIcon="@Icons.Material.Filled.Search"
+                                 AdornmentColor="Color.Primary"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense"
+                                 ToStringFunc="@(e => e == null ? null : $"{e.Plate} - {e.CustomerName} - {e.BrandName}")">
+                    <ItemTemplate Context="itemContext">
+                        @itemContext.Plate - @itemContext.CustomerName - @itemContext.BrandName
+                    </ItemTemplate>
+                </MudAutocomplete>
+
+            </MudItem>
+
             <MudItem xs="6" sm="6">
+
+               @*  <MudCardContent Class="mb-2"> *@
+                 
+               @*  </MudCardContent> *@
+
+          @*       <MudAutocomplete Label="Vehiculo"
+                                 T="Vehicle"
+                                 Value="selectedVehicle"
+                                 SearchFunc="SearchVehicle"
+                                 ValueChanged="ChangedVehicle"
+                                 Placeholder="-- Seleccione  vehiculo --"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense"
+                                 ToStringFunc="@(e=> e==null?null : $"{e.Plate}")"
+                                 Class="mb-2">
+                    <ItemTemplate Context="itemContext">
+                        @itemContext.Plate
+                    </ItemTemplate>
+                </MudAutocomplete> *@
 
                 <MudDatePicker Label="Retorno cliente"
                                Date="selectedDate"
@@ -16,6 +55,14 @@
                                Margin="Margin.Dense"
                                DateFormat="dd/MM/yyyy"
                                Class="mb-2" />
+
+
+               
+
+
+            </MudItem>
+
+            <MudItem xs="6" sm="6">
 
                 <MudAutocomplete Label="Aseguradora"
                                  T="Insurer"
@@ -31,29 +78,6 @@
                         @itemContext.Name
                     </ItemTemplate>
                 </MudAutocomplete>
-
-           
-
-                <MudAutocomplete Label="Vehiculo"
-                                 T="Vehicle"
-                                 Value="selectedVehicle"
-                                 SearchFunc="SearchVehicle"
-                                 ValueChanged="ChangedVehicle"
-                                 Placeholder="-- Seleccione  vehiculo --"
-                                 Variant="Variant.Outlined"
-                                 Margin="Margin.Dense"
-                                 ToStringFunc="@(e=> e==null?null : $"{e.Plate}")"
-                                 Class="mb-2">
-                    <ItemTemplate Context="itemContext">
-                        @itemContext.Plate
-                    </ItemTemplate>
-                </MudAutocomplete>
-
-
-            </MudItem>
-
-            <MudItem xs="6" sm="6">
-
 
                 <MudTextField Label="Datos de la póliza "
                               Variant="Variant.Outlined"

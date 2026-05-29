@@ -39,4 +39,8 @@ public class VehicleDTO
     [Display(Name = "Marca")]
     [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una {0}.")]
     public int BrandId { get; set; }
+
+    public string BrandName { get; set; } = null!;
+
+    public string CustomerName { get; set; } = null!;
 }

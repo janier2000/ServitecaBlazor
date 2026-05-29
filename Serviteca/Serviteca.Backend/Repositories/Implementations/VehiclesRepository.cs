@@ -162,12 +162,11 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
 
     public override async Task<ActionResponse<Vehicle>> GetAsync(int id)
     {
-        var vehicle = await _context.Vehicles
-                                    .Include(s => s.Customer!)
-                                    .Include(s => s.Brand!)
-                                    .Include(s => s.TypeV!)
-                                    .Include(s => s.Use)
-                                    .FirstOrDefaultAsync(c => c.Id == id);
+        var vehicle = await _context.Vehicles.Include(s => s.Customer!)
+                                             .Include(s => s.Brand!)
+                                             .Include(s => s.TypeV!)
+                                             .Include(s => s.Use)
+                                             .FirstOrDefaultAsync(c => c.Id == id);
         if (vehicle == null)
         {
             return new ActionResponse<Vehicle>
@@ -204,9 +203,10 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
 
     public async Task<IEnumerable<Vehicle>> GetComboAsync()
     {
-        return await _context.Vehicles
-                             .OrderBy(c => c.Plate)
-                             .ToListAsync();
+        return await _context.Vehicles.Include(s => s.Customer!)
+                                      .OrderBy(c => c.Plate)
+                                      .Include(s => s.Brand!)
+                                      .ToListAsync();
     }
 
     public async Task<ActionResponse<Vehicle>> CheckVehicle(VehicleDTO vehicleDTO)

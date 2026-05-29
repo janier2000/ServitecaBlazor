@@ -6,6 +6,7 @@ using MudBlazor;
 using Serviteca.Frontend.Repositories;
 using Serviteca.Shared.DTOs;
 using Serviteca.Shared.Entities;
+using System.Drawing;
 
 namespace Serviteca.Frontend.Pages.Soats;
 
@@ -16,8 +17,8 @@ public partial class SoatsForm
     private List<Insurer>? LstInsurer;
     private Insurer selectedInsurer = new();
 
-    private List<Vehicle>? LstVehicle;
-    private Vehicle selectedVehicle = new();
+    private List<VehicleDTO>? LstVehicle;
+    private VehicleDTO selectedVehicle = new();
 
     [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
     [Inject] private IRepository Repository { get; set; } = null!;
@@ -68,7 +69,21 @@ public partial class SoatsForm
             await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
             return;
         }
-        LstVehicle = responseHttp.Response;
+        List<Vehicle> p = responseHttp.Response!;
+
+        foreach (var item in p)
+        {
+            LstVehicle ??= new List<VehicleDTO>();
+            LstVehicle.Add(new VehicleDTO
+            {
+                Id = item.Id,
+                Plate = item.Plate,
+                Model = item.Model,
+                BrandName = item.Brand!.Name,
+                CustomerName = item.Customer!.FirstName + " " + item.Customer.LastName
+            });
+        }
+
         if (SoatDtoENT.VehicleId != 0)
         {
             selectedVehicle = LstVehicle!.FirstOrDefault(x => x.Id == SoatDtoENT.VehicleId)!;
@@ -103,7 +118,7 @@ public partial class SoatsForm
         SoatDtoENT.InsurerId = insurerEnt.Id;
     }
 
-    private void ChangedVehicle(Vehicle vehicleEnt)
+    private void ChangedVehicle(VehicleDTO vehicleEnt)
     {
         selectedVehicle = vehicleEnt;
         SoatDtoENT.VehicleId = vehicleEnt.Id;
@@ -126,14 +141,16 @@ public partial class SoatsForm
         return LstInsurer!.Where(x => x.Name.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
     }
 
-    private async Task<IEnumerable<Vehicle>> SearchVehicle(string searchText, CancellationToken cancellationToken)
+    private async Task<IEnumerable<VehicleDTO>> SearchVehicle(string searchText, CancellationToken cancellationToken)
     {
         await Task.Delay(5);
         if (string.IsNullOrWhiteSpace(searchText))
         {
             return LstVehicle!;
         }
-        return LstVehicle!.Where(x => x.Plate.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
+
+        List<VehicleDTO> lista = LstVehicle!.FindAll(p => string.Concat(p.Plate, p.Model, p.BrandName).Contains(searchText, StringComparison.InvariantCultureIgnoreCase));
+        return lista;
     }
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)
