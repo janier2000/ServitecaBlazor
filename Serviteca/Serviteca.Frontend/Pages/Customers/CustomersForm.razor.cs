@@ -26,6 +26,7 @@ public partial class CustomersForm
     [EditorRequired, Parameter] public EventCallback ReturnAction { get; set; }
     private DateTime? selectedDate { get; set; } = DateTime.Now.Date;
     private EnumGenericDTO? selectedGender { get; set; }
+    private string? accion { get; set; }
 
     public bool FormPostedSuccessfully { get; set; } = false;
 
@@ -35,6 +36,12 @@ public partial class CustomersForm
         await LoadDocumentTypeAsync();
         LoadGenderAsync();
         LoadCustomers();
+        LoadData();
+    }
+
+    private void LoadData()
+    {
+        accion = CustomerDtoENT.Id == 0 ? "Crear" : "Editar";
     }
 
     private async Task LoadDocumentTypeAsync()

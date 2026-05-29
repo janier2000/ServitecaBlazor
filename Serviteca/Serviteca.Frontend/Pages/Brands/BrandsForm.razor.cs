@@ -14,10 +14,17 @@ public partial class BrandsForm
     [EditorRequired, Parameter] public EventCallback ReturnAction { get; set; }
     public bool FormPostedSuccessfully { get; set; } = false;
     [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
+    private string? accion { get; set; }
 
     protected override void OnInitialized()
     {
         editContext = new(BrandENT);
+        LoadData();
+    }
+
+    private void LoadData()
+    {
+        accion = BrandENT.Id == 0 ? "Crear" : "Editar";
     }
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)

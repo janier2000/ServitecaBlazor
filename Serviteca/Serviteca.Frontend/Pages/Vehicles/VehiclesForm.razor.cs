@@ -39,19 +39,19 @@ public partial class VehiclesForm
     protected override async Task OnInitializedAsync()
     {
         editContext = new(VehicleDtoENT);
-        LoadData();
         await LoadBrandAsync();
         await LoadTypeAsync();
         await LoadUseAsync();
         await LoadCustomerAsync();
         LoadReturnDateAsync();
+        LoadData();
     }
 
     private void LoadData()
     {
         accion = VehicleDtoENT.Id == 0 ? "Crear" : "Editar";
     }
-
+   
     private async Task LoadBrandAsync()
     {
         var responseHttp = await Repository.GetAsync<List<Brand>>("/api/Brands/combo");
