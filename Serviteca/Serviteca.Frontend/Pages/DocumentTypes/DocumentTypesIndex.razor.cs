@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using Serviteca.Frontend.Pages.Vehicles;
 using Serviteca.Frontend.Repositories;
 using Serviteca.Frontend.Shared;
 using Serviteca.Shared.Entities;
@@ -120,6 +121,26 @@ public partial class DocumentTypesIndex
             { "Id", Id }
         };
         IDialogReference? dialog = DialogService.Show<DocumentTypesEdit>($"Editar tipo documento", parameters, options);
+        var result = await dialog.Result;
+        if (result!.Canceled)
+        {
+            await LoadTotalRecordsAsync();
+            await table.ReloadServerData();
+        }
+    }
+
+    private async Task ShowModalDetailAsync(int Id)
+    {
+        var options = new DialogOptions()
+        {
+            CloseOnEscapeKey = true,
+            CloseButton = true
+        };
+        var parameters = new DialogParameters
+        {
+            { "Id", Id }
+        };
+        IDialogReference? dialog = DialogService.Show<VehiclesDetail>($"Detalle del vehiculo", parameters, options);
         var result = await dialog.Result;
         if (result!.Canceled)
         {

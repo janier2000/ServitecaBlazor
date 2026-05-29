@@ -5,20 +5,16 @@
 }
 else
 {
-    <MudTable Items="@lstVehicle"
+    <MudTable Items="@lstVehicle" Dense="true" Hover="true" Striped="true" FixedHeader="true" FixedFooter="true"
               @ref="table"
-              ServerData="LoadListAsync"
-              Dense="true"
-              Hover="true"
-              Striped="true"
-              FixedHeader="true"
-              FixedFooter="true">
+              ServerData="LoadListAsync">
         <ToolBarContent>
             <div class="d-flex justify-content-between">
                 <MudText Typo="Typo.h5" Class="me-4"> Vehiculo</MudText>
                 <MudButton Variant="Variant.Outlined"
                            EndIcon="@Icons.Material.Filled.Add"
-                           Color="Color.Success" OnClick="@(() => ShowModalCreateAsync())">
+                           Color="Color.Success"
+                           OnClick="@(() => ShowModalCreateAsync())">
                     Nuevo
                 </MudButton>
             </div>
@@ -47,13 +43,15 @@ else
             <MudTd>@context.TypeV!.Name</MudTd>
          @*    <MudTd>@context.VehicleUse!.Name</MudTd>  *@
             <MudTd>
+
                 <MudTooltip Text="Detalle">
                     <MudButton Variant="Variant.Filled"
-                               Color="Color.Success"
+                               Color="Color.Primary"
                                OnClick="@(() => ShowModalDetailAsync(context.Id))">
                         <MudIcon Icon="@Icons.Material.TwoTone.DensitySmall" />
                     </MudButton>
                 </MudTooltip>
+
                 <MudTooltip Text="Editar">
                     <MudButton Variant="Variant.Filled"
                                Color="Color.Warning"
@@ -61,6 +59,7 @@ else
                         <MudIcon Icon="@Icons.Material.Filled.Edit" />
                     </MudButton>
                 </MudTooltip>
+
                 <MudTooltip Text="Eliminar">
                     <MudButton Variant="Variant.Filled"
                                Color="Color.Error"
@@ -68,6 +67,7 @@ else
                         <MudIcon Icon="@Icons.Material.Filled.Delete" />
                     </MudButton>
                 </MudTooltip>
+
             </MudTd>
         </RowTemplate>
         <NoRecordsContent>

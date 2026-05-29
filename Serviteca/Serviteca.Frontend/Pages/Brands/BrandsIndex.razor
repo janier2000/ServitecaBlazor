@@ -18,7 +18,8 @@ else
                 <MudText Typo="Typo.h5" Class="me-4"> Marca</MudText>
                 <MudButton Variant="Variant.Outlined"
                            EndIcon="@Icons.Material.Filled.Add"
-                           Color="Color.Info" OnClick="@(() => ShowModalCreateAsync())">
+                           Color="Color.Success"
+                           OnClick="@(() => ShowModalCreateAsync())">
                     Nuevo
                 </MudButton>
             </div>
@@ -31,6 +32,7 @@ else
         <RowTemplate>
             <MudTd>@context.Name</MudTd>
             <MudTd>
+
                 <MudTooltip Text="Editar">
                     <MudButton Variant="Variant.Filled"
                                Color="Color.Warning"
@@ -38,6 +40,7 @@ else
                         <MudIcon Icon="@Icons.Material.Filled.Edit" />
                     </MudButton>
                 </MudTooltip>
+
                 <MudTooltip Text="Eliminar">
                     <MudButton Variant="Variant.Filled"
                                Color="Color.Error"
@@ -45,6 +48,15 @@ else
                         <MudIcon Icon="@Icons.Material.Filled.Delete" />
                     </MudButton>
                 </MudTooltip>
+
+                <MudTooltip Text="Detalle">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               OnClick="@(() => ShowModalDetailAsync(context.Id))">
+                        <MudIcon Icon="@Icons.Material.TwoTone.DensitySmall" />
+                    </MudButton>
+                </MudTooltip>
+
             </MudTd>
         </RowTemplate>
         <NoRecordsContent>

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using Serviteca.Frontend.Pages.Vehicles;
 using Serviteca.Frontend.Repositories;
 using Serviteca.Frontend.Shared;
 using Serviteca.Shared.Entities;
@@ -120,6 +121,26 @@ public partial class BrandsIndex
             { "Id", Id }
         };
         IDialogReference? dialog = DialogService.Show<BrandsEdit>($"Editar marca", parameters, options);
+        var result = await dialog.Result;
+        if (result!.Canceled)
+        {
+            await LoadTotalRecordsAsync();
+            await table.ReloadServerData();
+        }
+    }
+
+    private async Task ShowModalDetailAsync(int Id)
+    {
+        var options = new DialogOptions()
+        {
+            CloseOnEscapeKey = true,
+            CloseButton = true
+        };
+        var parameters = new DialogParameters
+        {
+            { "Id", Id }
+        };
+        IDialogReference? dialog = DialogService.Show<BrandsDetail>($"Detalle de marca", parameters, options);
         var result = await dialog.Result;
         if (result!.Canceled)
         {
