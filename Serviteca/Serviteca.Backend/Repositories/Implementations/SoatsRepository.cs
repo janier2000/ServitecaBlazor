@@ -30,6 +30,7 @@ public class SoatsRepository : GenericRepository<Soat>, ISoatsRepository
                 soatENT.RateCategory = soatDTO.RateCategory;
                 soatENT.PolicyData = soatDTO.PolicyData;
                 soatENT.Price = soatDTO.Price;
+                soatENT.Status = soatDTO.Status;
                 _context.Add(soatENT);
                 await _context.SaveChangesAsync();
                 return new ActionResponse<Soat>
@@ -84,6 +85,7 @@ public class SoatsRepository : GenericRepository<Soat>, ISoatsRepository
                 soatENT.RateCategory = soatDTO.RateCategory;
                 soatENT.PolicyData = soatDTO.PolicyData;
                 soatENT.Price = soatDTO.Price;
+                soatENT.Status = soatDTO.Status;
                 _context.Update(soatENT);
                 await _context.SaveChangesAsync();
                 return new ActionResponse<Soat>

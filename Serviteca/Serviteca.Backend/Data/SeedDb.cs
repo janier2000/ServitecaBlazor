@@ -515,7 +515,8 @@ public class SeedDb
                 ExpirationDate = Convert.ToDateTime("02-02-2026"),
                 Price = "500000",
                 PolicyData = "SOAT CHEVROLET JUR540",
-                RateCategory = "Categoria A"
+                RateCategory = "Categoria A",
+                Status = 0
             });
 
             Insurer = await _context.Insurers.FirstOrDefaultAsync(x => x.Name == "AXA COLPATRIA");
@@ -527,7 +528,20 @@ public class SeedDb
                 ExpirationDate = Convert.ToDateTime("02-02-2026"),
                 Price = "700000",
                 PolicyData = "SOAT CHEVROLET HTR894",
-                RateCategory = "Categoria BB"
+                RateCategory = "Categoria BB",
+                Status = 1
+            });
+            Insurer = await _context.Insurers.FirstOrDefaultAsync(x => x.Name == "LIBERTY SEGUROS");
+            Vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Plate == "LKJ652");
+            _ = _context.Soats.Add(new Soat
+            {
+                Insurer = Insurer,
+                Vehicle = Vehicle,
+                ExpirationDate = Convert.ToDateTime("04-05-2026"),
+                Price = "5800000",
+                PolicyData = "SOAT CHEVROLET LKJ652",
+                RateCategory = "Categoria BB",
+                Status = 2
             });
         }
         await _context.SaveChangesAsync();

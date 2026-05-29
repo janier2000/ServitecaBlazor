@@ -23,10 +23,21 @@ public class EnumHelper
     {
         switch (value)
         {
-            case 1: return "Maculino";
-            case 2: return "Femenino";
-            case 3: return "Otros";
+            case 0: return "Maculino";
+            case 1: return "Femenino";
+            case 2: return "Otros";
         }
-        return null;
+        return "";
+    }
+
+    public static string GetStatus(int value)
+    {
+        switch (value)
+        {
+            case 0: return "Vigente";
+            case 1: return "Vencido";
+            case 2: return "Proceso";
+        }
+        return "";
     }
 }
