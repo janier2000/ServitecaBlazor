@@ -129,25 +129,25 @@ public partial class DocumentTypesIndex
         }
     }
 
-    private async Task ShowModalDetailAsync(int Id)
-    {
-        var options = new DialogOptions()
-        {
-            CloseOnEscapeKey = true,
-            CloseButton = true
-        };
-        var parameters = new DialogParameters
-        {
-            { "Id", Id }
-        };
-        IDialogReference? dialog = DialogService.Show<VehiclesDetail>($"Detalle del vehiculo", parameters, options);
-        var result = await dialog.Result;
-        if (result!.Canceled)
-        {
-            await LoadTotalRecordsAsync();
-            await table.ReloadServerData();
-        }
-    }
+    //private async Task ShowModalDetailAsync(int Id)
+    //{
+    //    var options = new DialogOptions()
+    //    {
+    //        CloseOnEscapeKey = true,
+    //        CloseButton = true
+    //    };
+    //    var parameters = new DialogParameters
+    //    {
+    //        { "Id", Id }
+    //    };
+    //    IDialogReference? dialog = DialogService.Show<VehiclesDetail>($"Detalle del vehiculo", parameters, options);
+    //    var result = await dialog.Result;
+    //    if (result!.Canceled)
+    //    {
+    //        await LoadTotalRecordsAsync();
+    //        await table.ReloadServerData();
+    //    }
+    //}
 
     private async Task DeleteAsync(DocumentType documentType)
     {

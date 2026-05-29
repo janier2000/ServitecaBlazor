@@ -129,25 +129,25 @@ public partial class TypesIndex
         }
     }
 
-    private async Task ShowModalDetailAsync(int Id)
-    {
-        var options = new DialogOptions()
-        {
-            CloseOnEscapeKey = true,
-            CloseButton = true
-        };
-        var parameters = new DialogParameters
-        {
-            { "Id", Id }
-        };
-        IDialogReference? dialog = DialogService.Show<TypesDetail>($"Detalle del vehiculo", parameters, options);
-        var result = await dialog.Result;
-        if (result!.Canceled)
-        {
-            await LoadTotalRecordsAsync();
-            await table.ReloadServerData();
-        }
-    }
+    //private async Task ShowModalDetailAsync(int Id)
+    //{
+    //    var options = new DialogOptions()
+    //    {
+    //        CloseOnEscapeKey = true,
+    //        CloseButton = true
+    //    };
+    //    var parameters = new DialogParameters
+    //    {
+    //        { "Id", Id }
+    //    };
+    //    IDialogReference? dialog = DialogService.Show<TypesDetail>($"Detalle del vehiculo", parameters, options);
+    //    var result = await dialog.Result;
+    //    if (result!.Canceled)
+    //    {
+    //        await LoadTotalRecordsAsync();
+    //        await table.ReloadServerData();
+    //    }
+    //}
 
     private async Task DeleteAsync(TypeV type)
     {
