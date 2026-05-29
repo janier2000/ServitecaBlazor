@@ -30,7 +30,7 @@ else
             <MudTh>Modelo</MudTh>
             <MudTh>Marca</MudTh>
             <MudTh>Tipo</MudTh>
-         @*    <MudTh>Uso</MudTh> *@
+            @*    <MudTh>Uso</MudTh> *@
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.Plate</MudTd>
@@ -41,16 +41,8 @@ else
             <MudTd>@context.Model</MudTd>
             <MudTd>@context.Brand!.Name</MudTd>
             <MudTd>@context.TypeV!.Name</MudTd>
-         @*    <MudTd>@context.VehicleUse!.Name</MudTd>  *@
+            @*    <MudTd>@context.VehicleUse!.Name</MudTd>  *@
             <MudTd>
-
-                <MudTooltip Text="Detalle">
-                    <MudButton Variant="Variant.Filled"
-                               Color="Color.Primary"
-                               OnClick="@(() => ShowModalDetailAsync(context.Id))">
-                        <MudIcon Icon="@Icons.Material.TwoTone.DensitySmall" />
-                    </MudButton>
-                </MudTooltip>
 
                 <MudTooltip Text="Editar">
                     <MudButton Variant="Variant.Filled"
@@ -65,6 +57,14 @@ else
                                Color="Color.Error"
                                OnClick="@(() => DeleteAsync(@context))">
                         <MudIcon Icon="@Icons.Material.Filled.Delete" />
+                    </MudButton>
+                </MudTooltip>
+
+                <MudTooltip Text="Detalle">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               OnClick="@(() => ShowModalDetailAsync(context.Id))">
+                        <MudIcon Icon="@Icons.Material.TwoTone.DensitySmall" />
                     </MudButton>
                 </MudTooltip>
 

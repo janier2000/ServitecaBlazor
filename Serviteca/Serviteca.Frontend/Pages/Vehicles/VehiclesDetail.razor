@@ -1,3 +1,92 @@
-﻿<h3>VehiclesDetail</h3>
+﻿<MudDialog>
+    <DialogContent>
+        @if (vehicleENT is null)
+        {
+            <Loading />
+        }
+        else
+        {
+            <MudPaper Class="p-4 my-4">
+
+                <MudGrid AlignItems="Left" JustifyContent="Left">
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Placa:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@vehicleENT.Plate</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Modelo:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@vehicleENT.Model</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Fecha regreso vehiculo:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@vehicleENT.ReturnDate</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Kilometraje actual:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@vehicleENT.CurrentKm</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Doc Cliente:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@vehicleENT.Customer!.Document</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Cliente:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@vehicleENT.Customer!.FirstName @vehicleENT.Customer!.LastName</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Tipo:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@vehicleENT.TypeV!.Name</MudText>
+                    </MudItem>
+
+                      <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Uso:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@vehicleENT.Use!.Name</MudText>
+                    </MudItem>
+
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left"><b>Marca:</b></MudText>
+                    </MudItem>
+                    <MudItem xs="6" Class="text-center mb-1">
+                        <MudText Align="Align.Left">@vehicleENT.Brand!.Name</MudText>
+                    </MudItem>
+
+                    <MudItem xs="12" Class="text-center">
+                        <MudButton Variant="Variant.Filled"
+                                   StartIcon="@Icons.Material.Filled.ArrowBack"
+                                   Color="Color.Error"
+                                   OnClick="Return">
+                            Regresar
+                        </MudButton>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+        }
+    </DialogContent>
+</MudDialog>
+
+
 
 
