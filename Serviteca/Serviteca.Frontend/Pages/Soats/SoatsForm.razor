@@ -19,9 +19,9 @@
                                  AdornmentColor="Color.Primary"
                                  Variant="Variant.Outlined"
                                  Margin="Margin.Dense"
-                                 ToStringFunc="@(e => e == null ? null : $"{e.Plate} - {e.CustomerName} - {e.BrandName}")">
+                                 ToStringFunc="@(e => e.Plate == "" || e.Plate == null || e.Plate == string.Empty ? null : $"{e.BrandName} - {e.Plate} - {e.CustomerName}")">
                     <ItemTemplate Context="itemContext">
-                        @itemContext.Plate - @itemContext.CustomerName - @itemContext.BrandName
+                        @itemContext.BrandName -  @itemContext.Plate - @itemContext.CustomerName 
                     </ItemTemplate>
                 </MudAutocomplete>
 

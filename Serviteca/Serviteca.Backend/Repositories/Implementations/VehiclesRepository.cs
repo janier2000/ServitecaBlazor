@@ -6,6 +6,7 @@ using Serviteca.Shared.DTOs;
 using Serviteca.Shared.Entities;
 using Serviteca.Shared.Responses;
 using System;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace Serviteca.Backend.Repositories.Implementations;
@@ -139,12 +140,11 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
 
     public override async Task<ActionResponse<IEnumerable<Vehicle>>> GetAsync(PaginationDTO pagination)
     {
-        var queryable = _context.Vehicles
-                                .Include(s => s.Customer!)
-                                .Include(s => s.Brand!)
-                                .Include(s => s.TypeV!)
-                                .Include(s => s.Use)
-                                .AsQueryable();
+        var queryable = _context.Vehicles.Include(s => s.Customer!)
+                                         .Include(s => s.Brand!)
+                                         .Include(s => s.TypeV!)
+                                         .Include(s => s.Use)
+                                         .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {
@@ -157,6 +157,42 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
             Result = await queryable.OrderBy(x => x.Plate)
                                     .Paginate(pagination)
                                     .ToListAsync()
+        };
+    }
+
+    public async Task<ActionResponse<IEnumerable<Vehicle>>> GetByFilterAsync(string searchText)
+    {
+        var queryable = _context.Vehicles.Include(s => s.Customer!)
+                                         .Include(s => s.Brand!)
+                                         .Include(s => s.TypeV!)
+                                         .Include(s => s.Use)
+                                         .AsQueryable();
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
+            var lstVehicle = queryable.Where(x => x.Plate.ToLower().Contains(searchText.ToLower()));
+            if (lstVehicle.ToListAsync().Result.Count == 0)
+            {
+                lstVehicle = queryable!.Where(x => x.Brand!.Name.ToLower().Contains(searchText.ToLower()));
+            }
+            if (lstVehicle.ToListAsync().Result.Count == 0)
+            {
+                lstVehicle = queryable!.Where(x => x.Customer!.FirstName.ToLower().Contains(searchText.ToLower()));
+            }
+            if (lstVehicle.ToListAsync().Result.Count == 0)
+            {
+                lstVehicle = queryable!.Where(x => x.Customer!.LastName.ToLower().Contains(searchText.ToLower()));
+            }
+
+            return new ActionResponse<IEnumerable<Vehicle>>
+            {
+                WasSuccess = true,
+                Result = await lstVehicle.OrderBy(x => x.Plate).ToListAsync()
+            };
+        }
+        return new ActionResponse<IEnumerable<Vehicle>>
+        {
+            WasSuccess = false,
+            Result = new List<Vehicle>(),
         };
     }
 

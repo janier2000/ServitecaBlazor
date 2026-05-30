@@ -5,14 +5,10 @@
 }
 else
 {
-    <MudTable Items="@lstSoat"
+    <MudTable Items="@lstSoat" Dense="true" Hover="true" Striped="true" FixedHeader="true" FixedFooter="true"
               @ref="table"
-              ServerData="LoadListAsync"
-              Dense="true"
-              Hover="true"
-              Striped="true"
-              FixedHeader="true"
-              FixedFooter="true">
+              ServerData="LoadListAsync">
+              
         <ToolBarContent>
             <div class="d-flex justify-content-between">
                 <MudText Typo="Typo.h5" Class="me-4">Soat</MudText>

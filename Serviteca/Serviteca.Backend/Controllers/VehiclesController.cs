@@ -63,6 +63,17 @@ public class VehiclesController : GenericController<Vehicle>
         return BadRequest();
     }
 
+    [HttpGet("GetByFilter")]
+    public async Task<IActionResult> GetByFilterAsync(string searchText)
+    {
+        var response = await _vehicleRepository.GetByFilterAsync(searchText);
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest();
+    }
+
     [HttpGet("TotalRecordsPaginated")]
     public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
     {

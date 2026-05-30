@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Routing;
 using MudBlazor;
 using Serviteca.Frontend.Repositories;
+using Serviteca.Frontend.Shared;
 using Serviteca.Shared.DTOs;
 using Serviteca.Shared.Entities;
 using System.Drawing;
@@ -120,8 +121,11 @@ public partial class SoatsForm
 
     private void ChangedVehicle(VehicleDTO vehicleEnt)
     {
-        selectedVehicle = vehicleEnt;
-        SoatDtoENT.VehicleId = vehicleEnt.Id;
+        if (vehicleEnt != null)
+        {
+            selectedVehicle = vehicleEnt;
+            SoatDtoENT.VehicleId = vehicleEnt.Id;
+        }
     }
 
     private void ChangedDate(DateTime? newDate)
@@ -143,14 +147,28 @@ public partial class SoatsForm
 
     private async Task<IEnumerable<VehicleDTO>> SearchVehicle(string searchText, CancellationToken cancellationToken)
     {
-        await Task.Delay(5);
-        if (string.IsNullOrWhiteSpace(searchText))
+        LstVehicle = new List<VehicleDTO>();
+        if (searchText != "" && searchText != " -  - " && searchText != null)
         {
-            return LstVehicle!;
-        }
+            var responseHttp = await Repository.GetAsync<List<Vehicle>>($"api/Vehicles/GetByFilter?searchText={searchText}");
+            if (!responseHttp.Error)
+            {
+                List<Vehicle> p = responseHttp.Response!;
 
-        List<VehicleDTO> lista = LstVehicle!.FindAll(p => string.Concat(p.Plate, p.Model, p.BrandName).Contains(searchText, StringComparison.InvariantCultureIgnoreCase));
-        return lista;
+                foreach (var item in p)
+                {
+                    LstVehicle.Add(new VehicleDTO
+                    {
+                        Id = item.Id,
+                        Plate = item.Plate,
+                        Model = item.Model,
+                        BrandName = item.Brand!.Name,
+                        CustomerName = item.Customer!.FirstName + " " + item.Customer.LastName
+                    });
+                }
+            }
+        }
+        return LstVehicle;
     }
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)
@@ -194,3 +212,12 @@ public partial class SoatsForm
         }
     }
 }
+
+//await Task.Delay(5);
+//if (string.IsNullOrWhiteSpace(searchText))
+//{
+//    return LstVehicle!;
+//}
+
+//List<VehicleDTO> lista = LstVehicle!.FindAll(p => string.Concat(p.Plate, p.Model, p.BrandName).Contains(searchText, StringComparison.InvariantCultureIgnoreCase));
+//return lista;

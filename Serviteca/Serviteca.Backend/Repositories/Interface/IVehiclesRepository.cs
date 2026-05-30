@@ -16,6 +16,8 @@ public interface IVehiclesRepository
 
     Task<ActionResponse<IEnumerable<Vehicle>>> GetAsync(PaginationDTO pagination);
 
+    Task<ActionResponse<IEnumerable<Vehicle>>> GetByFilterAsync(string searchText);
+
     Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination);
 
     Task<IEnumerable<Vehicle>> GetComboAsync();
