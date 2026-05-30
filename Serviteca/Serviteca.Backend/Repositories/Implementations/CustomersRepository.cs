@@ -141,10 +141,9 @@ public class CustomersRepository : GenericRepository<Customer>, ICustomersReposi
 
     public override async Task<ActionResponse<IEnumerable<Customer>>> GetAsync()
     {
-        var customers = await _context.Customers
-                                      .Include(s => s.DocumentType!)
-                                      .OrderBy(x => x.FirstName)
-                                      .ToListAsync();
+        var customers = await _context.Customers.Include(s => s.DocumentType!)
+                                                .OrderBy(x => x.FirstName)
+                                                .ToListAsync();
         return new ActionResponse<IEnumerable<Customer>>
         {
             WasSuccess = true,
@@ -154,13 +153,25 @@ public class CustomersRepository : GenericRepository<Customer>, ICustomersReposi
 
     public override async Task<ActionResponse<IEnumerable<Customer>>> GetAsync(PaginationDTO pagination)
     {
-        var queryable = _context.Customers
-                              .Include(s => s.DocumentType!)
-                                          .AsQueryable();
+        var queryable = _context.Customers.Include(s => s.DocumentType!).AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {
-            queryable = queryable.Where(x => x.FirstName.ToLower().Contains(pagination.Filter.ToLower()));
+            string filter = pagination.Filter.ToLower();
+            //nombre
+            var lstCustomer = queryable.Where(x => x.FirstName.ToLower().Contains(filter) ||
+                                                   x.LastName.ToLower().Contains(filter) ||
+                                                   x.Document.ToLower().Contains(filter) ||
+                                                   x.Email.ToLower().Contains(filter) ||
+                                                   x.phone.ToLower().Contains(filter) ||
+                                                   x.DocumentType!.Name.ToLower().Contains(filter));
+            return new ActionResponse<IEnumerable<Customer>>
+            {
+                WasSuccess = true,
+                Result = await lstCustomer.OrderBy(x => x.FirstName)
+                                          .Paginate(pagination)
+                                          .ToListAsync()
+            };
         }
 
         return new ActionResponse<IEnumerable<Customer>>
@@ -174,9 +185,8 @@ public class CustomersRepository : GenericRepository<Customer>, ICustomersReposi
 
     public override async Task<ActionResponse<Customer>> GetAsync(int id)
     {
-        var customer = await _context.Customers
-                                     .Include(s => s.DocumentType!)
-                                     .FirstOrDefaultAsync(c => c.Id == id);
+        var customer = await _context.Customers.Include(s => s.DocumentType!)
+                                               .FirstOrDefaultAsync(c => c.Id == id);
         if (customer == null)
         {
             return new ActionResponse<Customer>
@@ -213,8 +223,7 @@ public class CustomersRepository : GenericRepository<Customer>, ICustomersReposi
 
     public async Task<IEnumerable<Customer>> GetComboAsync()
     {
-        return await _context.Customers
-                             .OrderBy(c => c.FirstName)
-                             .ToListAsync();
+        return await _context.Customers.OrderBy(c => c.FirstName)
+                                       .ToListAsync();
     }
 }
