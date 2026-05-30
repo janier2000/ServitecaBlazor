@@ -7,6 +7,26 @@
 
             <DataAnnotationsValidator />
 
+            <MudItem xs="12" sm="12">
+                <MudAutocomplete Label="Buscar cliente"
+                                 T="Customer"
+                                 Value="selectedCustomer"
+                                 SearchFunc="SearchCustomer"
+                                 ValueChanged="ChangedCustomer"
+                                 Placeholder="Buscar  cliente"
+                                 ResetValueOnEmptyText="true"
+                                 AdornmentIcon="@Icons.Material.Filled.Search"
+                                 AdornmentColor="Color.Primary"
+                                 Variant="Variant.Outlined"
+                                 Margin="Margin.Dense"
+                                 ToStringFunc="@(e => e.FirstName == "" || e.FirstName == null || e.FirstName == string.Empty ? null : $"{e.Document} - {e.FirstName} {e.LastName}")">
+                    <ItemTemplate Context="itemContext">
+                        @itemContext.Document -  @itemContext.FirstName @itemContext.LastName 
+                    </ItemTemplate>
+                </MudAutocomplete>
+
+            </MudItem>
+
             <MudItem xs="6" sm="6">
                 <MudDatePicker Label="Retorno cliente"
                                Date="selectedReturnDate"
@@ -58,20 +78,7 @@
             </MudItem>
 
             <MudItem xs="6" sm="6">
-                <MudAutocomplete Label="Cliente"
-                                 T="Customer"
-                                 Value="selectedCustomer"
-                                 SearchFunc="SearchCustomer"
-                                 ValueChanged="ChangedCustomer"
-                                 Placeholder="-- Seleccione  cliente --"
-                                 Variant="Variant.Outlined"
-                                 Margin="Margin.Dense"
-                                 ToStringFunc="@(e=> e==null?null : $"{e.FirstName}")"
-                                 Class="mb-2">
-                    <ItemTemplate Context="itemContext">
-                        @itemContext.FirstName
-                    </ItemTemplate>
-                </MudAutocomplete>
+             
 
                 <MudTextField Label="Placa"
                               Variant="Variant.Outlined"

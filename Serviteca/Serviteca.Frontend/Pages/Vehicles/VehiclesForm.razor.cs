@@ -51,7 +51,7 @@ public partial class VehiclesForm
     {
         accion = VehicleDtoENT.Id == 0 ? "Crear" : "Editar";
     }
-   
+
     private async Task LoadBrandAsync()
     {
         var responseHttp = await Repository.GetAsync<List<Brand>>("/api/Brands/combo");
@@ -158,8 +158,12 @@ public partial class VehiclesForm
 
     private void ChangedCustomer(Customer customerEnt)
     {
-        selectedCustomer = customerEnt;
-        VehicleDtoENT.CustomerId = customerEnt.Id;
+        selectedCustomer = new Customer();
+        if (customerEnt != null)
+        {
+            selectedCustomer = customerEnt;
+            VehicleDtoENT.CustomerId = customerEnt.Id;
+        }
     }
 
     private void ChangedReturnDate(DateTime? newDate)
@@ -201,12 +205,24 @@ public partial class VehiclesForm
 
     private async Task<IEnumerable<Customer>> SearchCustomer(string searchText, CancellationToken cancellationToken)
     {
-        await Task.Delay(5);
-        if (string.IsNullOrWhiteSpace(searchText))
+        LstCustomer = new List<Customer>();
+        if (searchText != "" && searchText != "  - " && searchText != null)
         {
-            return LstCustomer!;
+            var responseHttp = await Repository.GetAsync<List<Customer>>($"api/Customers/GetByFilter?searchText={searchText}");
+            if (!responseHttp.Error)
+            {
+                LstCustomer = responseHttp.Response!;
+                return LstCustomer;
+            }
         }
-        return LstCustomer!.Where(x => x.FirstName.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
+        return LstCustomer;
+
+        //await Task.Delay(5);
+        //if (string.IsNullOrWhiteSpace(searchText))
+        //{
+        //    return LstCustomer!;
+        //}
+        //return LstCustomer!.Where(x => x.FirstName.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToList();
     }
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)

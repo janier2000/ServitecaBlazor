@@ -15,6 +15,8 @@ public interface ICustomersRepository
 
     Task<ActionResponse<IEnumerable<Customer>>> GetAsync();
 
+    Task<ActionResponse<IEnumerable<Customer>>> GetByFilterAsync(string searchText);
+
     Task<ActionResponse<IEnumerable<Customer>>> GetAsync(PaginationDTO pagination);
 
     Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination);

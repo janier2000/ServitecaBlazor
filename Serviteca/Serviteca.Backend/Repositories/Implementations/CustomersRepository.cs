@@ -158,7 +158,6 @@ public class CustomersRepository : GenericRepository<Customer>, ICustomersReposi
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {
             string filter = pagination.Filter.ToLower();
-            //nombre
             var lstCustomer = queryable.Where(x => x.FirstName.ToLower().Contains(filter) ||
                                                    x.LastName.ToLower().Contains(filter) ||
                                                    x.Document.ToLower().Contains(filter) ||
@@ -180,6 +179,32 @@ public class CustomersRepository : GenericRepository<Customer>, ICustomersReposi
             Result = await queryable.OrderBy(x => x.FirstName)
                                     .Paginate(pagination)
                                     .ToListAsync()
+        };
+    }
+
+    public async Task<ActionResponse<IEnumerable<Customer>>> GetByFilterAsync(string searchText)
+    {
+        var queryable = _context.Customers.Include(s => s.DocumentType!).AsQueryable();
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
+            string filter = searchText.ToLower();
+            var lstCustomer = queryable.Where(x => x.FirstName.ToLower().Contains(filter) ||
+                                                   x.LastName.ToLower().Contains(filter));
+
+            if (lstCustomer.ToListAsync().Result.Count == 0)
+            {
+                lstCustomer = queryable!.Where(x => x.Document.ToLower().Contains(filter));
+            }
+            return new ActionResponse<IEnumerable<Customer>>
+            {
+                WasSuccess = true,
+                Result = await lstCustomer.OrderBy(x => x.FirstName).ToListAsync()
+            };
+        }
+        return new ActionResponse<IEnumerable<Customer>>
+        {
+            WasSuccess = false,
+            Result = new List<Customer>(),
         };
     }
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Serviteca.Backend.Repositories.Implementations;
 using Serviteca.Backend.Repositories.Interface;
 using Serviteca.Backend.UnitsOfWork.Interfaces;
 using Serviteca.Shared.DTOs;
@@ -44,6 +45,17 @@ public class CustomersController : GenericController<Customer>
     public override async Task<IActionResult> GetAsync()
     {
         var response = await _customersRepository.GetAsync();
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest();
+    }
+
+    [HttpGet("GetByFilter")]
+    public async Task<IActionResult> GetByFilterAsync(string searchText)
+    {
+        var response = await _customersRepository.GetByFilterAsync(searchText);
         if (response.WasSuccess)
         {
             return Ok(response.Result);

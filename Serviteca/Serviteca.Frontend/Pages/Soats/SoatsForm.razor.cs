@@ -121,6 +121,7 @@ public partial class SoatsForm
 
     private void ChangedVehicle(VehicleDTO vehicleEnt)
     {
+        selectedVehicle = new VehicleDTO();
         if (vehicleEnt != null)
         {
             selectedVehicle = vehicleEnt;

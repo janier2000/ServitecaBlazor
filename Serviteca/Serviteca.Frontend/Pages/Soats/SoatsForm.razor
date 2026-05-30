@@ -29,41 +29,6 @@
 
             <MudItem xs="6" sm="6">
 
-               @*  <MudCardContent Class="mb-2"> *@
-                 
-               @*  </MudCardContent> *@
-
-          @*       <MudAutocomplete Label="Vehiculo"
-                                 T="Vehicle"
-                                 Value="selectedVehicle"
-                                 SearchFunc="SearchVehicle"
-                                 ValueChanged="ChangedVehicle"
-                                 Placeholder="-- Seleccione  vehiculo --"
-                                 Variant="Variant.Outlined"
-                                 Margin="Margin.Dense"
-                                 ToStringFunc="@(e=> e==null?null : $"{e.Plate}")"
-                                 Class="mb-2">
-                    <ItemTemplate Context="itemContext">
-                        @itemContext.Plate
-                    </ItemTemplate>
-                </MudAutocomplete> *@
-
-                <MudDatePicker Label="Retorno cliente"
-                               Date="selectedDate"
-                               DateChanged="ChangedDate"
-                               Variant="Variant.Outlined"
-                               Margin="Margin.Dense"
-                               DateFormat="dd/MM/yyyy"
-                               Class="mb-2" />
-
-
-               
-
-
-            </MudItem>
-
-            <MudItem xs="6" sm="6">
-
                 <MudAutocomplete Label="Aseguradora"
                                  T="Insurer"
                                  Value="selectedInsurer"
@@ -94,6 +59,18 @@
                               For="@(() => SoatDtoENT.Price)"
                               Class="mb-4" />
 
+               
+            </MudItem>
+
+            <MudItem xs="6" sm="6">
+
+                <MudDatePicker Label="Retorno cliente"
+                               Date="selectedDate"
+                               DateChanged="ChangedDate"
+                               Variant="Variant.Outlined"
+                               Margin="Margin.Dense"
+                               DateFormat="dd/MM/yyyy"
+                               Class="mb-2" />
 
                 <MudTextField Label="Tarifa categoria"
                               Variant="Variant.Outlined"
