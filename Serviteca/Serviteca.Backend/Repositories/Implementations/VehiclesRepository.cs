@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MailKit.Search;
+using Microsoft.EntityFrameworkCore;
 using Serviteca.Backend.Data;
 using Serviteca.Backend.Helpers;
 using Serviteca.Backend.Repositories.Interface;
@@ -148,7 +149,57 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {
-            queryable = queryable.Where(x => x.Plate.ToLower().Contains(pagination.Filter.ToLower()));
+            //placa del vehículo
+            var lstVehicle = queryable.Where(x => x.Plate.ToLower().Contains(pagination.Filter.ToLower()));
+
+            //marca del vehículo
+            if (lstVehicle.ToListAsync().Result.Count == 0)
+            {
+                lstVehicle = queryable!.Where(x => x.Brand!.Name.ToLower().Contains(pagination.Filter.ToLower()));
+            }
+            // nombre apellido del cliente
+            if (lstVehicle.ToListAsync().Result.Count == 0)
+            {
+                lstVehicle = queryable!.Where(x => x.Customer!.FirstName.ToLower().Contains(pagination.Filter.ToLower()));
+                if (lstVehicle.ToListAsync().Result.Count == 0)
+                {
+                    lstVehicle = queryable!.Where(x => x.Customer!.LastName.ToLower().Contains(pagination.Filter.ToLower()));
+                }
+            }
+
+            // documento del cliente
+            if (lstVehicle.ToListAsync().Result.Count == 0)
+            {
+                lstVehicle = queryable!.Where(x => x.Customer!.Document.ToLower().Contains(pagination.Filter.ToLower()));
+            }
+
+            //modelo del vehículo
+            if (lstVehicle.ToListAsync().Result.Count == 0)
+            {
+                if (int.TryParse(pagination.Filter, out int resultado))
+                {
+                    lstVehicle = queryable!.Where(x => x.Model >= Convert.ToInt32(pagination.Filter));
+                }
+            }
+
+            //tipo vehiculo
+            if (lstVehicle.ToListAsync().Result.Count == 0)
+            {
+                lstVehicle = queryable!.Where(x => x.TypeV!.Name.ToLower().Contains(pagination.Filter.ToLower()));
+            }
+            //uso del vehículo
+            if (lstVehicle.ToListAsync().Result.Count == 0)
+            {
+                lstVehicle = queryable!.Where(x => x.Use!.Name.ToLower().Contains(pagination.Filter.ToLower()));
+            }
+
+            return new ActionResponse<IEnumerable<Vehicle>>
+            {
+                WasSuccess = true,
+                Result = await lstVehicle.OrderBy(x => x.Plate)
+                                         .Paginate(pagination)
+                                         .ToListAsync()
+            };
         }
 
         return new ActionResponse<IEnumerable<Vehicle>>

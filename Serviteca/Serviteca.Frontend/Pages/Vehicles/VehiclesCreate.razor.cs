@@ -18,6 +18,9 @@ public partial class VehiclesCreate
 
     private async Task CreateAsync()
     {
+        vehicleDtoENT.CustomerName = vehicleDtoENT.CustomerId.ToString();
+        vehicleDtoENT.BrandName = vehicleDtoENT.BrandId.ToString();
+
         var responseHttp = await Repository
             .PostAsync<VehicleDTO, Vehicle>("/api/Vehicles/Create", vehicleDtoENT);
         if (responseHttp.Error)

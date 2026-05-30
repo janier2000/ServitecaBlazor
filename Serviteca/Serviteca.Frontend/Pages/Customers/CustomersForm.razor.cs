@@ -27,6 +27,7 @@ public partial class CustomersForm
     private DateTime? selectedDate { get; set; } = DateTime.Now.Date;
     private EnumGenericDTO? selectedGender { get; set; }
     private string? accion { get; set; }
+    private bool Disabled { get; set; }
 
     public bool FormPostedSuccessfully { get; set; } = false;
 
@@ -41,7 +42,16 @@ public partial class CustomersForm
 
     private void LoadData()
     {
-        accion = CustomerDtoENT.Id == 0 ? "Crear" : "Editar";
+        if (CustomerDtoENT.Id == 0)
+        {
+            Disabled = false;
+            accion = "Crear";
+        }
+        else
+        {
+            Disabled = true;
+            accion = "Editar";
+        }
     }
 
     private async Task LoadDocumentTypeAsync()
