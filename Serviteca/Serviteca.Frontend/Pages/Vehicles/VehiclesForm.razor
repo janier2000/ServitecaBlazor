@@ -4,11 +4,10 @@
    
     <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit">
         <MudGrid>
-
             <DataAnnotationsValidator />
 
             <MudItem xs="12" sm="12">
-                <MudAutocomplete Label="Buscar cliente"
+                <MudAutocomplete Label="Buscar cliente" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mb-2" AdornmentColor="Color.Primary"
                                  T="Customer"
                                  Value="selectedCustomer"
                                  SearchFunc="SearchCustomer"
@@ -16,116 +15,91 @@
                                  Placeholder="Buscar  cliente"
                                  ResetValueOnEmptyText="true"
                                  AdornmentIcon="@Icons.Material.Filled.Search"
-                                 AdornmentColor="Color.Primary"
-                                 Variant="Variant.Outlined"
-                                 Margin="Margin.Dense"
                                  ToStringFunc="@(e => e.FirstName == "" || e.FirstName == null || e.FirstName == string.Empty ? null : $"{e.Document} - {e.FirstName} {e.LastName}")">
                     <ItemTemplate Context="itemContext">
-                        @itemContext.Document -  @itemContext.FirstName @itemContext.LastName 
+                        @itemContext.Document -  @itemContext.FirstName @itemContext.LastName
                     </ItemTemplate>
                 </MudAutocomplete>
-
             </MudItem>
 
             <MudItem xs="6" sm="6">
-                <MudDatePicker Label="Retorno cliente"
+
+                <MudDatePicker Label="Retorno cliente" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mb-2"
                                Date="selectedReturnDate"
                                DateChanged="ChangedReturnDate"
-                               Variant="Variant.Outlined"
-                               Margin="Margin.Dense"
-                               DateFormat="dd/MM/yyyy"
-                               Class="mb-2" />
+                               DateFormat="dd/MM/yyyy">
+                </MudDatePicker>
 
 
-                <MudAutocomplete Label="Marca"
+                <MudAutocomplete Label="Marca" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mb-2"
                                  T="Brand"
                                  Value="selectedBrand"
                                  SearchFunc="SearchBrand"
                                  ValueChanged="ChangedBrand"
                                  Placeholder="-- Seleccione  marca --"
-                                 ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
-                                 Variant="Variant.Outlined"
-                                 Margin="Margin.Dense"
-                                 Class="mb-2">
+                                 ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
                     <ItemTemplate Context="itemContext">
                         @itemContext.Name
                     </ItemTemplate>
                 </MudAutocomplete>
 
-
-                <MudAutocomplete Label="Tipo"
+                <MudAutocomplete Label="Tipo" Variant="Variant.Outlined" Margin="Margin.Dense"  Class="mb-2"
                                  T="TypeV"
                                  Value="selectedType"
                                  SearchFunc="SearchType"
                                  ValueChanged="ChangedType"
                                  Placeholder="-- Seleccione  tipo --"
-                                 Variant="Variant.Outlined"
-                                 Margin="Margin.Dense"
-                                 ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
-                                 Class="mb-2">
+                                 ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
                     <ItemTemplate Context="itemContext">
                         @itemContext.Name
                     </ItemTemplate>
                 </MudAutocomplete>
 
-                <MudTextField Label="Modelo"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense"
+                <MudTextField Label="Modelo" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mb-4"
                               @bind-Value="@VehicleDtoENT.Model"
-                              For="@(() => VehicleDtoENT.Model)"
-                              Class="mb-4" />
+                              For="@(() => VehicleDtoENT.Model)">
+                </MudTextField>
 
             </MudItem>
 
             <MudItem xs="6" sm="6">
              
-
-                <MudTextField Label="Placa"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense"
+                <MudTextField Label="Placa" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mb-4"
                               @bind-Value="@VehicleDtoENT.Plate"
-                              For="@(() => VehicleDtoENT.Plate)"
-                              Class="mb-4" />
+                              For="@(() => VehicleDtoENT.Plate)">
+                </MudTextField>
 
-                <MudAutocomplete Label="Uso"
+                <MudAutocomplete Label="Uso" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mb-2"
                                  T="Use"
                                  Value="selectedUse"
                                  SearchFunc="SearchUse"
                                  ValueChanged="ChangedUse"
                                  Placeholder="-- Seleccione  uso --"
-                                 Variant="Variant.Outlined"
-                                 Margin="Margin.Dense"
-                                 ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
-                                 Class="mb-2" />
+                                 ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
+                </MudAutocomplete>
 
-                <MudTextField Label="Kilometraje actual"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense"
+                <MudTextField Label="Kilometraje actual" Variant="Variant.Outlined" Margin="Margin.Dense" Class="mb-4"
                               @bind-Value="@VehicleDtoENT.CurrentKm"
-                              For="@(() => VehicleDtoENT.CurrentKm)"
-                              Class="mb-4" />
+                              For="@(() => VehicleDtoENT.CurrentKm)">
+                </MudTextField>
 
             </MudItem>
+        </MudGrid>
 
-            <MudItem xs="12" sm="12">
+        <MudGrid>
+            <MudItem xs="9" Class="d-flex justify-end">
 
-                <MudButton Variant="Variant.Filled"
-                           StartIcon="@Icons.Material.Filled.ArrowBack"
-                           Color="Color.Error"
+                <MudButton Variant="Variant.Filled" Color="Color.Error" StartIcon="@Icons.Material.Filled.ArrowBack"
                            OnClick="ReturnAction">
                     Regresar
                 </MudButton>
 
-                <MudButton Variant="Variant.Filled"
-                           StartIcon="@Icons.Material.Filled.Save"
-                           Color="Color.Info"
+                <MudButton Variant="Variant.Filled" Color="Color.Info" StartIcon="@Icons.Material.Filled.Save"
                            ButtonType="ButtonType.Submit">
                     @accion
                 </MudButton>
 
             </MudItem>
-
         </MudGrid>
     </EditForm>
-
 </MudContainer>
