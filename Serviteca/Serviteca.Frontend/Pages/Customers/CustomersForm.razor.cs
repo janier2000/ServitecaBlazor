@@ -27,7 +27,8 @@ public partial class CustomersForm
     private DateTime? selectedDate { get; set; } = DateTime.Now.Date;
     private EnumGenericDTO? selectedGender { get; set; }
     private string? accion { get; set; }
-    private bool Disabled { get; set; }
+    private bool DisabledDate { get; set; }
+    private bool DisabledDoc { get; set; }
 
     public bool FormPostedSuccessfully { get; set; } = false;
 
@@ -44,12 +45,14 @@ public partial class CustomersForm
     {
         if (CustomerDtoENT.Id == 0)
         {
-            Disabled = false;
+            DisabledDoc = false;
+            DisabledDate = true;
             accion = "Crear";
         }
         else
         {
-            Disabled = true;
+            DisabledDoc = true;
+            DisabledDate = false;
             accion = "Editar";
         }
     }

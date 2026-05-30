@@ -7,8 +7,16 @@
 
             <DataAnnotationsValidator />
 
-
             <MudItem xs="6" sm="6">
+
+                <MudDatePicker Label="Cliente desde"
+                               Date="selectedDate"
+                               Variant="Variant.Outlined"
+                               Margin="Margin.Dense"
+                               Disabled="@DisabledDate"
+                               DateChanged="OnDateChanged"
+                               DateFormat="dd/MM/yyyy"
+                               Class="mb-4" />
 
                 <MudAutocomplete T="DocumentType"
                                  Label="Tipo documento"
@@ -59,10 +67,17 @@
 
             <MudItem xs="6" sm="6">
 
+                <MudTextField Label="Celular"
+                              @bind-Value="@CustomerDtoENT.phone"
+                              Variant="Variant.Outlined"
+                              Margin="Margin.Dense"
+                              For="@(() => CustomerDtoENT.phone)"
+                              Class="mb-4" />
+
                 <MudTextField Label="Documento"
                               Variant="Variant.Outlined"
                               Margin="Margin.Dense"
-                              Disabled="@Disabled"
+                              Disabled="@DisabledDoc"
                               @bind-Value="@CustomerDtoENT.Document"
                               For="@(() => CustomerDtoENT.Document)"
                               Class="mb-4" />
@@ -73,52 +88,12 @@
                               @bind-Value="@CustomerDtoENT.LastName"
                               For="@(() => CustomerDtoENT.LastName)"
                               Class="mb-4" />
-
-                <MudTextField Label="Celular"
-                              @bind-Value="@CustomerDtoENT.phone"
-                              Variant="Variant.Outlined"
-                              Margin="Margin.Dense"
-                              For="@(() => CustomerDtoENT.phone)"
-                              Class="mb-4" />
-
-                <MudDatePicker Label="Cliente desde"
-                               Date="selectedDate"
-                               Variant="Variant.Outlined"
-                               Margin="Margin.Dense"
-                               Disabled="@Disabled"
-                               DateChanged="OnDateChanged"
-                               DateFormat="dd/MM/yyyy"
-                               Class="mb-4" />
             </MudItem>
-
-           
-
-         @*    <MudItem xs="6" Class="d-flex justify-end">
-                <MudButton Variant="Variant.Filled" Color="Color.Primary">Botón</MudButton>
-                <MudButton Variant="Variant.Filled"
-                           StartIcon="@Icons.Material.Filled.ArrowBack"
-                           Color="Color.Error"                          
-                           OnClick="ReturnAction">
-                    Regresar
-                </MudButton>
-
-                <MudButton Variant="Variant.Filled"
-                           StartIcon="@Icons.Material.Filled.Save"
-                           Color="Color.Info"
-                           
-                           ButtonType="ButtonType.Submit">
-                    @accion
-                </MudButton>
-            </MudItem> *@
 
         </MudGrid>
         <MudGrid>
-           @*  <MudItem xs="6">
-                <MudText>Elemento a la izquierda</MudText>
-            </MudItem> *@
-            <!-- Este MudItem se moverá a la derecha -->
             <MudItem xs="12" Class="d-flex justify-end">
-               @*  <MudButton Variant="Variant.Filled" Color="Color.Primary">Botón</MudButton> *@
+
                 <MudButton Variant="Variant.Filled"
                            StartIcon="@Icons.Material.Filled.ArrowBack"
                            Color="Color.Error"
@@ -132,10 +107,9 @@
                            ButtonType="ButtonType.Submit">
                     @accion
                 </MudButton>
+
             </MudItem>
         </MudGrid>
     </EditForm>
-
-  
 
 </MudContainer>
