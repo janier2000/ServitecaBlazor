@@ -31,7 +31,7 @@ public partial class UsesIndex
     private async Task LoadTotalRecordsAsync()
     {
         loading = true;
-        var url = $"api/Uses/totalRecordsPaginated";
+        var url = $"api/Uses/TotalRecordsPaginated";
 
         if (!string.IsNullOrWhiteSpace(Filter))
         {
@@ -53,7 +53,7 @@ public partial class UsesIndex
     {
         int page = state.Page + 1;
         int pageSize = state.PageSize;
-        var url = $"api/Uses/paginated/?page={page}&recordsnumber={pageSize}";
+        var url = $"api/Uses/Paginated/?page={page}&recordsnumber={pageSize}";
 
         if (!string.IsNullOrWhiteSpace(Filter))
         {

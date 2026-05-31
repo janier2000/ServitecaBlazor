@@ -31,7 +31,7 @@ public partial class DocumentTypesIndex
     private async Task LoadTotalRecordsAsync()
     {
         loading = true;
-        var url = $"api/DocumentTypes/totalRecordsPaginated";
+        var url = $"api/DocumentTypes/TotalRecordsPaginated";
 
         if (!string.IsNullOrWhiteSpace(Filter))
         {

@@ -31,7 +31,7 @@ public partial class InsurersIndex
     private async Task LoadTotalRecordsAsync()
     {
         loading = true;
-        var url = $"api/Insurers/totalRecordsPaginated";
+        var url = $"api/Insurers/TotalRecordsPaginated  ";
         if (!string.IsNullOrWhiteSpace(Filter))
         {
             url += $"?filter={Filter}";
@@ -52,7 +52,7 @@ public partial class InsurersIndex
     {
         int page = state.Page + 1;
         int pageSize = state.PageSize;
-        var url = $"api/Insurers/paginated/?page={page}&recordsnumber={pageSize}";
+        var url = $"api/Insurers/Paginated/?page={page}&recordsnumber={pageSize}";
 
         if (!string.IsNullOrWhiteSpace(Filter))
         {

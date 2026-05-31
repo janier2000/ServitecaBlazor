@@ -20,7 +20,7 @@ public partial class SoatsEdit
 
     protected override async Task OnInitializedAsync()
     {
-        var responseHttp = await Repository.GetAsync<Soat>($"api/soats/{Id}");
+        var responseHttp = await Repository.GetAsync<Soat>($"api/Soats/{Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -52,7 +52,7 @@ public partial class SoatsEdit
 
     private async Task EditAsync()
     {
-        var responseHttp = await Repository.PutAsync("api/soats/Edit", soatDtoENT);
+        var responseHttp = await Repository.PutAsync("api/Soats/Edit", soatDtoENT);
         if (responseHttp.Error)
         {
             var messageError = await responseHttp.GetErrorMessageAsync();

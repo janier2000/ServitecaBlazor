@@ -28,7 +28,7 @@ public partial class CustomersDetail
 
     private async Task LoadGroupAsync()
     {
-        var responseHttp = await Repository.GetAsync<Customer>($"api/customers/{Id}");
+        var responseHttp = await Repository.GetAsync<Customer>($"api/Customers/{Id}");
         if (responseHttp.Error)
         {
             if (responseHttp.HttpResponseMessage.StatusCode != System.Net.HttpStatusCode.NotFound)
