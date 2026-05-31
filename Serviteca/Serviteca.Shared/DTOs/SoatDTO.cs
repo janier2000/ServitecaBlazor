@@ -35,5 +35,5 @@ public class SoatDTO
     public string Price { get; set; } = null!;
 
     [Display(Name = "Estado")]
-    public int Status { get; set; }
+    public string? Status { get; set; }
 }

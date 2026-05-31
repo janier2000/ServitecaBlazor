@@ -152,7 +152,7 @@ public class VehiclesRepository : GenericRepository<Vehicle>, IVehiclesRepositor
             //placa del vehículo
             var lstVehicle = queryable.Where(x => x.Plate.ToLower().Contains(pagination.Filter.ToLower()));
 
-            //marca del vehículo
+            //busqueda por vehículo
             if (lstVehicle.ToListAsync().Result.Count == 0)
             {
                 lstVehicle = queryable!.Where(x => x.Brand!.Name.ToLower().Contains(pagination.Filter.ToLower()));

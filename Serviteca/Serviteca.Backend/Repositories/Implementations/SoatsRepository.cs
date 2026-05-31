@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MailKit.Search;
+using Microsoft.EntityFrameworkCore;
 using Serviteca.Backend.Data;
 using Serviteca.Backend.Helpers;
 using Serviteca.Backend.Repositories.Interface;
@@ -137,12 +138,70 @@ public class SoatsRepository : GenericRepository<Soat>, ISoatsRepository
     {
         var queryable = _context.Soats.Include(s => s.Insurer!)
                                       .Include(s => s.Vehicle!)
+                                      .ThenInclude(x => x.Customer)
                                       .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
         {
-            queryable = queryable.Where(x => x.Vehicle!.Plate
-                                              .ToLower().Contains(pagination.Filter.ToLower()));
+            var Filter = pagination.Filter.ToLower();
+
+            // busqueda por aseguradora
+            var lstsoats = queryable!.Where(x => x.Insurer!.Name.ToLower().Contains(Filter));
+
+            // busqueda por estado del soat
+            if (lstsoats.ToListAsync().Result.Count == 0)
+            {
+                //string statusActivo = "Vigente";
+                if ("vigente".Contains(Filter))
+                {
+                    Filter = "0";
+                }
+                else if ("vencido".Contains(Filter) || "expirado".Contains(Filter) || "caducado".Contains(Filter) || "vencida".Contains(Filter))
+                {
+                    Filter = "1";
+                }
+                lstsoats = queryable!.Where(x => x.Status.Equals(Filter));
+            }
+
+            //busqueda placa del vehículo
+            if (lstsoats.ToListAsync().Result.Count == 0)
+            {
+                lstsoats = queryable.Where(x => x.Vehicle!.Plate.ToLower().Contains(Filter));
+                if (lstsoats.ToListAsync().Result.Count == 0)
+                {
+                    lstsoats = queryable.Where(x => x.Vehicle!.Brand!.Name.ToLower().Contains(Filter));
+                    if (lstsoats.ToListAsync().Result.Count == 0)
+                    {
+                        lstsoats = queryable.Where(x => x.Vehicle!.TypeV!.Name.ToLower().Contains(Filter));
+                        if (lstsoats.ToListAsync().Result.Count == 0)
+                        {
+                            lstsoats = queryable.Where(x => x.Vehicle!.Use!.Name.ToLower().Contains(Filter));
+                        }
+                    }
+                }
+            }
+
+            //busqueda por cliente
+            if (lstsoats.ToListAsync().Result.Count == 0)
+            {
+                lstsoats = queryable!.Where(x => x.Vehicle!.Customer!.Document.ToLower().Contains(Filter));
+                if (lstsoats.ToListAsync().Result.Count == 0)
+                {
+                    lstsoats = queryable!.Where(x => x.Vehicle!.Customer!.FirstName.ToLower().Contains(pagination.Filter.ToLower()));
+                    if (lstsoats.ToListAsync().Result.Count == 0)
+                    {
+                        lstsoats = queryable!.Where(x => x.Vehicle!.Customer!.LastName.ToLower().Contains(pagination.Filter.ToLower()));
+                    }
+                }
+            }
+
+            return new ActionResponse<IEnumerable<Soat>>
+            {
+                WasSuccess = true,
+                Result = await lstsoats.OrderBy(x => x.Id)
+                                         .Paginate(pagination)
+                                         .ToListAsync()
+            };
         }
 
         return new ActionResponse<IEnumerable<Soat>>

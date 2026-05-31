@@ -23,7 +23,7 @@ public class EnumHelper
     {
         switch (value)
         {
-            case 0: return "Maculino";
+            case 0: return "Masculino";
             case 1: return "Femenino";
             case 2: return "Otros";
         }
@@ -36,7 +36,6 @@ public class EnumHelper
         {
             case 0: return "Vigente";
             case 1: return "Vencido";
-            case 2: return "Proceso";
         }
         return "";
     }

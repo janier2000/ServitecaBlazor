@@ -512,11 +512,12 @@ public class SeedDb
             {
                 Insurer = Insurer,
                 Vehicle = Vehicle,
-                ExpirationDate = Convert.ToDateTime("02-02-2026"),
+                ExpirationDate = Convert.ToDateTime("02-05-2026"),
                 Price = "500000",
                 PolicyData = "SOAT CHEVROLET JUR540",
                 RateCategory = "Categoria A",
-                Status = 0
+                Status = "Vencido",
+                Date = Convert.ToDateTime("02-05-2025")
             });
 
             Insurer = await _context.Insurers.FirstOrDefaultAsync(x => x.Name == "AXA COLPATRIA");
@@ -525,11 +526,12 @@ public class SeedDb
             {
                 Insurer = Insurer,
                 Vehicle = Vehicle,
-                ExpirationDate = Convert.ToDateTime("02-02-2026"),
+                ExpirationDate = Convert.ToDateTime("01-04-2026"),
                 Price = "700000",
                 PolicyData = "SOAT CHEVROLET HTR894",
                 RateCategory = "Categoria BB",
-                Status = 1
+                Status = "Vencido",
+                Date = Convert.ToDateTime("01-04-2025")
             });
             Insurer = await _context.Insurers.FirstOrDefaultAsync(x => x.Name == "LIBERTY SEGUROS");
             Vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Plate == "LKJ652");
@@ -537,11 +539,51 @@ public class SeedDb
             {
                 Insurer = Insurer,
                 Vehicle = Vehicle,
-                ExpirationDate = Convert.ToDateTime("04-05-2026"),
+                ExpirationDate = Convert.ToDateTime("20-10-2025"),
                 Price = "5800000",
                 PolicyData = "SOAT CHEVROLET LKJ652",
                 RateCategory = "Categoria BB",
-                Status = 2
+                Status = "Vencido",
+                Date = Convert.ToDateTime("20-10-2024")
+            });
+            Insurer = await _context.Insurers.FirstOrDefaultAsync(x => x.Name == "AXA COLPATRIA");
+            Vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Plate == "DRE852");
+            _ = _context.Soats.Add(new Soat
+            {
+                Insurer = Insurer,
+                Vehicle = Vehicle,
+                ExpirationDate = Convert.ToDateTime("04-05-2027"),
+                Price = "7800000",
+                PolicyData = "SOAT CHEVROLET DRE852",
+                RateCategory = "Categoria BB",
+                Status = "Vigente",
+                Date = Convert.ToDateTime("04-05-2026")
+            });
+            Insurer = await _context.Insurers.FirstOrDefaultAsync(x => x.Name == "LIBERTY SEGUROS");
+            Vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Plate == "JUR580");
+            _ = _context.Soats.Add(new Soat
+            {
+                Insurer = Insurer,
+                Vehicle = Vehicle,
+                ExpirationDate = Convert.ToDateTime("04-05-2027"),
+                Price = "8600000",
+                PolicyData = "SOAT CHEVROLET JUR580",
+                RateCategory = "Categoria BB",
+                Status = "Vigente",
+                Date = Convert.ToDateTime("04-05-2026")
+            });
+            Insurer = await _context.Insurers.FirstOrDefaultAsync(x => x.Name == "ALLIANZ");
+            Vehicle = await _context.Vehicles.FirstOrDefaultAsync(x => x.Plate == "TRF456");
+            _ = _context.Soats.Add(new Soat
+            {
+                Insurer = Insurer,
+                Vehicle = Vehicle,
+                ExpirationDate = Convert.ToDateTime("04-05-2027"),
+                Price = "100000",
+                PolicyData = "SOAT CHEVROLET TRF456",
+                RateCategory = "Categoria BB",
+                Status = "Vigente",
+                Date = Convert.ToDateTime("04-05-2026")
             });
         }
         await _context.SaveChangesAsync();

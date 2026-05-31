@@ -1,3 +1,15 @@
-﻿<h3>SoatsEdit</h3>
-
-
+﻿@if (soatDtoENT is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <SoatsForm @ref="soatsForm"
+                       SoatDtoENT="soatDtoENT"
+                          OnValidSubmit="EditAsync"
+                          ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}

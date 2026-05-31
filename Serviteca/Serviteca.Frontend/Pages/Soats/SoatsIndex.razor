@@ -23,7 +23,7 @@ else
             <FilterComponent ApplyFilter="SetFilterValue" />
         </ToolBarContent>
         <HeaderContent>
-            <MudTh>Estado</MudTh>
+           @*  <MudTh>Estado</MudTh> *@
             <MudTh>Fecha expedicion</MudTh>
             <MudTh>Fecha vencimiento</MudTh>
             <MudTh>Aseguradora </MudTh>
@@ -33,7 +33,7 @@ else
             <MudTh>Póliza</MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd>@EnumHelper.GetStatus(context.Status)</MudTd>
+           @*  <MudTd>@EnumHelper.GetStatus(context.Status)</MudTd> *@
             <MudTd>@context.Date</MudTd>
             <MudTd>@context.ExpirationDate</MudTd>
             <MudTd>@context.Insurer!.Name</MudTd>
