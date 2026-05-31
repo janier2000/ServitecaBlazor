@@ -24,6 +24,7 @@ public class SeedDb
         await CheckVehicleAsync();
         await CheckInsurersAsync();
         await CheckSoatsAsync();
+        await CheckOilBrandsAsync();
     }
 
     private async Task CheckDocumentTypeAsync()
@@ -584,6 +585,38 @@ public class SeedDb
                 RateCategory = "Categoria BB",
                 Status = "Vigente",
                 Date = Convert.ToDateTime("04-05-2026")
+            });
+        }
+        await _context.SaveChangesAsync();
+    }
+
+    private async Task CheckOilBrandsAsync()
+    {
+        if (!_context.OilBrands.Any())
+        {
+            _ = _context.OilBrands.Add(new OilBrand
+            {
+                Name = "Mobil"
+            });
+            _ = _context.OilBrands.Add(new OilBrand
+            {
+                Name = "Liqui"
+            });
+            _ = _context.OilBrands.Add(new OilBrand
+            {
+                Name = "Castrol"
+            });
+            _ = _context.OilBrands.Add(new OilBrand
+            {
+                Name = "Valvoline"
+            });
+            _ = _context.OilBrands.Add(new OilBrand
+            {
+                Name = "Shell"
+            });
+            _ = _context.OilBrands.Add(new OilBrand
+            {
+                Name = "Repsol"
             });
         }
         await _context.SaveChangesAsync();

@@ -12,4 +12,3 @@ public interface IOilBrandRepository
 
     Task<ActionResponse<int>> GetTotalPagesAsync(PaginationDTO pagination);
 }
-}
