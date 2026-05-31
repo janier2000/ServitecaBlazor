@@ -54,7 +54,7 @@ public partial class VehiclesForm
 
     private async Task LoadBrandAsync()
     {
-        var responseHttp = await Repository.GetAsync<List<Brand>>("/api/Brands/combo");
+        var responseHttp = await Repository.GetAsync<List<Brand>>("/api/Brands/Combo");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
@@ -70,7 +70,7 @@ public partial class VehiclesForm
 
     private async Task LoadTypeAsync()
     {
-        var responseHttp = await Repository.GetAsync<List<TypeV>>("/api/Types/combo");
+        var responseHttp = await Repository.GetAsync<List<TypeV>>("/api/Types/Combo");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
@@ -86,7 +86,7 @@ public partial class VehiclesForm
 
     private async Task LoadUseAsync()
     {
-        var responseHttp = await Repository.GetAsync<List<Use>>("/api/Uses/combo");
+        var responseHttp = await Repository.GetAsync<List<Use>>("/api/Uses/Combo");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();

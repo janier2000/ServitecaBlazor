@@ -59,7 +59,7 @@ public partial class CustomersForm
 
     private async Task LoadDocumentTypeAsync()
     {
-        var responseHttp = await Repository.GetAsync<List<DocumentType>>("/api/DocumentTypes/combo");
+        var responseHttp = await Repository.GetAsync<List<DocumentType>>("/api/DocumentTypes/Combo");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();

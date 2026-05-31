@@ -4,10 +4,8 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Routing;
 using MudBlazor;
 using Serviteca.Frontend.Repositories;
-using Serviteca.Frontend.Shared;
 using Serviteca.Shared.DTOs;
 using Serviteca.Shared.Entities;
-using System.Drawing;
 
 namespace Serviteca.Frontend.Pages.Soats;
 
@@ -47,7 +45,7 @@ public partial class SoatsForm
 
     private async Task LoadInsurerAsync()
     {
-        var responseHttp = await Repository.GetAsync<List<Insurer>>("/api/Insurers/combo");
+        var responseHttp = await Repository.GetAsync<List<Insurer>>("/api/Insurers/Combo");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
@@ -63,7 +61,7 @@ public partial class SoatsForm
 
     private async Task LoadVehicleAsync()
     {
-        var responseHttp = await Repository.GetAsync<List<Vehicle>>("/api/Vehicles/combo");
+        var responseHttp = await Repository.GetAsync<List<Vehicle>>("/api/Vehicles/Combo");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
