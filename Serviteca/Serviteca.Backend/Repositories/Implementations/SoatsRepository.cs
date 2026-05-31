@@ -151,19 +151,10 @@ public class SoatsRepository : GenericRepository<Soat>, ISoatsRepository
             // busqueda por estado del soat
             if (lstsoats.ToListAsync().Result.Count == 0)
             {
-                //string statusActivo = "Vigente";
-                if ("vigente".Contains(Filter))
-                {
-                    Filter = "0";
-                }
-                else if ("vencido".Contains(Filter) || "expirado".Contains(Filter) || "caducado".Contains(Filter) || "vencida".Contains(Filter))
-                {
-                    Filter = "1";
-                }
-                lstsoats = queryable!.Where(x => x.Status.Equals(Filter));
+                lstsoats = queryable!.Where(x => x.Status!.ToLower().Contains(Filter));
             }
 
-            //busqueda placa del vehículo
+            //busqueda por vehículo
             if (lstsoats.ToListAsync().Result.Count == 0)
             {
                 lstsoats = queryable.Where(x => x.Vehicle!.Plate.ToLower().Contains(Filter));

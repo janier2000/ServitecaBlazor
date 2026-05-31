@@ -23,24 +23,24 @@ else
             <FilterComponent ApplyFilter="SetFilterValue" />
         </ToolBarContent>
         <HeaderContent>
-           @*  <MudTh>Estado</MudTh> *@
+            <MudTh>Estado</MudTh> 
             <MudTh>Fecha expedicion</MudTh>
             <MudTh>Fecha vencimiento</MudTh>
             <MudTh>Aseguradora </MudTh>
             <MudTh>Placa</MudTh>
-         @*    <MudTh>Cedula Cliente</MudTh>
-            <MudTh>Nombre Cliente</MudTh> *@
-            <MudTh>Póliza</MudTh>
+            @*    <MudTh>Cedula Cliente</MudTh> *@
+            <MudTh>Nombre Cliente</MudTh>
+          @*   <MudTh>Póliza</MudTh> *@
         </HeaderContent>
         <RowTemplate>
-           @*  <MudTd>@EnumHelper.GetStatus(context.Status)</MudTd> *@
-            <MudTd>@context.Date</MudTd>
-            <MudTd>@context.ExpirationDate</MudTd>
+            <MudTd>@context.Status</MudTd>
+            <MudTd>@context.Date.ToString().Substring(0, 9)</MudTd>
+            <MudTd>@context.ExpirationDate.ToString().Substring(0,9)</MudTd>
             <MudTd>@context.Insurer!.Name</MudTd>
             <MudTd>@context.Vehicle!.Plate </MudTd>
-       @*      <MudTd>@context.Vehicle!.Customer!.Document</MudTd>
-            <MudTd>@context.Vehicle!.Customer!.FirstName</MudTd> *@
-            <MudTd>@context.PolicyData</MudTd>
+            @*      <MudTd>@context.Vehicle!.Customer!.Document</MudTd> *@
+            <MudTd>@context.Vehicle!.Customer!.FirstName @context.Vehicle!.Customer!.LastName</MudTd>
+           @*  <MudTd>@context.PolicyData</MudTd> *@
             <MudTd>
 
                 <MudTooltip Text="Editar">
