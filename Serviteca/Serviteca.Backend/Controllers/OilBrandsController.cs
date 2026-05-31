@@ -7,12 +7,12 @@ using Serviteca.Shared.Entities;
 
 namespace Serviteca.Backend.Controllers;
 
-public class OilBrandController : GenericController<OilBrand>
+public class OilBrandsController : GenericController<OilBrand>
 
 {
-    private readonly IOilBrandRepository _oilBrandRepository;
+    private readonly IOilBrandsRepository _oilBrandRepository;
 
-    public OilBrandController(IGenericUnitOfWork<OilBrand> unitOfWork, IOilBrandRepository oilBrandRepository) : base(unitOfWork)
+    public OilBrandsController(IGenericUnitOfWork<OilBrand> unitOfWork, IOilBrandsRepository oilBrandRepository) : base(unitOfWork)
     {
         _oilBrandRepository = oilBrandRepository;
     }

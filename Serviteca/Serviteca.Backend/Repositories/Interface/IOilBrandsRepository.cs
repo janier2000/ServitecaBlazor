@@ -4,7 +4,7 @@ using Serviteca.Shared.Responses;
 
 namespace Serviteca.Backend.Repositories.Interface;
 
-public interface IOilBrandRepository
+public interface IOilBrandsRepository
 {
     Task<IEnumerable<OilBrand>> GetComboAsync();
 

@@ -8,11 +8,11 @@ using Serviteca.Shared.Responses;
 
 namespace Serviteca.Backend.Repositories.Implementations;
 
-public class OilBrandRepository : GenericRepository<OilBrand>, IOilBrandRepository
+public class OilBrandsRepository : GenericRepository<OilBrand>, IOilBrandsRepository
 {
     private readonly DataContext _context;
 
-    public OilBrandRepository(DataContext context) : base(context)
+    public OilBrandsRepository(DataContext context) : base(context)
     {
         _context = context;
     }

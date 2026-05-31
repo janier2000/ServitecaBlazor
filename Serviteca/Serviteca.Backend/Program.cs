@@ -30,7 +30,7 @@ builder.Services.AddScoped<IDocumentTypesRepository, DocumentTypesRepository>();
 builder.Services.AddScoped<IUsesRepository, UsesRepository>();
 builder.Services.AddScoped<IInsurersRepository, InsurersRepository>();
 builder.Services.AddScoped<ISoatsRepository, SoatsRepository>();
-builder.Services.AddScoped<IOilBrandRepository, OilBrandRepository>();
+builder.Services.AddScoped<IOilBrandsRepository, OilBrandsRepository>();
 
 var app = builder.Build();
 
