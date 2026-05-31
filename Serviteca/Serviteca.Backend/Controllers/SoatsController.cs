@@ -40,7 +40,7 @@ public class SoatsController : GenericController<Soat>
         return BadRequest(action.Message);
     }
 
-    [HttpGet("full")]
+    [HttpGet("Full")]
     public override async Task<IActionResult> GetAsync()
     {
         var response = await _soatsRepository.GetAsync();
@@ -85,7 +85,7 @@ public class SoatsController : GenericController<Soat>
     }
 
     //[AllowAnonymous] // estos sirve para colocar los metodos anonymos
-    [HttpGet("combo")]
+    [HttpGet("Combo")]
     public async Task<IActionResult> GetComboAsync()
     {
         return Ok(await _soatsRepository.GetComboAsync());

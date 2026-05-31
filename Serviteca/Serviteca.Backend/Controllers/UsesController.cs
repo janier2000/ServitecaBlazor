@@ -19,7 +19,7 @@ public class UsesController : GenericController<Use>
         _vehicleUseRepository = vehicleUseRepository;
     }
 
-    [HttpGet("paginated")]
+    [HttpGet("Paginated")]
     public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
     {
         var response = await _vehicleUseRepository.GetAsync(pagination);
@@ -30,7 +30,7 @@ public class UsesController : GenericController<Use>
         return BadRequest();
     }
 
-    [HttpGet("totalRecordsPaginated")]
+    [HttpGet("TotalRecordsPaginated")]
     public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
     {
         var action = await _vehicleUseRepository.GetTotalPagesAsync(pagination);
@@ -42,7 +42,7 @@ public class UsesController : GenericController<Use>
     }
 
     [AllowAnonymous]
-    [HttpGet("combo")]
+    [HttpGet("Combo")]
     public async Task<IActionResult> GetComboAsync()
     {
         return Ok(await _vehicleUseRepository.GetComboAsync());

@@ -41,7 +41,7 @@ public class CustomersController : GenericController<Customer>
         return BadRequest(action.Message);
     }
 
-    [HttpGet("full")]
+    [HttpGet("Full")]
     public override async Task<IActionResult> GetAsync()
     {
         var response = await _customersRepository.GetAsync();
@@ -97,7 +97,7 @@ public class CustomersController : GenericController<Customer>
     }
 
     //[AllowAnonymous] // estos sirve para colocar los metodos anonymos
-    [HttpGet("combo")]
+    [HttpGet("Combo")]
     public async Task<IActionResult> GetComboAsync()
     {
         return Ok(await _customersRepository.GetComboAsync());

@@ -13,7 +13,7 @@ public class GenericController<T> : Controller where T : class
         _unitOfWork = unitOfWork;
     }
 
-    [HttpGet("full")]
+    [HttpGet("Full")]
     public virtual async Task<IActionResult> GetAsync()
     {
         var action = await _unitOfWork.GetAsync();
@@ -35,7 +35,7 @@ public class GenericController<T> : Controller where T : class
         return BadRequest();
     }
 
-    [HttpGet("totalPages")]
+    [HttpGet("TotalPages")]
     public virtual async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
     {
         var action = await _unitOfWork.GetTotalPagesAsync(pagination);

@@ -19,7 +19,7 @@ public class TypesController : GenericController<TypeV>
         _vehicleTypeRepository = vehicleTypeRepository;
     }
 
-    [HttpGet("paginated")]
+    [HttpGet("Paginated")]
     public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
     {
         var response = await _vehicleTypeRepository.GetAsync(pagination);
@@ -30,7 +30,7 @@ public class TypesController : GenericController<TypeV>
         return BadRequest();
     }
 
-    [HttpGet("totalRecordsPaginated")]
+    [HttpGet("TotalRecordsPaginated")]
     public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
     {
         var action = await _vehicleTypeRepository.GetTotalPagesAsync(pagination);
@@ -42,7 +42,7 @@ public class TypesController : GenericController<TypeV>
     }
 
     [AllowAnonymous]
-    [HttpGet("combo")]
+    [HttpGet("Combo")]
     public async Task<IActionResult> GetComboAsync()
     {
         return Ok(await _vehicleTypeRepository.GetComboAsync());

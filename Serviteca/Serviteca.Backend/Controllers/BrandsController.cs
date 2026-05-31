@@ -19,7 +19,7 @@ public class BrandsController : GenericController<Brand>
         _brandRepository = brandRepository;
     }
 
-    [HttpGet("paginated")]
+    [HttpGet("Paginated")]
     public override async Task<IActionResult> GetAsync([FromQuery] PaginationDTO pagination)
     {
         var response = await _brandRepository.GetAsync(pagination);
@@ -30,7 +30,7 @@ public class BrandsController : GenericController<Brand>
         return BadRequest();
     }
 
-    [HttpGet("totalRecordsPaginated")]
+    [HttpGet("TotalRecordsPaginated")]
     public override async Task<IActionResult> GetPagesAsync([FromQuery] PaginationDTO pagination)
     {
         var action = await _brandRepository.GetTotalPagesAsync(pagination);
@@ -42,7 +42,7 @@ public class BrandsController : GenericController<Brand>
     }
 
     [AllowAnonymous]
-    [HttpGet("combo")]
+    [HttpGet("Combo")]
     public async Task<IActionResult> GetComboAsync()
     {
         return Ok(await _brandRepository.GetComboAsync());

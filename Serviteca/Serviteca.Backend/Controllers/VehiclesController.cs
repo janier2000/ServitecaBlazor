@@ -41,7 +41,7 @@ public class VehiclesController : GenericController<Vehicle>
         return BadRequest(action.Message);
     }
 
-    [HttpGet("full")]
+    [HttpGet("Full")]
     public override async Task<IActionResult> GetAsync()
     {
         var response = await _vehicleRepository.GetAsync();
@@ -97,7 +97,7 @@ public class VehiclesController : GenericController<Vehicle>
     }
 
     //[AllowAnonymous] // estos sirve para colocar los metodos anonymos
-    [HttpGet("combo")]
+    [HttpGet("Combo")]
     public async Task<IActionResult> GetComboAsync()
     {
         return Ok(await _vehicleRepository.GetComboAsync());
